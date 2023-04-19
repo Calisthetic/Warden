@@ -27,6 +27,7 @@ namespace WpfWarden
             InitializeComponent();
             PageManager.MainFrame = MainFrame;
             PageManager.MainFrame.Navigate(new Pages.AuthPages.DefaultAuthPage());
+            DataBase db = new DataBase();
         }
     }
 }
