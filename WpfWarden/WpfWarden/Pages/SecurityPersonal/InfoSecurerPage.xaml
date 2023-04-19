@@ -1,0 +1,45 @@
+﻿<Page x:Class="WpfWarden.Pages.SecurityPersonal.InfoSecurerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfWarden.Pages.SecurityPersonal"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="InfoSecurerPage">
+
+    <Grid>
+        <TabControl Margin="40 30">
+            <TabItem Header="Верификация" FontSize="16">
+                <TabItem.Content>
+                    <DataGrid AutoGenerateColumns="False" x:Name="DGUsersForVerify">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Фамилия" Binding="{Binding SecondName}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Отчество" Binding="{Binding ThirdName}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Должность" Binding="{Binding DivisionId.Name}" IsReadOnly="True"/>
+                            <DataGridComboBoxColumn x:Name="CmbRole" Header="Тип пользователя" ItemsSource="{Binding Permission.Name}" DisplayMemberPath="RoleName"/>
+                            <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
+                            <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
+                            <DataGridTextColumn Header="Секретное слово" Binding="{Binding SecretWord}"/>
+                            <DataGridCheckBoxColumn Header="Одобрить" Binding="{Binding IsVerify}"></DataGridCheckBoxColumn>
+                            <!--<DataGridTemplateColumn Width="auto" Header="Одобрить">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="ChkAssign" IsChecked="{Binding UserAssign}" Unchecked="ChkAssign_Unchecked"   Checked="ChkAssign_Checked" HorizontalAlignment="Left"
+                                                      VerticalAlignment="Center"></CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>-->
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Доступ" FontSize="16">
+                <TabItem.Content>
+                    <DataGrid></DataGrid>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>
