@@ -58,3 +58,7 @@ C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\WpfWarden.cspro
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\WpfWarden.csproj.CopyComplete
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\WpfWarden.exe
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\WpfWarden.pdb
+C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\Pages\SecurityPersonal\AddPermissionPage.g.cs
+C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\Pages\SecurityPersonal\AddPermissionPage.baml
+C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\Pages\SecurityPersonal\ControllerMO.g.cs
+C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\Pages\SecurityPersonal\ControllerMO.baml

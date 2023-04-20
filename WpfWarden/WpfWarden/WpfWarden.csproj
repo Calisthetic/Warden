@@ -105,7 +105,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\SecurityPersonal\AddPermissionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\SecurityPersonal\AdministratorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SecurityPersonal\ControllerMO.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,8 +168,14 @@
     <Compile Include="Pages\AuthPages\ForgotPasswordPage.xaml.cs">
       <DependentUpon>ForgotPasswordPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SecurityPersonal\AddPermissionPage.xaml.cs">
+      <DependentUpon>AddPermissionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SecurityPersonal\AdministratorPage.xaml.cs">
       <DependentUpon>AdministratorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SecurityPersonal\ControllerMO.xaml.cs">
+      <DependentUpon>ControllerMO.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SecurityPersonal\InfoSecurerPage.xaml.cs">
       <DependentUpon>InfoSecurerPage.xaml</DependentUpon>

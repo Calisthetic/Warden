@@ -138,7 +138,7 @@ namespace WpfWarden.Pages.SecurityPersonal
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            PageManager.MainFrame.Navigate(new AddPermissionPage(currentUser));
         }
     }
 }

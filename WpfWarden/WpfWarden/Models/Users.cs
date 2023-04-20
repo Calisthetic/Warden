@@ -27,45 +27,19 @@ namespace WpfWarden.Models
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
-        [Required]
         [DefaultValue(null)]
-        string tempThirdName = string.Empty;
-        public string ThirdName
-        {
-            set { tempThirdName = value; }
-            get { return tempThirdName; }
-        }
-        [Required]
+        public string ThirdName { get; set; }
         [DefaultValue(null)]
-        string tempLogin = string.Empty;
-        public string Login
-        {
-            set { tempLogin = value; }
-            get { return tempLogin; }
-        }
-        [Required]
+        public string Login { get; set; }
         [DefaultValue(null)]
-        string tempPassword = string.Empty;
-        public string Password
-        {
-            set { tempPassword = value; }
-            get { return tempPassword; }
-        }
-        [Required]
+        public string Password { get; set; }
         [DefaultValue(null)]
-        string tempSecretWord = string.Empty;
-        public string SecretWord
-        {
-            set { tempSecretWord = value; }
-            get { return tempSecretWord; }
-        }
+        public string SecretWord { get; set; }
         public int DivisionId { get; set; }
         public Nullable<int> PermissionId { get; set; }
-        [Required]
         [DefaultValue(false)]
         public bool IsBlocked { get; set; }
         public bool Gender { get; set; }
-        [Required]
         [DefaultValue(false)]
         public bool IsVerify { get; set; }
 
