@@ -20,7 +20,7 @@ namespace WpfWarden.Models
             this.Users = new HashSet<Users>();
         }
     
-        public int RoleId { get; set; }
+        public int PermissionId { get; set; }
         public string Name { get; set; }
         public bool AddData { get; set; }
         public bool ChangeData { get; set; }

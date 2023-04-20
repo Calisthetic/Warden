@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfWarden.Classes;
+using WpfWarden.Models;
 
 namespace WpfWarden
 {
@@ -27,7 +28,19 @@ namespace WpfWarden
             InitializeComponent();
             PageManager.MainFrame = MainFrame;
             PageManager.MainFrame.Navigate(new Pages.AuthPages.DefaultAuthPage());
-            DataBase db = new DataBase();
+        }
+
+        private void MainFrame_ContentRendered(object sender, EventArgs e)
+        {
+            if (PageManager.MainFrame.CanGoBack)
+                btnBack.Visibility = Visibility.Visible;
+            else
+                btnBack.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            PageManager.MainFrame.GoBack();
         }
     }
 }

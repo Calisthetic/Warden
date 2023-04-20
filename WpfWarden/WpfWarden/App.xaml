@@ -9,6 +9,7 @@
             <Setter Property="Width" Value="150"></Setter>
             <Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
             <Setter Property="Cursor" Value="Hand"></Setter>
+            <Setter Property="Background" Value="#FF00F9FF"></Setter>
         </Style>
     </Application.Resources>
 </Application>

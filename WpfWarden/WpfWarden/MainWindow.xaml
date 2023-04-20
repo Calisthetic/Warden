@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfWarden"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="480" Width="800" MinHeight="480" MinWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -32,7 +32,7 @@
                 </LinearGradientBrush>
             </Grid.Background>
 
-            <Button HorizontalAlignment="Right" Margin="0 0 10 0" Content="Back">
+            <Button x:Name="btnBack" Click="btnBack_Click" HorizontalAlignment="Right" Margin="0 0 10 0" Content="Назад">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"></Setter>
@@ -41,6 +41,6 @@
             </Button>
             <TextBlock Foreground="White" Text="Warden" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
         </Grid>
-        <Frame Grid.Row="1" Name="MainFrame" NavigationUIVisibility="Hidden"></Frame>
+        <Frame Grid.Row="1" Name="MainFrame" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered"></Frame>
     </Grid>
 </Window>

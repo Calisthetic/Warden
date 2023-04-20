@@ -6,9 +6,45 @@
       xmlns:local="clr-namespace:WpfWarden.Pages.SecurityPersonal"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AdministratorPage">
+      Title="AdministratorPage" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="1"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="txtFIO" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 5" FontSize="20"></TextBlock>
+        <Grid Grid.Row="1" Background="Black"></Grid>
+        <Grid Grid.Row="2" Height="300">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Фамилия" FontSize="18" Margin="0 10"></TextBlock>
+                <TextBlock Text="Имя" FontSize="18" Margin="0 10"></TextBlock>
+                <TextBlock Text="Отчество" FontSize="18" Margin="0 10"></TextBlock>
+                <TextBlock Text="Пол" FontSize="18" Margin="0 10"></TextBlock>
+                <TextBlock Text="Должность" FontSize="18" Margin="0 10"></TextBlock>
+            </StackPanel>
+            <StackPanel Margin="25 1" Grid.Column="2">
+                <TextBox x:Name="txbSecondName" FontSize="18" Margin="0 9"></TextBox>
+                <TextBox x:Name="txbFirstName" FontSize="18" Margin="0 9"></TextBox>
+                <TextBox x:Name="txbThirdName" FontSize="18" Margin="0 9"></TextBox>
+                <ComboBox x:Name="cmbGender" FontSize="18" Margin="0 8">
+                    <ComboBoxItem IsSelected="True" Content="Не выбрано"></ComboBoxItem>
+                    <ComboBoxItem Content="Мужской"></ComboBoxItem>
+                    <ComboBoxItem Content="Женский"></ComboBoxItem>
+                </ComboBox>
+                <ComboBox x:Name="cmbDivision" FontSize="18" Margin="0 8" DisplayMemberPath="Name"></ComboBox>
+            </StackPanel>
+            <StackPanel Width="375" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <Button x:Name="btnSave" Click="btnSave_Click" HorizontalAlignment="Left" Content="Сохранить" FontSize="18"></Button>
+                <Button x:Name="btnCancel" Click="btnCancel_Click" Margin="75 0 0 0" Content="Отменить" FontSize="18"></Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

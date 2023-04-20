@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfWarden.Classes;
+using WpfWarden.Models;
 
 namespace WpfWarden.Pages.AuthPages
 {
@@ -32,7 +34,22 @@ namespace WpfWarden.Pages.AuthPages
 
         private void btnEntry_Click(object sender, RoutedEventArgs e)
         {
+            Division selectedDivision = cmbDivisions.SelectedItem as Division;
+            Users currentUser = Classes.DBContext.db.Users.FirstOrDefault(x => x.IsVerify == true && 
+                x.Login == txbLogin.Text && x.Password == psbPassword.Password && x.DivisionId == selectedDivision.DivisionId);
+            if (currentUser != null)
+                Authorizating.Entry(currentUser);
+            else
+                MessageBox.Show("Пользователь не найден!\nВозможно данные были введены некорректно");
+        }
 
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Visible)
+            {
+                cmbDivisions.ItemsSource = DBContext.db.Division.ToList();
+                cmbDivisions.SelectedIndex = 1;
+            }
         }
     }
 }

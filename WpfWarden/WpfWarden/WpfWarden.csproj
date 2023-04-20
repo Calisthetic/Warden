@@ -14,6 +14,21 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,6 +55,9 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -72,7 +90,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\DataBase.cs" />
+    <Compile Include="Classes\Authorizating.cs" />
+    <Compile Include="Classes\DBContext.cs" />
     <Compile Include="Classes\PageManager.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -97,43 +116,43 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Division.cs">
-      <DependentUpon>WardenDBModel.tt</DependentUpon>
+      <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
-      <DependentUpon>WardenDBModel.tt</DependentUpon>
+      <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Permission.cs">
-      <DependentUpon>WardenDBModel.tt</DependentUpon>
+      <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
-      <DependentUpon>WardenDBModel.tt</DependentUpon>
+      <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductCategory.cs">
-      <DependentUpon>WardenDBModel.tt</DependentUpon>
+      <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductEnterAct.cs">
-      <DependentUpon>WardenDBModel.tt</DependentUpon>
+      <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserEnterStory.cs">
-      <DependentUpon>WardenDBModel.tt</DependentUpon>
+      <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Users.cs">
-      <DependentUpon>WardenDBModel.tt</DependentUpon>
+      <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\WardenDBModel.Context.cs">
+    <Compile Include="Models\WardenModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WardenDBModel.Context.tt</DependentUpon>
+      <DependentUpon>WardenModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\WardenDBModel.cs">
+    <Compile Include="Models\WardenModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WardenDBModel.tt</DependentUpon>
+      <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\WardenDBModel.Designer.cs">
+    <Compile Include="Models\WardenModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WardenDBModel.edmx</DependentUpon>
+      <DependentUpon>WardenModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthPages\DefaultAuthPage.xaml.cs">
       <DependentUpon>DefaultAuthPage.xaml</DependentUpon>
@@ -164,12 +183,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Models\WardenDBModel.edmx">
+    <EntityDeploy Include="Models\WardenModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>WardenDBModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>WardenModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\WardenDBModel.edmx.diagram">
-      <DependentUpon>WardenDBModel.edmx</DependentUpon>
+    <None Include="Models\WardenModel.edmx.diagram">
+      <DependentUpon>WardenModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -180,21 +199,32 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Models\WardenDBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WardenDBModel.Context.cs</LastGenOutput>
-      <DependentUpon>WardenDBModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\WardenDBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>WardenDBModel.edmx</DependentUpon>
-      <LastGenOutput>WardenDBModel.cs</LastGenOutput>
-    </Content>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\WardenModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WardenModel.edmx</DependentUpon>
+      <LastGenOutput>WardenModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\WardenModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WardenModel.edmx</DependentUpon>
+      <LastGenOutput>WardenModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
