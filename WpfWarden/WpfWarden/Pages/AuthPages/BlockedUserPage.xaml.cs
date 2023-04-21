@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfWarden.Models;
 
 namespace WpfWarden.Pages.AuthPages
 {
@@ -20,7 +21,7 @@ namespace WpfWarden.Pages.AuthPages
     /// </summary>
     public partial class BlockedUserPage : Page
     {
-        public BlockedUserPage()
+        public BlockedUserPage(Users currentUser)
         {
             InitializeComponent();
         }

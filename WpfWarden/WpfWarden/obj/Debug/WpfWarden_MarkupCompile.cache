@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\App.xaml
-72045532367
+81272334879
 2-2141722745
-27583239019
+281819282707
 191198713987
-MainWindow.xaml;Pages\AuthPages\DefaultAuthPage.xaml;Pages\AuthPages\ForgotPasswordPage.xaml;Pages\SecurityPersonal\AddPermissionPage.xaml;Pages\SecurityPersonal\AdministratorPage.xaml;Pages\SecurityPersonal\ControllerMO.xaml;Pages\SecurityPersonal\InfoSecurerPage.xaml;
+MainWindow.xaml;Pages\AuthPages\BlockedUserPage.xaml;Pages\AuthPages\DefaultAuthPage.xaml;Pages\AuthPages\ForgotPasswordPage.xaml;Pages\SecurityPersonal\AddPermissionPage.xaml;Pages\SecurityPersonal\AdministratorPage.xaml;Pages\SecurityPersonal\ControllerMO.xaml;Pages\SecurityPersonal\InfoSecurerPage.xaml;
 
 False
 

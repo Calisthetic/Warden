@@ -44,7 +44,7 @@ namespace WpfWarden.Pages.SecurityPersonal
             if (Visibility == Visibility.Visible)
             {
                 RefreshData();
-                usersToBlock = DBContext.db.Users.OrderByDescending(x => x.IsBlocked).ToList();
+                usersToBlock = DBContext.db.Users.Where(x => x.IsBlocked == false).ToList();
                 DGUsers.ItemsSource = usersToBlock;
             }
         }
@@ -99,11 +99,11 @@ namespace WpfWarden.Pages.SecurityPersonal
                 {
                     DBContext.db.SaveChanges();
                     MessageBox.Show("Пользователи заблокированы");
-                    usersToBlock = DBContext.db.Users.OrderBy(x => x.IsBlocked).ToList();
+                    usersToBlock = DBContext.db.Users.Where(x => x.IsBlocked == false).ToList();
                     DGUsers.ItemsSource = usersToBlock;
-                    RefreshGrid();
+                    RefreshData();
 
-                    Logger.Trace($"Контролёр МО заблокировал {blockedUsersCount} пользователей");
+                    Logger.Trace($"Контролёр МО заблокировал {blockedUsersCount} пользователей", currentUser);
                 }
                 else
                 {
