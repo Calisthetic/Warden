@@ -92,6 +92,8 @@
     </Compile>
     <Compile Include="Classes\Authorizating.cs" />
     <Compile Include="Classes\DBContext.cs" />
+    <Compile Include="Classes\Logger\Logger.cs" />
+    <Compile Include="Classes\Logger\LogLevel.cs" />
     <Compile Include="Classes\PageManager.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -126,6 +128,9 @@
     <Compile Include="Models\Division.cs">
       <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Logs.cs">
+      <DependentUpon>WardenModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Order.cs">
       <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
@@ -139,9 +144,6 @@
       <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductEnterAct.cs">
-      <DependentUpon>WardenModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserEnterStory.cs">
       <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Users.cs">

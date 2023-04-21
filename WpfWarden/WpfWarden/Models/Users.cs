@@ -12,16 +12,15 @@ namespace WpfWarden.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
 
     public partial class Users
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Users()
         {
+            this.Logs = new HashSet<Logs>();
             this.Order = new HashSet<Order>();
             this.ProductEnterAct = new HashSet<ProductEnterAct>();
-            this.UserEnterStory = new HashSet<UserEnterStory>();
         }
 
         public int UserId { get; set; }
@@ -45,16 +44,11 @@ namespace WpfWarden.Models
 
         public virtual Division Division { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Logs> Logs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
         public virtual Permission Permission { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductEnterAct> ProductEnterAct { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserEnterStory> UserEnterStory { get; set; }
-
-
-
-
-
     }
 }

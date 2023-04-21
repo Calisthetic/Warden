@@ -7,6 +7,18 @@
     <Property Name="DivisionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="Logs">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MachineName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Logged" Type="datetime" Nullable="false" />
+    <Property Name="LogLevel" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="Exception" Type="nvarchar(max)" />
+    <Property Name="UserId" Type="int" />
+  </EntityType>
   <EntityType Name="Order">
     <Key>
       <PropertyRef Name="OrderId" />
@@ -63,14 +75,6 @@
     <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="Status" Type="bit" Nullable="false" />
   </EntityType>
-  <EntityType Name="UserEnterStory">
-    <Key>
-      <PropertyRef Name="UserEnterHistoryId" />
-    </Key>
-    <Property Name="UserEnterHistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="EntryTime" Type="datetime" Nullable="false" />
-  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserId" />
@@ -88,6 +92,18 @@
     <Property Name="Gender" Type="bit" Nullable="false" />
     <Property Name="IsVerify" Type="bit" Nullable="false" />
   </EntityType>
+  <Association Name="FK_Logs_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Logs">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Order_Users">
     <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -148,18 +164,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_UserEnterStory_Users">
-    <End Role="Users" Type="Self.Users" Multiplicity="1" />
-    <End Role="UserEnterStory" Type="Self.UserEnterStory" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Users">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="UserEnterStory">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Users_Division">
     <End Role="Division" Type="Self.Division" Multiplicity="1" />
     <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -186,13 +190,17 @@
   </Association>
   <EntityContainer Name="Хранилище WardenModelContainer">
     <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductEnterAct" EntityType="Self.ProductEnterAct" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="UserEnterStory" EntityType="Self.UserEnterStory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Logs_Users" Association="Self.FK_Logs_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Logs" EntitySet="Logs" />
+    </AssociationSet>
     <AssociationSet Name="FK_Order_Users" Association="Self.FK_Order_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="Order" EntitySet="Order" />
@@ -212,10 +220,6 @@
     <AssociationSet Name="FK_ProductEnterAct_Users" Association="Self.FK_ProductEnterAct_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="ProductEnterAct" EntitySet="ProductEnterAct" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserEnterStory_Users" Association="Self.FK_UserEnterStory_Users">
-      <End Role="Users" EntitySet="Users" />
-      <End Role="UserEnterStory" EntitySet="UserEnterStory" />
     </AssociationSet>
     <AssociationSet Name="FK_Users_Division" Association="Self.FK_Users_Division">
       <End Role="Division" EntitySet="Division" />

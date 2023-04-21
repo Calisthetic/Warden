@@ -11,12 +11,31 @@ namespace WpfWarden.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class UserEnterStory
+    using System.ComponentModel;
+
+    public partial class Logs
     {
-        public int UserEnterHistoryId { get; set; }
-        public int UserId { get; set; }
-        public System.DateTime EntryTime { get; set; }
+        public int LogId { get; set; }
+
+        private string appName = "WpfWarden";
+        public string MachineName { get { return appName; } set { MachineName = value; } }
+        private System.DateTime Logged
+        {
+            get
+            {
+                return DateTime.Now;
+            }
+            set
+            {
+                Logged = value;
+            }
+        }
+        public string LogLevel { get; set; }
+        [DefaultValue(null)]
+        public string Message { get; set; }
+        [DefaultValue(null)]
+        public string Exception { get; set; }
+        public Nullable<int> UserId { get; set; }
     
         public virtual Users Users { get; set; }
     }

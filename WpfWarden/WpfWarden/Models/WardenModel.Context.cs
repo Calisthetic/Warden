@@ -26,12 +26,12 @@ namespace WpfWarden.Models
         }
     
         public virtual DbSet<Division> Division { get; set; }
+        public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Permission> Permission { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<ProductCategory> ProductCategory { get; set; }
         public virtual DbSet<ProductEnterAct> ProductEnterAct { get; set; }
-        public virtual DbSet<UserEnterStory> UserEnterStory { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }
 }

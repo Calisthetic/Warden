@@ -8,6 +8,19 @@
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Users" Relationship="Self.FK_Users_Division" FromRole="Division" ToRole="Users" />
   </EntityType>
+  <EntityType Name="Logs">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MachineName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Logged" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LogLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Exception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Logs_Users" FromRole="Logs" ToRole="Users" />
+  </EntityType>
   <EntityType Name="Order">
     <Key>
       <PropertyRef Name="OrderId" />
@@ -73,15 +86,6 @@
     <NavigationProperty Name="Order" Relationship="Self.FK_ProductEnterAct_Order" FromRole="ProductEnterAct" ToRole="Order" />
     <NavigationProperty Name="Users" Relationship="Self.FK_ProductEnterAct_Users" FromRole="ProductEnterAct" ToRole="Users" />
   </EntityType>
-  <EntityType Name="UserEnterStory">
-    <Key>
-      <PropertyRef Name="UserEnterHistoryId" />
-    </Key>
-    <Property Name="UserEnterHistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserId" Type="Int32" Nullable="false" />
-    <Property Name="EntryTime" Type="DateTime" Nullable="false" Precision="3" />
-    <NavigationProperty Name="Users" Relationship="Self.FK_UserEnterStory_Users" FromRole="UserEnterStory" ToRole="Users" />
-  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserId" />
@@ -99,10 +103,10 @@
     <Property Name="Gender" Type="Boolean" Nullable="false" />
     <Property Name="IsVerify" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Division" Relationship="Self.FK_Users_Division" FromRole="Users" ToRole="Division" />
+    <NavigationProperty Name="Logs" Relationship="Self.FK_Logs_Users" FromRole="Users" ToRole="Logs" />
     <NavigationProperty Name="Order" Relationship="Self.FK_Order_Users" FromRole="Users" ToRole="Order" />
     <NavigationProperty Name="Permission" Relationship="Self.FK_Users_Role" FromRole="Users" ToRole="Permission" />
     <NavigationProperty Name="ProductEnterAct" Relationship="Self.FK_ProductEnterAct_Users" FromRole="Users" ToRole="ProductEnterAct" />
-    <NavigationProperty Name="UserEnterStory" Relationship="Self.FK_UserEnterStory_Users" FromRole="Users" ToRole="UserEnterStory" />
   </EntityType>
   <Association Name="FK_Users_Division">
     <End Role="Division" Type="Self.Division" Multiplicity="1" />
@@ -113,6 +117,18 @@
       </Principal>
       <Dependent Role="Users">
         <PropertyRef Name="DivisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Logs_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Logs">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -188,30 +204,22 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_UserEnterStory_Users">
-    <End Role="Users" Type="Self.Users" Multiplicity="1" />
-    <End Role="UserEnterStory" Type="Self.UserEnterStory" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Users">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="UserEnterStory">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="WardenEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Division" EntityType="Self.Division" />
+    <EntitySet Name="Logs" EntityType="Self.Logs" />
     <EntitySet Name="Order" EntityType="Self.Order" />
     <EntitySet Name="Permission" EntityType="Self.Permission" />
     <EntitySet Name="Product" EntityType="Self.Product" />
     <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" />
     <EntitySet Name="ProductEnterAct" EntityType="Self.ProductEnterAct" />
-    <EntitySet Name="UserEnterStory" EntityType="Self.UserEnterStory" />
     <EntitySet Name="Users" EntityType="Self.Users" />
     <AssociationSet Name="FK_Users_Division" Association="Self.FK_Users_Division">
       <End Role="Division" EntitySet="Division" />
       <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Logs_Users" Association="Self.FK_Logs_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Logs" EntitySet="Logs" />
     </AssociationSet>
     <AssociationSet Name="FK_Order_Users" Association="Self.FK_Order_Users">
       <End Role="Users" EntitySet="Users" />
@@ -236,10 +244,6 @@
     <AssociationSet Name="FK_ProductEnterAct_Users" Association="Self.FK_ProductEnterAct_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="ProductEnterAct" EntitySet="ProductEnterAct" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserEnterStory_Users" Association="Self.FK_UserEnterStory_Users">
-      <End Role="Users" EntitySet="Users" />
-      <End Role="UserEnterStory" EntitySet="UserEnterStory" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -9,6 +9,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="WardenModel.Logs">
+        <MappingFragment StoreEntitySet="Logs">
+          <ScalarProperty Name="LogId" ColumnName="LogId" />
+          <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+          <ScalarProperty Name="Logged" ColumnName="Logged" />
+          <ScalarProperty Name="LogLevel" ColumnName="LogLevel" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Exception" ColumnName="Exception" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Order">
       <EntityTypeMapping TypeName="WardenModel.Order">
         <MappingFragment StoreEntitySet="Order">
@@ -67,15 +80,6 @@
           <ScalarProperty Name="HighPriotity" ColumnName="HighPriotity" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Status" ColumnName="Status" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserEnterStory">
-      <EntityTypeMapping TypeName="WardenModel.UserEnterStory">
-        <MappingFragment StoreEntitySet="UserEnterStory">
-          <ScalarProperty Name="UserEnterHistoryId" ColumnName="UserEnterHistoryId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

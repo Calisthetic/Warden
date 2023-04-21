@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfWarden.Classes;
+using WpfWarden.Classes.Logger;
 using WpfWarden.Models;
 
 namespace WpfWarden
@@ -28,6 +29,7 @@ namespace WpfWarden
             InitializeComponent();
             PageManager.MainFrame = MainFrame;
             PageManager.MainFrame.Navigate(new Pages.AuthPages.DefaultAuthPage());
+
         }
 
         private void MainFrame_ContentRendered(object sender, EventArgs e)

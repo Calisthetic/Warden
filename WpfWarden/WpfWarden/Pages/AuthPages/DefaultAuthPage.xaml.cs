@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfWarden.Classes;
+using WpfWarden.Classes.Logger;
 using WpfWarden.Models;
 
 namespace WpfWarden.Pages.AuthPages
@@ -30,6 +31,7 @@ namespace WpfWarden.Pages.AuthPages
         private void btnForgotPassword_Click(object sender, RoutedEventArgs e)
         {
             Classes.PageManager.MainFrame.Navigate(new ForgotPasswordPage());
+            Logger.Trace("Пользователь перешёл на страницу входа без пароля");
         }
 
         private void btnEntry_Click(object sender, RoutedEventArgs e)
