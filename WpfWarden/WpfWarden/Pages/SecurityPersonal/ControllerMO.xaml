@@ -6,19 +6,85 @@
       xmlns:local="clr-namespace:WpfWarden.Pages.SecurityPersonal"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ControllerMO">
+      Title="ControllerMO" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" ></RowDefinition>
-            <RowDefinition Height="1"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="txtFIO" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 5" FontSize="20"></TextBlock>
-        <Grid Grid.Row="1" Background="Black"></Grid>
-        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0 20">
-            <Button x:Name="btnUsersList" Width="200" Height="34" Content="Users list" Margin="0 8"></Button>
-            <Button x:Name="btnUsersEnterHistory" Width="200" Height="34" Content="Users enter history" Margin="0 8"></Button>
-        </StackPanel>
+        <TextBlock x:Name="txtFIO" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 2 5 5" FontSize="20"></TextBlock>
+        <TabControl>
+            <TabItem Header="Логи" FontSize="16">
+                <TabItem.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10 10 0 0"></Setter>
+                    </Style>
+                </TabItem.Resources>
+                <TabItem.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" x:Name="DGLogs">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Платформа" Binding="{Binding MachineName}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Уровень" Binding="{Binding LogLevel}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding Logged, StringFormat=\{0:dd.MM.yy\}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Время" Binding="{Binding Logged, StringFormat=\{0:HH:mm:ss\}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Сообщение" Binding="{Binding Message}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Ошибка" Binding="{Binding Exception}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Пользователь">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox IsReadOnly="True" IsEditable="False" IsManipulationEnabled="False">
+                                                <ComboBoxItem HorizontalContentAlignment="Center" Content="{Binding Users.UserId, StringFormat=Код: {0:N1}}"></ComboBoxItem>
+                                                <ComboBoxItem HorizontalContentAlignment="Center" Content="{Binding Users.SecondName}"></ComboBoxItem>
+                                                <ComboBoxItem HorizontalContentAlignment="Center" Content="{Binding Users.FirstName}"></ComboBoxItem>
+                                                <ComboBoxItem HorizontalContentAlignment="Center" Content="{Binding Users.ThirdName}"></ComboBoxItem>
+                                                <ComboBoxItem HorizontalContentAlignment="Center" IsSelected="True" Content="{Binding Users.Permission.Name}"></ComboBoxItem>
+                                                <CheckBox HorizontalContentAlignment="Center" IsChecked="{Binding Users.IsVerify}" Content="Верифицирован(а)"></CheckBox>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button Content="Назад" Width="100" x:Name="btnPageMinus" Click="btnPageMinus_Click"></Button>
+                            <TextBlock x:Name="txbPageNow" Margin="20 0" FontSize="20"></TextBlock>
+                            <Button Content="Далее" Width="100" x:Name="btnPagePlus" Click="btnPagePlus_Click"></Button>
+                        </StackPanel>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Пользователи" FontSize="16">
+                <TabItem.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10 10 0 0"></Setter>
+                    </Style>
+                </TabItem.Resources>
+                <TabItem.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="False" x:Name="DGUsers">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding SecondName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding ThirdName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Должность" Binding="{Binding Division.Name}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Тип пользователя" Binding="{Binding Permission.Name}" IsReadOnly="True"/>
+                                <DataGridCheckBoxColumn Header="Верифицирован" Binding="{Binding IsVerify}" IsReadOnly="True"></DataGridCheckBoxColumn>
+                                <DataGridCheckBoxColumn Header="Заблокировать" Binding="{Binding IsBlocked}"></DataGridCheckBoxColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button Grid.Row="1" Content="Заблокировать" x:Name="btnBlock" Click="btnBlock_Click"></Button>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>

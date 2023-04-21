@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfWarden.Classes;
+using WpfWarden.Classes.Logger;
 using WpfWarden.Models;
 
 namespace WpfWarden.Pages.SecurityPersonal
@@ -81,9 +82,12 @@ namespace WpfWarden.Pages.SecurityPersonal
                     DBContext.db.SaveChanges();
                     MessageBox.Show("Пользователь успешно добавлен!");
                     ClearFields();
+
+                    Logger.Trace($"Администратор добавил нового пользователя id:{newUser.UserId}", currentUser);
                 }
                 catch (Exception ex)
                 {
+                    Logger.Error(ex, currentUser);
                     MessageBox.Show(ex.Message);
                 }
                 //catch (DbEntityValidationException er)

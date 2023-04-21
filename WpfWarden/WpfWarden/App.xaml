@@ -22,5 +22,8 @@
             <Setter Property="FontSize" Value="18"></Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
+        <Style TargetType="TabItem">
+            <Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

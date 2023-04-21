@@ -50,7 +50,7 @@ namespace WpfWarden.Pages.AuthPages
             if (Visibility == Visibility.Visible)
             {
                 cmbDivisions.ItemsSource = DBContext.db.Division.ToList();
-                cmbDivisions.SelectedIndex = 1;
+                cmbDivisions.SelectedIndex = 2;
             }
         }
     }

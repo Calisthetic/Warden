@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfWarden.Classes;
+using WpfWarden.Classes.Logger;
 using WpfWarden.Models;
 
 namespace WpfWarden.Pages.SecurityPersonal
@@ -61,10 +62,15 @@ namespace WpfWarden.Pages.SecurityPersonal
                     DBContext.db.SaveChanges();
                     MessageBox.Show("Роль успешно добавлена!");
                     PageManager.MainFrame.GoBack();
+
+                    Logger.Trace("Сотрудник ИБ добавил роль", currentUser);
+                    Logger.Trace("Сотрудник ИБ переходит на главную страницу", currentUser);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
+
+                    Logger.Error(ex, currentUser);
                 }
             }
         }
@@ -73,6 +79,8 @@ namespace WpfWarden.Pages.SecurityPersonal
         {
             ClearData();
             Classes.PageManager.MainFrame.GoBack();
+
+            Logger.Trace("Сотрудник ИБ переходит на главную страницу (отмена действия)", currentUser);
         }
 
 

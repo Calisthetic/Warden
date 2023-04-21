@@ -99,6 +99,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AuthPages\BlockedUserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AuthPages\DefaultAuthPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -163,6 +167,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WardenModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AuthPages\BlockedUserPage.xaml.cs">
+      <DependentUpon>BlockedUserPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthPages\DefaultAuthPage.xaml.cs">
       <DependentUpon>DefaultAuthPage.xaml</DependentUpon>

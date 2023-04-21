@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfWarden.Classes;
 using WpfWarden.Models;
+using WpfWarden.Classes.Logger;
 
 namespace WpfWarden.Pages.SecurityPersonal
 {
@@ -38,11 +39,13 @@ namespace WpfWarden.Pages.SecurityPersonal
         {
             try
             {
+                int verifiedUsersCount = 0;
                 bool error = false;
                 for (int i = 0; i < usersToVerify.Count; i++)
                 {
                     if (usersToVerify[i].IsVerify == true)
                     {
+                        verifiedUsersCount++;
                         if (string.IsNullOrEmpty(usersToVerify[i].Login) || string.IsNullOrEmpty(usersToVerify[i].Password)
                             || string.IsNullOrEmpty(usersToVerify[i].SecretWord) || usersToVerify[i].Permission.Name == null)
                         {
@@ -55,15 +58,22 @@ namespace WpfWarden.Pages.SecurityPersonal
                 {
                     MessageBox.Show("Кажется, Вы заполнили не все поля");
                 }
-                else
+                else if (verifiedUsersCount> 0)
                 {
                     DBContext.db.SaveChanges();
                     MessageBox.Show("Изменения успешно сохранены!");
                     RefreshData();
+
+                    Logger.Trace($"Сотрудник ИБ проверил {verifiedUsersCount} пользователей");
+                }
+                else
+                {
+                    MessageBox.Show("Выберите пользователей на одобрение");
                 }
             }
             catch (Exception ex)
             {
+                Logger.Error(ex, currentUser);
                 MessageBox.Show(ex.Message);
             }
         }
@@ -77,8 +87,8 @@ namespace WpfWarden.Pages.SecurityPersonal
 
         private void RefreshData()
         {
-            usersToVerify = DBContext.db.Users.Where(x => x.IsVerify == false).ToList();
-            DGUsersForVerify.ItemsSource = DBContext.db.Users.OrderBy(x => x.IsVerify).ToList();
+            usersToVerify = DBContext.db.Users.Where(x => x.IsVerify == false && x.IsBlocked == false).ToList();
+            DGUsersForVerify.ItemsSource = DBContext.db.Users.Where(x => x.IsVerify == false).ToList();
 
             permissions = DBContext.db.Permission.ToList();
             CmbRole.ItemsSource = permissions;
@@ -114,10 +124,13 @@ namespace WpfWarden.Pages.SecurityPersonal
                     DBContext.db.SaveChanges();
                     RefreshData();
                     MessageBox.Show("Данные успешно удалены!");
+
+                    Logger.Warn($"Сотрудник ИБ удалил уровни доступа в количестве {permissionsToDelete.Count()} штук", currentUser);
                 }
-                catch (DbEntityValidationException ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message.ToString());
+                    Logger.Error(ex, currentUser);
+                    MessageBox.Show(ex.Message);
                 }
             }
         }
@@ -129,16 +142,21 @@ namespace WpfWarden.Pages.SecurityPersonal
                 DBContext.db.SaveChanges();
                 RefreshData();
                 MessageBox.Show("Данные успешно сохранены!");
+
+                Logger.Trace("Сотрудник ИБ сохранил изменения уровней доступа", currentUser);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                Logger.Error(ex, currentUser);
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             PageManager.MainFrame.Navigate(new AddPermissionPage(currentUser));
+
+            Logger.Trace("Сотрудник ИБ перешёл на страницу добавления уровня доступа", currentUser);
         }
     }
 }
