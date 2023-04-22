@@ -23,10 +23,17 @@
                 <TabItem.Content>
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="40"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" x:Name="DGLogs">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Код пользователя: " FontSize="18"></TextBlock>
+                            <TextBox x:Name="txbUserId" TextChanged="txbUserId_TextChanged" Width="60"></TextBox>
+                            <ComboBox x:Name="cmbLogLevels" DisplayMemberPath="LogLevel" SelectionChanged="cmbLogLevels_SelectionChanged"></ComboBox>
+                            <CheckBox x:Name="ckbShowOld" Checked="ckbShowOld_Checked" Unchecked="ckbShowOld_Checked" Content="Показать старые"></CheckBox>
+                        </StackPanel>
+                        <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" x:Name="DGLogs">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Платформа" Binding="{Binding MachineName}"></DataGridTextColumn>
                                 <DataGridTextColumn Header="Уровень" Binding="{Binding LogLevel}"></DataGridTextColumn>
@@ -50,7 +57,7 @@
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Button Content="Назад" Width="100" x:Name="btnPageMinus" Click="btnPageMinus_Click"></Button>
                             <TextBlock x:Name="txbPageNow" Margin="20 0" FontSize="20"></TextBlock>
                             <Button Content="Далее" Width="100" x:Name="btnPagePlus" Click="btnPagePlus_Click"></Button>
@@ -72,6 +79,7 @@
                         </Grid.RowDefinitions>
                         <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="False" x:Name="DGUsers">
                             <DataGrid.Columns>
+                                <DataGridTextColumn Header="Код" Binding="{Binding UserId}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Фамилия" Binding="{Binding SecondName}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Отчество" Binding="{Binding ThirdName}" IsReadOnly="True"/>

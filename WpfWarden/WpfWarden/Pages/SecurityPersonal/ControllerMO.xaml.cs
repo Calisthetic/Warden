@@ -46,6 +46,16 @@ namespace WpfWarden.Pages.SecurityPersonal
                 RefreshData();
                 usersToBlock = DBContext.db.Users.Where(x => x.IsBlocked == false).ToList();
                 DGUsers.ItemsSource = usersToBlock;
+                var logLevels = new List<Logs>();
+                logLevels.Add(new Logs { LogLevel = "Log level" });
+                logLevels.Add(new Logs { LogLevel = "Trace" });
+                logLevels.Add(new Logs { LogLevel = "Fatal" });
+                logLevels.Add(new Logs { LogLevel = "Error" });
+                logLevels.Add(new Logs { LogLevel = "Debug" });
+                logLevels.Add(new Logs { LogLevel = "Warn" });
+                logLevels.Add(new Logs { LogLevel = "Info" });
+                cmbLogLevels.ItemsSource = logLevels;
+                cmbLogLevels.SelectedIndex = 0;
             }
         }
 
@@ -56,9 +66,9 @@ namespace WpfWarden.Pages.SecurityPersonal
             txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
                 ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
 
-            RefreshGrid();
+            RefreshLogsDataGrid();
         }
-        private void RefreshGrid()
+        private void RefreshLogsDataGrid()
         {
             DGLogs.ItemsSource = logs.Skip(currentPageNumber * logsOnPage).Take(logsOnPage).ToList();
             txbPageNow.Text = (currentPageNumber + 1).ToString();
@@ -69,7 +79,7 @@ namespace WpfWarden.Pages.SecurityPersonal
             if (currentPageNumber < pagesCount - 1)
             {
                 currentPageNumber++;
-                RefreshGrid();
+                RefreshLogsDataGrid();
             }
         }
         private void btnPageMinus_Click(object sender, RoutedEventArgs e)
@@ -77,7 +87,7 @@ namespace WpfWarden.Pages.SecurityPersonal
             if (currentPageNumber > 0)
             {
                 currentPageNumber--;
-                RefreshGrid();
+                RefreshLogsDataGrid();
             }
         }
 
@@ -115,6 +125,43 @@ namespace WpfWarden.Pages.SecurityPersonal
                 Logger.Error(ex, currentUser);
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void cmbLogLevels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SearchLog();
+        }
+
+        private void txbUserId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchLog();
+        }
+
+        private void ckbShowOld_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchLog();
+        }
+
+        private void SearchLog()
+        {
+            logs = DBContext.db.Logs.ToList();
+            if (cmbLogLevels.SelectedIndex != 0) // Sort by log level
+            {
+                Logs selectedLogLevel = cmbLogLevels.SelectedItem as Logs;
+                string levelName = (selectedLogLevel == null) ? ("") : (selectedLogLevel.LogLevel);
+                logs = logs.Where(x => x.LogLevel == levelName).ToList();
+            }
+            if (ckbShowOld.IsChecked == true) // Sort by date
+                logs = logs.OrderBy(x => x.Logged).ToList();
+            else
+                logs = logs.OrderByDescending(x => x.Logged).ToList();
+
+            if (int.TryParse(txbUserId.Text, out int result) && result >= 0) // Fing by userId
+            {
+                logs = logs.Where(x => x.UserId == result).ToList();
+            }
+            currentPageNumber = 0;
+            RefreshLogsDataGrid();
         }
     }
 }
