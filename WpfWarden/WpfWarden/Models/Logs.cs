@@ -18,7 +18,10 @@ namespace WpfWarden.Models
         public int LogId { get; set; }
 
         private string appName = "WpfWarden";
-        public string MachineName { get { return appName; } set { appName = "WpfWarden"; } }
+        public string MachineName { 
+            get { return appName; } 
+            set { appName = "WpfWarden"; } 
+        }
         private Nullable<DateTime> dateTimeNow = null;
         public System.DateTime Logged
         {

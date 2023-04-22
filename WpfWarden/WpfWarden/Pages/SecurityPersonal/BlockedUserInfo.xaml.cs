@@ -16,21 +16,45 @@ using WpfWarden.Classes;
 using WpfWarden.Classes.Logger;
 using WpfWarden.Models;
 
-namespace WpfWarden.Pages.AuthPages
+namespace WpfWarden.Pages.SecurityPersonal
 {
     /// <summary>
-    /// Логика взаимодействия для BlockedUserPage.xaml
+    /// Логика взаимодействия для BlockedUserInfo.xaml
     /// </summary>
-    public partial class BlockedUserPage : Page
+    public partial class BlockedUserInfo : Page
     {
         private Users currentUser = new Users();
+        private Users checkedUser = new Users();
 
-        public BlockedUserPage(Users _currentUser)
+        public BlockedUserInfo(Users _currentUser, Users _checkedUser)
         {
             InitializeComponent();
             if (_currentUser != null)
                 currentUser = _currentUser;
+            if (_checkedUser != null)
+                checkedUser = _checkedUser;
         }
+
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Visible)
+            {
+                txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
+                    ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
+                txtBlockedUserFIO.Text = "Заблокированный пользователь: " + checkedUser.SecondName + " " + checkedUser.FirstName + " " +
+                    ((checkedUser.ThirdName == null) ? (" ") : (checkedUser.ThirdName));
+                txbMessageText.Text = string.Empty;
+            }
+            RefreshData();
+        }
+
+        private void RefreshData()
+        {
+            LVMessages.ItemsSource = DBContext.db.BlockedUserMessages.Where(x => 
+                (x.DestinationUserId == checkedUser.UserId) || (x.SendlerUserId == checkedUser.UserId)).ToList();
+        }
+
+
 
         private void btnSendMessage_Click(object sender, RoutedEventArgs e)
         {
@@ -42,13 +66,14 @@ namespace WpfWarden.Pages.AuthPages
             {
                 BlockedUserMessages newMessage = new BlockedUserMessages();
                 newMessage.SendlerUserId = currentUser.UserId;
+                newMessage.DestinationUserId = checkedUser.UserId;
                 newMessage.Message = txbMessageText.Text;
                 DBContext.db.BlockedUserMessages.Add(newMessage);
                 try
                 {
                     DBContext.db.SaveChanges();
 
-                    Logger.Trace($"Пользователь {currentUser.UserId} отправил сообщение Сотруднику ИБ: {txbMessageText.Text}", currentUser);
+                    Logger.Trace($"Сотрудник ИБ отправил сообщение пользователю {checkedUser.UserId}: {txbMessageText.Text}", currentUser);
                 }
                 catch (Exception ex)
                 {
@@ -61,24 +86,5 @@ namespace WpfWarden.Pages.AuthPages
                 txbMessageText.Text = string.Empty;
             }
         }
-
-        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (Visibility == Visibility.Visible)
-            {
-                txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
-                    ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
-                txbMessageText.Text = string.Empty;
-            }
-            RefreshData();
-        }
-
-        private void RefreshData()
-        {
-            LVMessages.ItemsSource = DBContext.db.BlockedUserMessages.Where(x =>
-                (x.DestinationUserId == currentUser.UserId) || (x.SendlerUserId == currentUser.UserId)).ToList();
-        }
-
-        
     }
 }

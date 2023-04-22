@@ -42,7 +42,7 @@
                     </Grid>
                 </TabItem.Content>
             </TabItem>
-            <TabItem Header="Доступ" FontSize="16" Height="25" VerticalAlignment="Top">
+            <TabItem Header="Доступ" FontSize="16" VerticalAlignment="Top">
                 <TabItem.Content>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -74,10 +74,43 @@
             </TabItem>
             <TabItem Header="Заблокированные пользователи" FontSize="16">
                 <TabItem.Content>
-                    <ListView x:Name="LVBlockedUsers">
+                    <ListView x:Name="LVBlockedUsers" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="LVBlockedUsers_Selected">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="4"></TextBlock>
+                                <Border Width="320" Height="232" Background="#FFD4D3FF" CornerRadius="16" Opacity="0.995">
+                                    <Border.Effect>
+                                        <DropShadowEffect Opacity="0.7" ShadowDepth="1" BlurRadius="5" Direction="45"/>
+                                    </Border.Effect>
+                                    <Grid Margin="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"></RowDefinition>
+                                            <RowDefinition Height="24"></RowDefinition>
+                                            <RowDefinition Height="30"></RowDefinition>
+                                            <RowDefinition Height="24"></RowDefinition>
+                                            <RowDefinition Height="30"></RowDefinition>
+                                            <RowDefinition Height="24"></RowDefinition>
+                                            <RowDefinition Height="40"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red" Text="Заблокирован" FontSize="20"></TextBlock>
+                                        <TextBlock Grid.Row="1" Text="Пользователь:"></TextBlock>
+                                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                            <TextBlock FontSize="18" Foreground="#FFBF0000" Text="{Binding SecondName}"></TextBlock>
+                                            <TextBlock FontSize="18" Foreground="#FFBF0000" Text=" "></TextBlock>
+                                            <TextBlock FontSize="18" Foreground="#FFBF0000" Text="{Binding FirstName}"></TextBlock>
+                                            <TextBlock FontSize="18" Foreground="#FFBF0000" Text=" "></TextBlock>
+                                            <TextBlock FontSize="18" Foreground="#FFBF0000" Text="{Binding ThirdName}"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Grid.Row="3" Text="Должность:"></TextBlock>
+                                        <TextBlock Grid.Row="4" FontSize="18" Text="{Binding Division.Name}" Foreground="#FFBF0000"></TextBlock>
+                                        <TextBlock Grid.Row="5" Text="Уровень доступа:"></TextBlock>
+                                        <TextBlock Grid.Row="6" FontSize="18" Text="{Binding Permission.Name}" Foreground="#FFBF0000"></TextBlock>
+                                    </Grid>
+                                </Border>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

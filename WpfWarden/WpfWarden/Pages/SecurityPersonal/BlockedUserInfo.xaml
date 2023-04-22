@@ -1,0 +1,49 @@
+﻿<Page x:Class="WpfWarden.Pages.SecurityPersonal.BlockedUserInfo"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfWarden.Pages.SecurityPersonal"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="BlockedUserInfo" IsVisibleChanged="Page_IsVisibleChanged">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="1"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="txtFIO" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 5" FontSize="20"></TextBlock>
+        <TextBlock x:Name="txtBlockedUserFIO" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5 0 0 5" FontSize="20"></TextBlock>
+        <Grid Grid.Row="1" Background="Black"></Grid>
+
+        <ListView IsEnabled="False" Grid.Row="2" x:Name="LVMessages" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Message}">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Foreground" Value="Black"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DestinationUserId}" Value="null">
+                                        <Setter Property="Foreground" Value="Blue"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Users1.Permission.Name}" Value="Специалист по ИБ">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3">
+            <TextBox x:Name="txbMessageText" Width="640" FontSize="16" VerticalContentAlignment="Center" Margin="10"></TextBox>
+            <Button x:Name="btnSendMessage" Click="btnSendMessage_Click" Content="Отправить" Width="130" Margin="0 0 10 0"></Button>
+        </StackPanel>
+    </Grid>
+</Page>

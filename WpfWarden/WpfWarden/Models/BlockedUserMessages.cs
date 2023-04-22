@@ -11,15 +11,30 @@ namespace WpfWarden.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class BlockedUserMessages
     {
         public int BlockedUserMessageId { get; set; }
         public int SendlerUserId { get; set; }
+        [DefaultValue(null)]
         public Nullable<int> DestinationUserId { get; set; }
         public string Message { get; set; }
-        public System.DateTime Time { get; set; }
-    
+        private Nullable<DateTime> dateTimeNow = null;
+        public System.DateTime Time
+        {
+            get
+            {
+                return this.dateTimeNow.HasValue
+                    ? this.dateTimeNow.Value
+                    : DateTime.Now;
+            }
+            set
+            {
+                this.dateTimeNow = value;
+            }
+        }
+
         public virtual Users Users { get; set; }
         public virtual Users Users1 { get; set; }
     }

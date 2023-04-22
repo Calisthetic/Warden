@@ -64,3 +64,5 @@ C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\Pages\SecurityP
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\Pages\SecurityPersonal\ControllerMO.baml
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\Pages\AuthPages\BlockedUserPage.g.cs
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\Pages\AuthPages\BlockedUserPage.baml
+C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\Pages\SecurityPersonal\BlockedUserInfo.g.cs
+C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\Pages\SecurityPersonal\BlockedUserInfo.baml

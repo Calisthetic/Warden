@@ -163,5 +163,13 @@ namespace WpfWarden.Pages.SecurityPersonal
 
             Logger.Trace("Сотрудник ИБ перешёл на страницу добавления уровня доступа", currentUser);
         }
+
+        private void LVBlockedUsers_Selected(object sender, RoutedEventArgs e)
+        {
+            Users checkedUser = LVBlockedUsers.SelectedItem as Users;
+            PageManager.MainFrame.Navigate(new BlockedUserInfo(currentUser, checkedUser));
+
+            Logger.Trace($"Сотрудник ИБ перешёл на страницу переписки с пользователем {checkedUser.UserId} из чёрного списка", currentUser);
+        }
     }
 }
