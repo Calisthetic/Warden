@@ -43,6 +43,13 @@ namespace WpfWarden.Models
         public bool Gender { get; set; }
         [DefaultValue(false)]
         public bool IsVerify { get; set; }
+        public string IsVerifyText
+        {
+            get
+            {
+                return (IsVerify) ? "Да" : "Нет";
+            }
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BlockedUserMessages> BlockedUserMessages { get; set; }

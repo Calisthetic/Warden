@@ -9,41 +9,117 @@
       Title="BlockedUserInfo" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="1"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
-        </Grid.RowDefinitions>
-        <TextBlock x:Name="txtFIO" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 5" FontSize="20"></TextBlock>
-        <TextBlock x:Name="txtBlockedUserFIO" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5 0 0 5" FontSize="20"></TextBlock>
-        <Grid Grid.Row="1" Background="Black"></Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="1"></ColumnDefinition>
+            <ColumnDefinition Width="798"></ColumnDefinition>
+            <ColumnDefinition Width="1"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Background="Black"></Grid>
+        <Grid Grid.Column="3" Background="Black"></Grid>
 
-        <ListView IsEnabled="False" Grid.Row="2" x:Name="LVMessages" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Message}">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Foreground" Value="Black"></Setter>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding DestinationUserId}" Value="null">
-                                        <Setter Property="Foreground" Value="Blue"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Users1.Permission.Name}" Value="Специалист по ИБ">
-                                        <Setter Property="Foreground" Value="Red"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3">
-            <TextBox x:Name="txbMessageText" Width="640" FontSize="16" VerticalContentAlignment="Center" Margin="10"></TextBox>
-            <Button x:Name="btnSendMessage" Click="btnSendMessage_Click" Content="Отправить" Width="130" Margin="0 0 10 0"></Button>
-        </StackPanel>
+            <ListView Width="798" IsManipulationEnabled="False" x:Name="LVMessages" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="782">
+                            <Grid.Style>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Message}" Value="null">
+                                            <Setter Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Border BorderBrush="DimGray" BorderThickness="3">
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                                        <Setter Property="CornerRadius" Value="14 14 14 0"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
+                                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
+                                                <Setter Property="CornerRadius" Value="14 14 0 14"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid Margin="6">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="24"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <StackPanel.Style>
+                                            <Style TargetType="{x:Type StackPanel}">
+                                                <Setter Property="Visibility" Value="Visible"></Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <TextBlock Text="{Binding Users.SecondName}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Foreground" Value="DimGray"></Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
+                                                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text=" "></TextBlock>
+                                        <TextBlock Text="{Binding Users.FirstName}"></TextBlock>
+                                        <TextBlock Text=" - "></TextBlock>
+                                        <TextBlock Text="{Binding Users.Division.Name}"></TextBlock>
+                                    </StackPanel>
+                                    <TextBlock Foreground="Black" Text="{Binding Message}" FontSize="18" Grid.Row="0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="TextAlignment" Value="Left"></Setter>
+                                                <Setter Property="Margin" Value="0 20 0 0"></Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
+                                                        <Setter Property="TextAlignment" Value="Right"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
+                                                        <Setter Property="Margin" Value="0"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding Time, StringFormat=\{0:HH:mm\}}" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Foreground="DimGray"></TextBlock>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3">
+                <ComboBox BorderThickness="0" Background="Aqua" HorizontalAlignment="Left" Width="40" Margin="0 10" x:Name="cmbActions" SelectionChanged="cmbActions_SelectionChanged">
+                    <ComboBoxItem IsSelected="True" Content="≡︎" Visibility="Collapsed"></ComboBoxItem>
+                    <ComboBoxItem Content="Разблокировать"></ComboBoxItem>
+                    <ComboBoxItem Content="Удалить"></ComboBoxItem>
+                </ComboBox>
+                <TextBox BorderThickness="0" x:Name="txbMessageText" Width="520" FontSize="16" VerticalContentAlignment="Center" Margin="0 10"></TextBox>
+                <Button BorderThickness="0" x:Name="btnSendMessage" Click="btnSendMessage_Click" Content="➤" Width="30"></Button>
+            </StackPanel>
+        </Grid>
+
     </Grid>
 </Page>

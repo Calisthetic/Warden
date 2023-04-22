@@ -83,6 +83,7 @@ namespace WpfWarden.Pages.SecurityPersonal
             if (Visibility == Visibility.Visible)
             {
                 RefreshData();
+                ((MainWindow)Application.Current.MainWindow).txtTitle.Text = "Warden";
             }
         }
 
@@ -167,9 +168,13 @@ namespace WpfWarden.Pages.SecurityPersonal
         private void LVBlockedUsers_Selected(object sender, RoutedEventArgs e)
         {
             Users checkedUser = LVBlockedUsers.SelectedItem as Users;
+            try
+            {
+                Logger.Trace($"Сотрудник ИБ перешёл на страницу переписки с пользователем {checkedUser.UserId} из чёрного списка", currentUser);
+            }
+            catch { }
             PageManager.MainFrame.Navigate(new BlockedUserInfo(currentUser, checkedUser));
 
-            Logger.Trace($"Сотрудник ИБ перешёл на страницу переписки с пользователем {checkedUser.UserId} из чёрного списка", currentUser);
         }
     }
 }

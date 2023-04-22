@@ -15,31 +15,11 @@
             <Grid.Effect>
                 <DropShadowEffect Opacity="0.7" ShadowDepth="0" BlurRadius="5"/>
             </Grid.Effect>
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <LinearGradientBrush.RelativeTransform>
-                        <TransformGroup>
-                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
-                            <RotateTransform Angle="-62.354" CenterY="0.5" CenterX="0.5"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </LinearGradientBrush.RelativeTransform>
-                    <GradientStop Color="#FF7D00FF" Offset="0"/>
-                    <GradientStop Color="#FF000D7F" Offset="1"/>
-                    <!--<GradientStop Color="#AFAFEE" Offset="0"/>
-                    <GradientStop Color="#AFDAFC" Offset="1"/>-->
-                </LinearGradientBrush>
-            </Grid.Background>
+            <Grid Background="Blue"></Grid>
 
-            <Button x:Name="btnBack" Click="btnBack_Click" HorizontalAlignment="Right" Margin="0 0 10 0" Content="Назад">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"></Setter>
-                    </Style>
-                </Button.Resources>
-            </Button>
-            <TextBlock Foreground="White" Text="Warden" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+
+            <Button x:Name="btnBack" Click="btnBack_Click" HorizontalAlignment="Left" Margin="0 0" Height="50" Width="50" Content="❮" FontSize="24"></Button>
+            <TextBlock Foreground="White" x:Name="txtTitle" Text="Warden" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
         </Grid>
         <Frame Grid.Row="1" Name="MainFrame" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered"></Frame>
     </Grid>

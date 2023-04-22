@@ -39,13 +39,15 @@ namespace WpfWarden.Pages.SecurityPersonal
         {
             if (Visibility == Visibility.Visible)
             {
-                txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
-                    ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
-                txtBlockedUserFIO.Text = "Заблокированный пользователь: " + checkedUser.SecondName + " " + checkedUser.FirstName + " " +
-                    ((checkedUser.ThirdName == null) ? (" ") : (checkedUser.ThirdName));
                 txbMessageText.Text = string.Empty;
+                RefreshData();
+                ((MainWindow)Application.Current.MainWindow).txtTitle.Text =
+                    checkedUser.SecondName + " " + checkedUser.FirstName + " - " + checkedUser.Division.Name;
             }
-            RefreshData();
+            else
+            {
+                ((MainWindow)Application.Current.MainWindow).txtTitle.Text = "Warden";
+            }
         }
 
         private void RefreshData()
@@ -85,6 +87,53 @@ namespace WpfWarden.Pages.SecurityPersonal
                 RefreshData();
                 txbMessageText.Text = string.Empty;
             }
+        }
+
+        private void cmbActions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbActions.SelectedIndex == 1) 
+            { 
+                try
+                {
+                    if (MessageBox.Show("Вы действительно хотите разблокировать данного пользователя?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        checkedUser.IsBlocked = false;
+                        DBContext.db.SaveChanges();
+
+                        MessageBox.Show("Пользователь разблокирован");
+                        Logger.Trace($"Специалист по ИБ разблокировал пользователя с кодом {checkedUser.UserId}", currentUser);
+                        PageManager.MainFrame.GoBack();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+
+                    Logger.Error(ex, currentUser);
+                }
+            }
+            else if (cmbActions.SelectedIndex == 2)
+            {
+                try
+                {
+                    if (MessageBox.Show("Вы действительно хотите удалить данного пользователя?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        DBContext.db.Users.Remove(checkedUser);
+                        DBContext.db.SaveChanges();
+
+                        MessageBox.Show("Пользователь удалён");
+                        Logger.Trace($"Специалист по ИБ удалил пользователя с кодом {checkedUser.UserId}", currentUser);
+                        PageManager.MainFrame.GoBack();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+
+                    Logger.Error(ex, currentUser);
+                }
+            }
+            cmbActions.SelectedIndex = 0;
         }
     }
 }

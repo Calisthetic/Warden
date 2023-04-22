@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="BlockedUserPage" IsVisibleChanged="Page_IsVisibleChanged">
 
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="1"></RowDefinition>
@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="1" Width="780" Background="Black"></Grid>
 
-        <Grid Grid.Row="0">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="1"></ColumnDefinition>
@@ -25,6 +25,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="1" Background="Black"></Grid>
+            <Grid Grid.Column="3" Background="Black"></Grid>
 
 
             <ListView Width="780" IsEnabled="False" Grid.Column="2" x:Name="LVMessages" ScrollViewer.HorizontalScrollBarVisibility="Disabled">

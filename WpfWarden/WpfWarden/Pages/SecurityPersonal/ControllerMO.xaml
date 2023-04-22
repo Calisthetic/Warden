@@ -95,7 +95,7 @@
                                 <DataGridTextColumn Header="Отчество" Binding="{Binding ThirdName}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Должность" Binding="{Binding Division.Name}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Тип пользователя" Binding="{Binding Permission.Name}" IsReadOnly="True"/>
-                                <DataGridCheckBoxColumn Header="Верифицирован" Binding="{Binding IsVerify}" IsReadOnly="True"></DataGridCheckBoxColumn>
+                                <DataGridTextColumn Header="Верифицирован" Binding="{Binding IsVerifyText}" IsReadOnly="True"></DataGridTextColumn>
                                 <DataGridCheckBoxColumn Header="Заблокировать" Binding="{Binding IsBlocked}"></DataGridCheckBoxColumn>
                             </DataGrid.Columns>
                         </DataGrid>

@@ -1,12 +1,12 @@
 ﻿
 FC:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\App.xaml;;
 FC:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\MainWindow.xaml;;
+FC:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\Pages\AuthPages\BlockedUserPage.xaml;;
 FC:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\Pages\AuthPages\DefaultAuthPage.xaml;;
 FC:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\Pages\AuthPages\ForgotPasswordPage.xaml;;
 FC:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\Pages\SecurityPersonal\AddPermissionPage.xaml;;
 FC:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\Pages\SecurityPersonal\AdministratorPage.xaml;;
+FC:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\Pages\SecurityPersonal\BlockedUserInfo.xaml;;
 FC:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\Pages\SecurityPersonal\ControllerMO.xaml;;
 FC:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\Pages\SecurityPersonal\InfoSecurerPage.xaml;;
-FC:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\Pages\AuthPages\BlockedUserPage.xaml;;
-FC:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\Pages\SecurityPersonal\BlockedUserInfo.xaml;;
 

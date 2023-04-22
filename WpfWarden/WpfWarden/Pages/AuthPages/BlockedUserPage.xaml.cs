@@ -66,11 +66,9 @@ namespace WpfWarden.Pages.AuthPages
         {
             if (Visibility == Visibility.Visible)
             {
-                txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
-                    ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
                 txbMessageText.Text = string.Empty;
+                RefreshData();
             }
-            RefreshData();
         }
 
         private void RefreshData()
