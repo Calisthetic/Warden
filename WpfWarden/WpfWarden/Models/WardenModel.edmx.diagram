@@ -4,15 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f4af740ed31e4b25ab4cf4b5ccee4d65" Name="Diagram1">
-        <EntityTypeShape EntityType="WardenModel.Division" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="WardenModel.Logs" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="WardenModel.Order" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="WardenModel.Permission" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="WardenModel.Product" Width="1.5" PointX="7.5" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="WardenModel.ProductCategory" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="WardenModel.ProductEnterAct" Width="1.5" PointX="7.5" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="WardenModel.Users" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+      <Diagram DiagramId="2b56595673f34dd1a9d1d6823cdc6b6e" Name="Diagram1">
+        <EntityTypeShape EntityType="WardenModel.BlockedUserMessages" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WardenModel.Division" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WardenModel.Logs" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WardenModel.Order" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WardenModel.Permission" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WardenModel.Product" Width="1.5" PointX="7.5" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WardenModel.ProductCategory" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WardenModel.ProductEnterAct" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WardenModel.Users" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="WardenModel.FK_BlockedUserMessages_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="WardenModel.FK_BlockedUserMessages_Users1" ManuallyRouted="false" />
         <AssociationConnector Association="WardenModel.FK_Users_Division" ManuallyRouted="false" />
         <AssociationConnector Association="WardenModel.FK_Logs_Users" ManuallyRouted="false" />
         <AssociationConnector Association="WardenModel.FK_Order_Users" ManuallyRouted="false" />

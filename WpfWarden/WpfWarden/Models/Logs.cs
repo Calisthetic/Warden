@@ -39,7 +39,7 @@ namespace WpfWarden.Models
         [DefaultValue(null)]
         public string Exception { get; set; }
         public Nullable<int> UserId { get; set; }
-    
+
         public virtual Users Users { get; set; }
     }
 }

@@ -129,6 +129,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\BlockedUserMessages.cs">
+      <DependentUpon>WardenModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Division.cs">
       <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>

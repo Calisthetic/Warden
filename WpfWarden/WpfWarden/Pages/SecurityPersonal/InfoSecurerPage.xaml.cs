@@ -80,7 +80,10 @@ namespace WpfWarden.Pages.SecurityPersonal
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            RefreshData();
+            if (Visibility == Visibility.Visible)
+            {
+                RefreshData();
+            }
         }
 
 
@@ -93,6 +96,8 @@ namespace WpfWarden.Pages.SecurityPersonal
             permissions = DBContext.db.Permission.ToList();
             CmbRole.ItemsSource = permissions;
             DGPermissions.ItemsSource = permissions;
+
+            LVBlockedUsers.ItemsSource = DBContext.db.Users.Where(x => x.IsBlocked == true).ToList();
 
             txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " + 
                 ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));

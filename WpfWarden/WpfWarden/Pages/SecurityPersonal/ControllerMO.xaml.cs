@@ -46,14 +46,16 @@ namespace WpfWarden.Pages.SecurityPersonal
                 RefreshData();
                 usersToBlock = DBContext.db.Users.Where(x => x.IsBlocked == false).ToList();
                 DGUsers.ItemsSource = usersToBlock;
-                var logLevels = new List<Logs>();
-                logLevels.Add(new Logs { LogLevel = "Log level" });
-                logLevels.Add(new Logs { LogLevel = "Trace" });
-                logLevels.Add(new Logs { LogLevel = "Fatal" });
-                logLevels.Add(new Logs { LogLevel = "Error" });
-                logLevels.Add(new Logs { LogLevel = "Debug" });
-                logLevels.Add(new Logs { LogLevel = "Warn" });
-                logLevels.Add(new Logs { LogLevel = "Info" });
+                var logLevels = new List<Logs>
+                {
+                    new Logs { LogLevel = "Log level" },
+                    new Logs { LogLevel = "Trace" },
+                    new Logs { LogLevel = "Fatal" },
+                    new Logs { LogLevel = "Error" },
+                    new Logs { LogLevel = "Debug" },
+                    new Logs { LogLevel = "Warn" },
+                    new Logs { LogLevel = "Info" }
+                };
                 cmbLogLevels.ItemsSource = logLevels;
                 cmbLogLevels.SelectedIndex = 0;
             }
@@ -61,7 +63,7 @@ namespace WpfWarden.Pages.SecurityPersonal
 
         private void RefreshData()
         {
-            logs = DBContext.db.Logs.OrderByDescending(x => x.Logged).ToList();
+            logs = DBContext.db.Logs.OrderByDescending(x => x.Logged).Skip(1).ToList();
             pagesCount = (logs.Count() % logsOnPage == 0) ? (logs.Count() / logsOnPage) : ((logs.Count() / logsOnPage) + 1);
             txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
                 ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
@@ -127,24 +129,10 @@ namespace WpfWarden.Pages.SecurityPersonal
             }
         }
 
-        private void cmbLogLevels_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SearchLog();
-        }
-
-        private void txbUserId_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            SearchLog();
-        }
-
-        private void ckbShowOld_Checked(object sender, RoutedEventArgs e)
-        {
-            SearchLog();
-        }
 
         private void SearchLog()
         {
-            logs = DBContext.db.Logs.ToList();
+            logs = DBContext.db.Logs.Take(DBContext.db.Logs.Count() - 1).ToList();
             if (cmbLogLevels.SelectedIndex != 0) // Sort by log level
             {
                 Logs selectedLogLevel = cmbLogLevels.SelectedItem as Logs;
@@ -160,8 +148,31 @@ namespace WpfWarden.Pages.SecurityPersonal
             {
                 logs = logs.Where(x => x.UserId == result).ToList();
             }
+            if (!string.IsNullOrWhiteSpace(txbSearchInMessage.Text)) // Search in message or exception
+            {
+                logs = logs.Where(x => (x.Exception == null) ? (x.Message.ToLower().Contains(txbSearchInMessage.Text.ToLower())) // if Exception == null
+                : ((x.Message == null) ? (x.Exception.ToLower().Contains(txbSearchInMessage.Text.ToLower())) // if Message == null
+                : (x.Message.ToLower().Contains(txbSearchInMessage.Text.ToLower()) || x.Exception.ToLower().Contains(txbSearchInMessage.Text.ToLower())))).ToList();
+            }
             currentPageNumber = 0;
             RefreshLogsDataGrid();
+        }
+
+        private void cmbLogLevels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SearchLog();
+        }
+        private void txbUserId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchLog();
+        }
+        private void ckbShowOld_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchLog();
+        }
+        private void txbSearchInMessage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchLog();
         }
     }
 }

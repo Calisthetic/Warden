@@ -1,6 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="Хранилище WardenModelContainer" CdmEntityContainer="WardenEntities">
+    <EntitySetMapping Name="BlockedUserMessages">
+      <EntityTypeMapping TypeName="WardenModel.BlockedUserMessages">
+        <MappingFragment StoreEntitySet="BlockedUserMessages">
+          <ScalarProperty Name="BlockedUserMessageId" ColumnName="BlockedUserMessageId" />
+          <ScalarProperty Name="SendlerUserId" ColumnName="SendlerUserId" />
+          <ScalarProperty Name="DestinationUserId" ColumnName="DestinationUserId" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Division">
       <EntityTypeMapping TypeName="WardenModel.Division">
         <MappingFragment StoreEntitySet="Division">

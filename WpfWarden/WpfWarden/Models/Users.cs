@@ -18,6 +18,8 @@ namespace WpfWarden.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Users()
         {
+            this.BlockedUserMessages = new HashSet<BlockedUserMessages>();
+            this.BlockedUserMessages1 = new HashSet<BlockedUserMessages>();
             this.Logs = new HashSet<Logs>();
             this.Order = new HashSet<Order>();
             this.ProductEnterAct = new HashSet<ProductEnterAct>();
@@ -42,6 +44,10 @@ namespace WpfWarden.Models
         [DefaultValue(false)]
         public bool IsVerify { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BlockedUserMessages> BlockedUserMessages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BlockedUserMessages> BlockedUserMessages1 { get; set; }
         public virtual Division Division { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Logs> Logs { get; set; }

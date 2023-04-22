@@ -23,16 +23,26 @@
                 <TabItem.Content>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="80"></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="40"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="Код пользователя: " FontSize="18"></TextBlock>
-                            <TextBox x:Name="txbUserId" TextChanged="txbUserId_TextChanged" Width="60"></TextBox>
-                            <ComboBox x:Name="cmbLogLevels" DisplayMemberPath="LogLevel" SelectionChanged="cmbLogLevels_SelectionChanged"></ComboBox>
-                            <CheckBox x:Name="ckbShowOld" Checked="ckbShowOld_Checked" Unchecked="ckbShowOld_Checked" Content="Показать старые"></CheckBox>
-                        </StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center">
+                                <TextBlock Text="Код пользователя: " FontSize="18"></TextBlock>
+                                <TextBox x:Name="txbUserId" TextChanged="txbUserId_TextChanged" Width="60"></TextBox>
+                                <ComboBox Margin="20 0" x:Name="cmbLogLevels" DisplayMemberPath="LogLevel" SelectionChanged="cmbLogLevels_SelectionChanged"></ComboBox>
+                                <CheckBox x:Name="ckbShowOld" Checked="ckbShowOld_Checked" Unchecked="ckbShowOld_Checked" Content="Показать старые"></CheckBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center">
+                                <TextBlock Text="Поиск в сообщении:" FontSize="18"></TextBlock>
+                                <TextBox x:Name="txbSearchInMessage" TextChanged="txbSearchInMessage_TextChanged" Width="350"></TextBox>
+                            </StackPanel>
+                        </Grid>
                         <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" x:Name="DGLogs">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Платформа" Binding="{Binding MachineName}"></DataGridTextColumn>

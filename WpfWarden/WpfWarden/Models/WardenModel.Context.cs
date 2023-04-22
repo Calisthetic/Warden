@@ -25,6 +25,7 @@ namespace WpfWarden.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<BlockedUserMessages> BlockedUserMessages { get; set; }
         public virtual DbSet<Division> Division { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Order> Order { get; set; }

@@ -72,6 +72,17 @@
                     </Grid>
                 </TabItem.Content>
             </TabItem>
+            <TabItem Header="Заблокированные пользователи" FontSize="16">
+                <TabItem.Content>
+                    <ListView x:Name="LVBlockedUsers">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="4"></TextBlock>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </TabItem.Content>
+            </TabItem>
         </TabControl>
         <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 5 5 0" FontSize="20" x:Name="txtFIO"></TextBlock>
     </Grid>
