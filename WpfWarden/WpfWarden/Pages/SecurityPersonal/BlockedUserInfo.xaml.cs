@@ -25,6 +25,7 @@ namespace WpfWarden.Pages.SecurityPersonal
     {
         public static Users currentUser = new Users();
         private Users checkedUser = new Users();
+        private double currentScrollHeight = 0;
 
         public BlockedUserInfo(Users _currentUser, Users _checkedUser)
         {
@@ -57,6 +58,14 @@ namespace WpfWarden.Pages.SecurityPersonal
 
         private void btnSendMessage_Click(object sender, RoutedEventArgs e)
         {
+            SendMessage();
+        }
+        private void Page_KeyDown(object sender, KeyEventArgs e)
+        {
+            SendMessage();
+        }
+        private void SendMessage()
+        {
             if (string.IsNullOrWhiteSpace(txbMessageText.Text))
             {
                 MessageBox.Show("Введите сообщение");
@@ -83,6 +92,8 @@ namespace WpfWarden.Pages.SecurityPersonal
 
                 RefreshData();
                 txbMessageText.Text = string.Empty;
+                var scrollViewer = FindName("ScrollMessages");
+                ((ScrollViewer)scrollViewer)?.ScrollToBottom();
             }
         }
 
@@ -131,6 +142,17 @@ namespace WpfWarden.Pages.SecurityPersonal
                 }
             }
             cmbActions.SelectedIndex = 0;
+        }
+
+        private void LVMessages_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var scrollViewer = FindName("ScrollMessages");
+            currentScrollHeight -= e.Delta;
+            if (currentScrollHeight < 0)
+                currentScrollHeight = 0;
+            if (currentScrollHeight > ((ScrollViewer)scrollViewer)?.ScrollableHeight)
+                currentScrollHeight = (double)((ScrollViewer)scrollViewer)?.ScrollableHeight;
+            ((ScrollViewer)scrollViewer)?.ScrollToVerticalOffset((int)currentScrollHeight);
         }
     }
 }

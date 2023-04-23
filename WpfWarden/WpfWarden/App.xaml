@@ -10,7 +10,8 @@
             <Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
             <Setter Property="FontSize" Value="18"></Setter>
             <Setter Property="Cursor" Value="Hand"></Setter>
-            <Setter Property="Background" Value="#FF00F9FF"></Setter>
+            <Setter Property="Background" Value="#39a9ff"></Setter>
+            <!--<Setter Property="Background" Value="#FF00F9FF"></Setter>-->
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="18"></Setter>
