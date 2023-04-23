@@ -28,7 +28,7 @@
             <Grid Grid.Column="3" Background="Black"></Grid>
 
 
-            <ListView Width="780" IsEnabled="False" Grid.Column="2" x:Name="LVMessages" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView Width="780" IsManipulationEnabled="False" Grid.Column="2" x:Name="LVMessages" ScrollViewer.VerticalScrollBarVisibility="Disabled"  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Width="764">

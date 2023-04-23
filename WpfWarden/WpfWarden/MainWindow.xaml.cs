@@ -43,6 +43,10 @@ namespace WpfWarden
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             PageManager.MainFrame.GoBack();
+            if (MainFrame.Content.GetType().ToString().Split('.')[3] == "BlockedUserInfo")
+            {
+                Logger.Trace("Специалист по ИБ покинул страницу диалога с пользователем", Pages.SecurityPersonal.BlockedUserInfo.currentUser);
+            }
         }
     }
 }

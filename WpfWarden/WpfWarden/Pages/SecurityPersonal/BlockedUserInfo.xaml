@@ -12,7 +12,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="1"></ColumnDefinition>
-            <ColumnDefinition Width="798"></ColumnDefinition>
+            <ColumnDefinition Width="790"></ColumnDefinition>
             <ColumnDefinition Width="1"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -25,10 +25,10 @@
                 <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <ListView Width="798" IsManipulationEnabled="False" x:Name="LVMessages" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView Width="790" IsManipulationEnabled="False" x:Name="LVMessages" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="782">
+                        <Grid Width="774">
                             <Grid.Style>
                                 <Style TargetType="{x:Type Grid}">
                                     <Setter Property="Visibility" Value="Visible"></Setter>
@@ -110,15 +110,17 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3">
-                <ComboBox BorderThickness="0" Background="Aqua" HorizontalAlignment="Left" Width="40" Margin="0 10" x:Name="cmbActions" SelectionChanged="cmbActions_SelectionChanged">
-                    <ComboBoxItem IsSelected="True" Content="≡︎" Visibility="Collapsed"></ComboBoxItem>
-                    <ComboBoxItem Content="Разблокировать"></ComboBoxItem>
-                    <ComboBoxItem Content="Удалить"></ComboBoxItem>
-                </ComboBox>
-                <TextBox BorderThickness="0" x:Name="txbMessageText" Width="520" FontSize="16" VerticalContentAlignment="Center" Margin="0 10"></TextBox>
-                <Button BorderThickness="0" x:Name="btnSendMessage" Click="btnSendMessage_Click" Content="➤" Width="30"></Button>
-            </StackPanel>
+            <Border Grid.Row="3" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3">
+                    <ComboBox BorderThickness="0" Background="Aqua" HorizontalAlignment="Left" Width="40" Margin="10 10 0 10" x:Name="cmbActions" SelectionChanged="cmbActions_SelectionChanged">
+                        <ComboBoxItem IsSelected="True" Content="≡︎" Visibility="Collapsed"></ComboBoxItem>
+                        <ComboBoxItem Content="Разблокировать"></ComboBoxItem>
+                        <ComboBoxItem Content="Удалить"></ComboBoxItem>
+                    </ComboBox>
+                    <TextBox Background="#fff" BorderThickness="0" x:Name="txbMessageText" Width="520" FontSize="16" VerticalContentAlignment="Center" Margin="0 10"></TextBox>
+                    <Button BorderThickness="0" x:Name="btnSendMessage" Click="btnSendMessage_Click" Content="➤" Width="30" Margin="0 0 10 0"></Button>
+                </StackPanel>
+            </Border>
         </Grid>
 
     </Grid>

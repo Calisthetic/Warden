@@ -259,7 +259,9 @@
       <DependentUpon>WardenModel.edmx</DependentUpon>
       <LastGenOutput>WardenModel.cs</LastGenOutput>
     </Content>
-    <None Include="Resources\MenuIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

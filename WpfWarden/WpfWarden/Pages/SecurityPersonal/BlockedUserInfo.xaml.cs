@@ -23,7 +23,7 @@ namespace WpfWarden.Pages.SecurityPersonal
     /// </summary>
     public partial class BlockedUserInfo : Page
     {
-        private Users currentUser = new Users();
+        public static Users currentUser = new Users();
         private Users checkedUser = new Users();
 
         public BlockedUserInfo(Users _currentUser, Users _checkedUser)
@@ -43,10 +43,7 @@ namespace WpfWarden.Pages.SecurityPersonal
                 RefreshData();
                 ((MainWindow)Application.Current.MainWindow).txtTitle.Text =
                     checkedUser.SecondName + " " + checkedUser.FirstName + " - " + checkedUser.Division.Name;
-            }
-            else
-            {
-                ((MainWindow)Application.Current.MainWindow).txtTitle.Text = "Warden";
+                ((MainWindow)Application.Current.MainWindow).txtTitle.FontSize = 26;
             }
         }
 

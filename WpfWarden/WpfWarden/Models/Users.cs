@@ -12,6 +12,7 @@ namespace WpfWarden.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq;
 
     public partial class Users
     {
@@ -49,6 +50,21 @@ namespace WpfWarden.Models
             {
                 return (IsVerify) ? "Да" : "Нет";
             }
+        }
+        public int UncheckedMessagesCount { get
+            {
+                // Последнее время входа сотрудника ИБ
+                DateTime lastLogged = Classes.DBContext.db.Logs.Where(x => x.Users.Permission.Name == "Специалист по ИБ").OrderByDescending(x => x.Logged).Skip(1).FirstOrDefault().Logged;
+                //DateTime lastLogged = Classes.DBContext.db.Logs.Where(x => x.Users.Permission.Name == "Специалист по ИБ"
+                //&& x.Message.Contains($"Сотрудник ИБ перешёл на страницу переписки с пользователем {UserId} из чёрного списка")).OrderByDescending(x => x.Logged).FirstOrDefault().Logged;
+                // Кол-во сообщений с того времени
+                return Classes.DBContext.db.BlockedUserMessages.Where(x => x.Time > lastLogged && x.SendlerUserId == UserId).Count();
+            } 
+        }
+        public BlockedUserMessages LastMessage { get
+            {
+                return Classes.DBContext.db.BlockedUserMessages.Where(x => x.SendlerUserId == UserId || x.DestinationUserId == UserId).OrderByDescending(x => x.Time).First();
+            } 
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

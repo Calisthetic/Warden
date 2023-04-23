@@ -51,6 +51,7 @@ namespace WpfWarden.Pages.AuthPages
             {
                 cmbDivisions.ItemsSource = DBContext.db.Division.ToList();
                 cmbDivisions.SelectedIndex = 1;
+                txbLogin.Text = string.Empty;
             }
         }
     }

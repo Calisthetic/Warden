@@ -18,8 +18,8 @@
             <Grid Background="Blue"></Grid>
 
 
-            <Button x:Name="btnBack" Click="btnBack_Click" HorizontalAlignment="Left" Margin="0 0" Height="50" Width="50" Content="❮" FontSize="24"></Button>
-            <TextBlock Foreground="White" x:Name="txtTitle" Text="Warden" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+            <Button x:Name="btnBack" Click="btnBack_Click" BorderThickness="0" HorizontalAlignment="Left" Margin="0 0" Height="50" Width="50" Content="❮" FontSize="24"></Button>
+            <TextBlock Foreground="White" x:Name="txtTitle" Text="Warden" FontFamily="Bahnschrift Light" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
         </Grid>
         <Frame Grid.Row="1" Name="MainFrame" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered"></Frame>
     </Grid>
