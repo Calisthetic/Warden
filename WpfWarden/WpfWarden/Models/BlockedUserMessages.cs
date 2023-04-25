@@ -23,20 +23,7 @@ namespace WpfWarden.Models
         [DefaultValue(null)]
         public Nullable<int> DestinationUserId { get; set; }
         public string Message { get; set; }
-        private Nullable<DateTime> dateTimeNow = null;
-        public System.DateTime Time
-        {
-            get
-            {
-                return this.dateTimeNow.HasValue
-                    ? this.dateTimeNow.Value
-                    : DateTime.Now;
-            }
-            set
-            {
-                this.dateTimeNow = value;
-            }
-        }
+        public System.DateTime Time { get; set; } = DateTime.Now;
         public int UncheckedMessagesCount
         {
             get

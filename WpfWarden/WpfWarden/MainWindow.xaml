@@ -11,15 +11,14 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid Panel.ZIndex="10">
             <Grid.Effect>
                 <DropShadowEffect Opacity="0.7" ShadowDepth="0" BlurRadius="5"/>
             </Grid.Effect>
-            <Grid Background="Blue"></Grid>
+            <Grid Background="#2267ff"></Grid>
 
-
-            <Button x:Name="btnBack" Click="btnBack_Click" BorderThickness="0" HorizontalAlignment="Left" Margin="0 0" Height="50" Width="50" Content="❮" FontSize="24"></Button>
-            <TextBlock Foreground="White" x:Name="txtTitle" Text="Warden" FontFamily="Bahnschrift Light" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+            <Button x:Name="btnBack" Click="btnBack_Click" Background="#2247ff" BorderThickness="0 0 0 0" BorderBrush="Black" HorizontalAlignment="Left" Margin="0 0" Height="50" Width="50" Content="❮" FontSize="24"></Button>
+            <TextBlock Foreground="White" FontWeight="Bold" x:Name="txtTitle" Text="Warden" FontFamily="Bahnschrift Light" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
         </Grid>
         <Frame Grid.Row="1" Name="MainFrame" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered"></Frame>
     </Grid>

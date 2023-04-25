@@ -43,31 +43,31 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Grid.Style>
-                                    <Border BorderBrush="DimGray" BorderThickness="0">
+                                    <Border MaxWidth="666" BorderBrush="DimGray" BorderThickness="0">
                                         <Border.Style>
                                             <Style TargetType="{x:Type Border}">
                                                 <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-                                                <Setter Property="CornerRadius" Value="14 14 14 0"></Setter>
+                                                <Setter Property="CornerRadius" Value="12 12 12 0"></Setter>
                                                 <Setter Property="Background" Value="#a0d6ff"></Setter>
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
                                                         <Setter Property="HorizontalAlignment" Value="Right"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
-                                                        <Setter Property="CornerRadius" Value="14 14 0 14"/>
+                                                        <Setter Property="CornerRadius" Value="12 12 0 12"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
-                                                        <Setter Property="Background" Value="#39a9ff"/>
+                                                        <Setter Property="Background" Value="#22aeff"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </Border.Style>
-                                        <Grid Margin="6">
+                                        <Grid Margin="0 0 0 0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition></RowDefinition>
-                                                <RowDefinition Height="24"></RowDefinition>
+                                                <RowDefinition></RowDefinition>
                                             </Grid.RowDefinitions>
-                                            <TextBlock Foreground="Black" Text="{Binding Message}" FontSize="18" Grid.Row="0">
+                                            <TextBlock TextWrapping="Wrap" Foreground="Black" Text="{Binding Message}" Margin="6 2 6 0" FontSize="18" Grid.Row="0">
                                                 <TextBlock.Style>
                                                     <Style TargetType="{x:Type TextBlock}">
                                                         <Setter Property="TextAlignment" Value="Left"></Setter>
@@ -79,7 +79,18 @@
                                                     </Style>
                                                 </TextBlock.Style>
                                             </TextBlock>
-                                            <TextBlock Text="{Binding Time, StringFormat=\{0:HH:mm\}}" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Foreground="DimGray"></TextBlock>
+                                            <TextBlock Text="{Binding Time, StringFormat=\{0:HH:mm\}}" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Foreground="DimGray">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Margin" Value="2 0 5 2"></Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
+                                                                <Setter Property="Margin" Value="5 0 4 2"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
                                         </Grid>
                                     </Border>
                                 </Grid>
@@ -88,15 +99,15 @@
                     </ListView>
                 </StackPanel>
             </ScrollViewer>
-            <Border Grid.Row="3" BorderThickness="1 1 1 1" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black">
+            <Border Grid.Row="3" BorderThickness="0 1 0 1" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black">
                 <StackPanel Orientation="Horizontal" Grid.Row="3">
-                    <ComboBox BorderThickness="0" Background="Aqua" HorizontalAlignment="Left" Width="40" Margin="0" x:Name="cmbActions" SelectionChanged="cmbActions_SelectionChanged">
-                        <ComboBoxItem IsSelected="True" Content="≡︎" Visibility="Collapsed"></ComboBoxItem>
+                    <ComboBox BorderThickness="0" Background="Aqua" HorizontalAlignment="Left" FontSize="20" VerticalContentAlignment="Center" Width="48" Margin="0" x:Name="cmbActions" SelectionChanged="cmbActions_SelectionChanged">
+                        <ComboBoxItem FontSize="28" IsSelected="True" Content="☰" Visibility="Collapsed"></ComboBoxItem>
                         <ComboBoxItem Content="Разблокировать"></ComboBoxItem>
                         <ComboBoxItem Content="Удалить"></ComboBoxItem>
                     </ComboBox>
-                    <TextBox Background="#fff" BorderThickness="0" x:Name="txbMessageText" Width="520" FontSize="16" VerticalContentAlignment="Center" Margin="0 0"></TextBox>
-                    <Button Background="White" Foreground="#FF094D74" BorderThickness="0" x:Name="btnSendMessage" Click="btnSendMessage_Click" Content="➤" Width="30" Margin="0 0 0 0">
+                    <TextBox Padding="10 0 0 0" Background="#fff" BorderThickness="0" x:Name="txbMessageText" Width="694" FontSize="16" VerticalContentAlignment="Center"></TextBox>
+                    <Button Background="White" Foreground="#FF094D74" BorderThickness="0" x:Name="btnSendMessage" Click="btnSendMessage_Click" FontSize="30" Height="48" Content="➤" Width="48">
                     </Button>
                 </StackPanel>
             </Border>

@@ -17,7 +17,7 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="50"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" x:Name="DGUsersForVerify" IsReadOnly="False">
+                        <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" x:Name="DGUsersForVerify" IsReadOnly="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Фамилия" Binding="{Binding SecondName}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" IsReadOnly="True"/>
@@ -49,7 +49,7 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="50"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid AutoGenerateColumns="False" IsReadOnly="False" x:Name="DGPermissions">
+                        <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="False" x:Name="DGPermissions">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Код" Binding="{Binding PermissionId}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
@@ -82,25 +82,26 @@
                         </ListView.ItemsPanel>-->
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Border Width="600" Height="68" CornerRadius="16">
-                                    <Grid Margin="10">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="24"></RowDefinition>
-                                            <RowDefinition Height="24"></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock FontSize="18" Foreground="#FFBF0000" Text="{Binding SecondName}"></TextBlock>
-                                            <TextBlock FontSize="18" Foreground="#FFBF0000" Text=" "></TextBlock>
-                                            <TextBlock FontSize="18" Foreground="#FFBF0000" Text="{Binding FirstName}"></TextBlock>
-                                            <TextBlock FontSize="18" Foreground="#FFBF0000" Text=" "></TextBlock>
-                                            <TextBlock FontSize="18" Foreground="#FFBF0000" Text="{Binding ThirdName}"></TextBlock>
-                                            <TextBlock FontSize="18" Foreground="#FFBF0000" Text=" - "></TextBlock>
-                                            <TextBlock Grid.Row="4" FontSize="18" Text="{Binding Division.Name}" Foreground="#FFBF0000"></TextBlock>
-                                        </StackPanel>
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
-                                            <Border Background="red" Width="24" Height="24" VerticalAlignment="Top" CornerRadius="12">
-                                                <Border.Style>
-                                                    <Style TargetType="{x:Type Border}">
+                                <Border Width="680" Height="68">
+                                    <Grid Margin="8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Background="#2247ff" Width="30" Height="30" VerticalAlignment="Center" CornerRadius="15">
+                                            <Border.Style>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding UncheckedMessagesCount}" Value="0">
+                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <TextBlock FontSize="14" Foreground="White" FontWeight="Bold"  VerticalAlignment="Center" TextAlignment="Center" Text="{Binding UncheckedMessagesCount}">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
                                                         <Setter Property="Visibility" Value="Visible"></Setter>
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding UncheckedMessagesCount}" Value="0">
@@ -108,48 +109,49 @@
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
-                                                </Border.Style>
-                                                <TextBlock FontSize="18" TextAlignment="Center" Text="{Binding UncheckedMessagesCount}">
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Border>
+                                        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="4 0 0 0">
+                                            <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text="{Binding SecondName}"></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text=" "></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text="{Binding FirstName}"></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text=" "></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text="{Binding ThirdName}"></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text=" - "></TextBlock>
+                                                <TextBlock FontSize="18" Text="{Binding Division.Name}" Foreground="#2247ff"></TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="2 2 0 0">
+                                                <TextBlock>
                                                     <TextBlock.Style>
-                                                    <Style TargetType="{x:Type TextBlock}">
-                                                        <Setter Property="Visibility" Value="Visible"></Setter>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding UncheckedMessagesCount}" Value="0">
-                                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="Text" Value="  Вы: "></Setter>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding LastMessage.DestinationUserId}" Value="{x:Null}">
+                                                                    <Setter Property="Text" Value=" "/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding LastMessage.Message}" Value="{x:Null}">
+                                                                    <Setter Property="Text" Value=" "/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
                                                 </TextBlock>
-                                            </Border>
-                                            <TextBlock>
-                                                <TextBlock.Style>
-                                                    <Style TargetType="{x:Type TextBlock}">
-                                                        <Setter Property="Text" Value=" Вы: "></Setter>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding LastMessage.DestinationUserId}" Value="{x:Null}">
-                                                                <Setter Property="Text" Value=" "/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding LastMessage.Message}" Value="{x:Null}">
-                                                                <Setter Property="Text" Value=" "/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
-                                            <TextBlock>
-                                                <TextBlock.Style>
-                                                    <Style TargetType="{x:Type TextBlock}">
-                                                        <Setter Property="Text" Value="{Binding LastMessage.Message, StringFormat={} {0}}"></Setter>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding LastMessage.Message}" Value="{x:Null}">
-                                                                <Setter Property="Text" Value="Пока что здесь нет сообщений..."/>
-                                                                <Setter Property="Foreground" Value="#555"></Setter>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
+                                                <TextBlock>
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="Text" Value="{Binding LastMessage.Message, StringFormat={} {0}}"></Setter>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding LastMessage.Message}" Value="{x:Null}">
+                                                                    <Setter Property="Text" Value=" Пока что здесь нет сообщений..."/>
+                                                                    <Setter Property="Foreground" Value="#555"></Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </StackPanel>
                                         </StackPanel>
                                     </Grid>
                                 </Border>

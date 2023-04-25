@@ -7,7 +7,6 @@
         <Style TargetType="Button">
             <Setter Property="Height" Value="30"></Setter>
             <Setter Property="Width" Value="150"></Setter>
-            <Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
             <Setter Property="FontSize" Value="18"></Setter>
             <Setter Property="Cursor" Value="Hand"></Setter>
             <Setter Property="Background" Value="#39a9ff"></Setter>
@@ -22,9 +21,6 @@
         <Style TargetType="CheckBox">
             <Setter Property="FontSize" Value="18"></Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-        </Style>
-        <Style TargetType="TabItem">
-            <Setter Property="FontFamily" Value="Comic Sans MS"></Setter>
         </Style>
     </Application.Resources>
 </Application>

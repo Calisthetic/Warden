@@ -9,24 +9,10 @@
       Title="DefaultAuthPage" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid>
-        <Border CornerRadius="20" Width="400" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border Background="#2227cc" CornerRadius="20" Width="400" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Border.Effect>
                 <DropShadowEffect Direction="315" ShadowDepth="1" BlurRadius="10" Opacity="0.7" RenderingBias="Performance"/>
             </Border.Effect>
-            <Border.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <LinearGradientBrush.RelativeTransform>
-                        <TransformGroup>
-                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
-                            <RotateTransform Angle="135" CenterY="0.5" CenterX="0.5"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </LinearGradientBrush.RelativeTransform>
-                    <GradientStop Color="#FF2B0082"/>
-                    <GradientStop Color="#FF4606C7" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
             <StackPanel Margin="10">
                 <TextBlock Text="Логин:" Foreground="White" FontSize="20"></TextBlock>
                 <TextBox x:Name="txbLogin" FontSize="18"></TextBox>
@@ -43,7 +29,7 @@
                         </Style>
                     </Button.Resources>
                 </Button>
-                <Button x:Name="btnForgotPassword" Width="150" Cursor="Hand" Content="Забыли пароль?" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#39a9ff" FontSize="16" Margin="0 14" BorderThickness="0" FontStyle="Italic" Click="btnForgotPassword_Click">
+                <Button x:Name="btnForgotPassword" Width="150" Cursor="Hand" Content="Забыли пароль?" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FFCBF4FF" FontSize="18" Margin="0 14" BorderThickness="0" FontStyle="Italic" Click="btnForgotPassword_Click">
                     <Button.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="#3D5754"/>

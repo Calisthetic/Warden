@@ -34,6 +34,15 @@ namespace WpfWarden.Pages.SecurityPersonal
                 currentUser = _currentUser;
             if (_checkedUser != null)
                 checkedUser = _checkedUser;
+            try
+            {
+                MessageBox.Show(checkedUser.Division.Name);
+                if (checkedUser.Division.Name != null)
+                {
+                    ((MainWindow)Application.Current.MainWindow).txtTitle.Text = checkedUser.SecondName + " " + checkedUser.FirstName + " - " + checkedUser.Division.Name;
+                    ((MainWindow)Application.Current.MainWindow).txtTitle.FontSize = 26;
+                }
+            } catch { }
         }
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -42,9 +51,6 @@ namespace WpfWarden.Pages.SecurityPersonal
             {
                 txbMessageText.Text = string.Empty;
                 RefreshData();
-                ((MainWindow)Application.Current.MainWindow).txtTitle.Text =
-                    checkedUser.SecondName + " " + checkedUser.FirstName + " - " + checkedUser.Division.Name;
-                ((MainWindow)Application.Current.MainWindow).txtTitle.FontSize = 26;
             }
         }
 
@@ -62,13 +68,18 @@ namespace WpfWarden.Pages.SecurityPersonal
         }
         private void Page_KeyDown(object sender, KeyEventArgs e)
         {
-            SendMessage();
+            if (e.Key.ToString() == "Return") 
+                SendMessage();
         }
         private void SendMessage()
         {
             if (string.IsNullOrWhiteSpace(txbMessageText.Text))
             {
                 MessageBox.Show("Введите сообщение");
+            }
+            else if (txbMessageText.Text.Length > 255)
+            {
+                MessageBox.Show($"В вашем сообщении слишком много символов {txbMessageText.Text} > 255");
             }
             else
             {
@@ -124,13 +135,23 @@ namespace WpfWarden.Pages.SecurityPersonal
             {
                 try
                 {
-                    if (MessageBox.Show("Вы действительно хотите удалить данного пользователя?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (MessageBox.Show("Вы действительно хотите удалить пользователя и все упоминания о нём?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
+                        var deletedUserMessages = DBContext.db.BlockedUserMessages.Where(x => x.DestinationUserId == checkedUser.UserId || x.SendlerUserId == checkedUser.UserId).ToList();
+                        for (int i = 0; i < deletedUserMessages.Count; i++)
+                        {
+                            DBContext.db.BlockedUserMessages.Remove(deletedUserMessages[i]);
+                        }
+                        var deletedUserLogs = DBContext.db.Logs.Where(x => x.UserId == checkedUser.UserId).ToList();
+                        for (int i = 0; i < deletedUserLogs.Count; i++)
+                        {
+                            DBContext.db.Logs.Remove(deletedUserLogs[i]);
+                        }
                         DBContext.db.Users.Remove(checkedUser);
                         DBContext.db.SaveChanges();
 
-                        MessageBox.Show("Пользователь удалён");
-                        Logger.Trace($"Специалист по ИБ удалил пользователя с кодом {checkedUser.UserId}", currentUser);
+                        MessageBox.Show("Пользователь и все его данные удалены");
+                        Logger.Warn($"Специалист по ИБ удалил пользователя с кодом {checkedUser.UserId}", currentUser);
                         PageManager.MainFrame.GoBack();
                     }
                 }

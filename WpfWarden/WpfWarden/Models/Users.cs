@@ -54,15 +54,19 @@ namespace WpfWarden.Models
         public int UncheckedMessagesCount { get
             {
                 // Последнее время входа сотрудника ИБ
-                DateTime lastLogged = Classes.DBContext.db.Logs.Where(x => x.Users.Permission.Name == "Специалист по ИБ").OrderByDescending(x => x.Logged).Skip(1).FirstOrDefault().Logged;
-                //DateTime lastLogged = Classes.DBContext.db.Logs.Where(x => x.Users.Permission.Name == "Специалист по ИБ"
-                //&& x.Message.Contains($"Сотрудник ИБ перешёл на страницу переписки с пользователем {UserId} из чёрного списка")).OrderByDescending(x => x.Logged).FirstOrDefault().Logged;
+                // DateTime lastLogged = Classes.DBContext.db.Logs.Where(x => x.Users.Permission.Name == "Специалист по ИБ").OrderByDescending(x => x.Logged).Skip(1).FirstOrDefault().Logged;
+                // Если Сотрудник по ИБ никогда не заходил на страницу
+                if (Classes.DBContext.db.Logs.AsEnumerable().Where(x => x.Message.Contains($"Сотрудник ИБ перешёл на страницу переписки с пользователем {UserId} из чёрного списка") == true).Count() == 0)
+                    return Classes.DBContext.db.BlockedUserMessages.Where(x => x.SendlerUserId == UserId).Count();
+                DateTime lastLogged = Classes.DBContext.db.Logs.AsEnumerable().Where(x => x.Message.Contains($"Сотрудник ИБ перешёл на страницу переписки с пользователем {UserId} из чёрного списка") == true).OrderByDescending(x => x.Logged).FirstOrDefault().Logged;
                 // Кол-во сообщений с того времени
                 return Classes.DBContext.db.BlockedUserMessages.Where(x => x.Time > lastLogged && x.SendlerUserId == UserId).Count();
             } 
         }
         public BlockedUserMessages LastMessage { get
             {
+                if (Classes.DBContext.db.BlockedUserMessages.Where(x => x.SendlerUserId == UserId || x.DestinationUserId == UserId).OrderByDescending(x => x.Time).Count() == 0)
+                    return new BlockedUserMessages() { Time=DateTime.Parse("2022-02-22 22:22:22") };
                 return Classes.DBContext.db.BlockedUserMessages.Where(x => x.SendlerUserId == UserId || x.DestinationUserId == UserId).OrderByDescending(x => x.Time).First();
             } 
         }

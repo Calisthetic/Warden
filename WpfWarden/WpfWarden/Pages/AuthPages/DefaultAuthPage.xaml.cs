@@ -52,6 +52,8 @@ namespace WpfWarden.Pages.AuthPages
                 cmbDivisions.ItemsSource = DBContext.db.Division.ToList();
                 cmbDivisions.SelectedIndex = 1;
                 txbLogin.Text = string.Empty;
+                ((MainWindow)Application.Current.MainWindow).txtTitle.Text = "Warden";
+                ((MainWindow)Application.Current.MainWindow).txtTitle.FontSize = 30;
             }
         }
     }

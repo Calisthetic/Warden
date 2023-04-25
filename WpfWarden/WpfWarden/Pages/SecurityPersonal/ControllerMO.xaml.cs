@@ -25,7 +25,7 @@ namespace WpfWarden.Pages.SecurityPersonal
     {
         private Users currentUser = new Users();
         private List<Logs> logs= new List<Logs>();
-        private int logsOnPage = 10;
+        private int logsOnPage = 12;
         private int pagesCount;
         private int currentPageNumber = 0;
 
@@ -58,22 +58,17 @@ namespace WpfWarden.Pages.SecurityPersonal
                 };
                 cmbLogLevels.ItemsSource = logLevels;
                 cmbLogLevels.SelectedIndex = 0;
+                txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
+                    ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
+                logs = DBContext.db.Logs.OrderByDescending(x => x.Logged).Skip(1).ToList();
+                pagesCount = (logs.Count() % logsOnPage == 0) ? (logs.Count() / logsOnPage) : ((logs.Count() / logsOnPage) + 1);
             }
         }
 
         private void RefreshData()
         {
-            logs = DBContext.db.Logs.OrderByDescending(x => x.Logged).Skip(1).ToList();
-            pagesCount = (logs.Count() % logsOnPage == 0) ? (logs.Count() / logsOnPage) : ((logs.Count() / logsOnPage) + 1);
-            txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
-                ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
-
-            RefreshLogsDataGrid();
-        }
-        private void RefreshLogsDataGrid()
-        {
             DGLogs.ItemsSource = logs.Skip(currentPageNumber * logsOnPage).Take(logsOnPage).ToList();
-            txbPageNow.Text = (currentPageNumber + 1).ToString();
+            txbPageNow.Text = (currentPageNumber + 1) + "/" + pagesCount;
         }
 
         private void btnPagePlus_Click(object sender, RoutedEventArgs e)
@@ -81,7 +76,7 @@ namespace WpfWarden.Pages.SecurityPersonal
             if (currentPageNumber < pagesCount - 1)
             {
                 currentPageNumber++;
-                RefreshLogsDataGrid();
+                RefreshData();
             }
         }
         private void btnPageMinus_Click(object sender, RoutedEventArgs e)
@@ -89,7 +84,7 @@ namespace WpfWarden.Pages.SecurityPersonal
             if (currentPageNumber > 0)
             {
                 currentPageNumber--;
-                RefreshLogsDataGrid();
+                RefreshData();
             }
         }
 
@@ -115,7 +110,7 @@ namespace WpfWarden.Pages.SecurityPersonal
                     DGUsers.ItemsSource = usersToBlock;
                     RefreshData();
 
-                    Logger.Trace($"Контролёр МО заблокировал {blockedUsersCount} пользователей", currentUser);
+                    Logger.Warn($"Контролёр МО заблокировал {blockedUsersCount} пользователей", currentUser);
                 }
                 else
                 {
@@ -155,7 +150,8 @@ namespace WpfWarden.Pages.SecurityPersonal
                 : (x.Message.ToLower().Contains(txbSearchInMessage.Text.ToLower()) || x.Exception.ToLower().Contains(txbSearchInMessage.Text.ToLower())))).ToList();
             }
             currentPageNumber = 0;
-            RefreshLogsDataGrid();
+            pagesCount = (logs.Count() % logsOnPage == 0) ? (logs.Count() / logsOnPage) : ((logs.Count() / logsOnPage) + 1);
+            RefreshData();
         }
 
         private void cmbLogLevels_SelectionChanged(object sender, SelectionChangedEventArgs e)

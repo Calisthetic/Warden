@@ -104,11 +104,11 @@ namespace WpfWarden.Pages.SecurityPersonal
             {
                 for (int j = 0; j < blockedUsers.Count - i - 1; j++)
                 {
-                    if (blockedUsers[j].UncheckedMessagesCount < blockedUsers[j+1].UncheckedMessagesCount)
+                    if (blockedUsers[j].LastMessage.Time < blockedUsers[j + 1].LastMessage.Time)
                     {
                         Users temp = blockedUsers[j];
-                        blockedUsers[j] = blockedUsers[j+1];
-                        blockedUsers[j+1] = temp;
+                        blockedUsers[j] = blockedUsers[j + 1];
+                        blockedUsers[j + 1] = temp;
                     }
                 }
             }
@@ -188,10 +188,13 @@ namespace WpfWarden.Pages.SecurityPersonal
             Users checkedUser = LVBlockedUsers.SelectedItem as Users;
             try
             {
-                Logger.Trace($"Сотрудник ИБ перешёл на страницу переписки с пользователем {checkedUser.UserId} из чёрного списка", currentUser);
+                if (checkedUser != null)
+                {
+                    Logger.Trace($"Сотрудник ИБ перешёл на страницу переписки с пользователем {checkedUser.UserId} из чёрного списка", currentUser);
+                    PageManager.MainFrame.Navigate(new BlockedUserInfo(currentUser, checkedUser));
+                }
             }
-            catch { }
-            PageManager.MainFrame.Navigate(new BlockedUserInfo(currentUser, checkedUser));
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
 
         }
     }

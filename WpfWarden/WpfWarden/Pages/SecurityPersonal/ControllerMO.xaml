@@ -43,7 +43,7 @@
                                 <TextBox x:Name="txbSearchInMessage" TextChanged="txbSearchInMessage_TextChanged" Width="350"></TextBox>
                             </StackPanel>
                         </Grid>
-                        <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" x:Name="DGLogs">
+                        <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" x:Name="DGLogs">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Платформа" Binding="{Binding MachineName}"></DataGridTextColumn>
                                 <DataGridTextColumn Header="Уровень" Binding="{Binding LogLevel}"></DataGridTextColumn>
@@ -55,11 +55,17 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <ComboBox IsReadOnly="True" IsEditable="False" IsManipulationEnabled="False">
-                                                <ComboBoxItem HorizontalContentAlignment="Center" Content="{Binding Users.UserId, StringFormat=Код: {0:N1}}"></ComboBoxItem>
-                                                <ComboBoxItem HorizontalContentAlignment="Center" Content="{Binding Users.SecondName}"></ComboBoxItem>
-                                                <ComboBoxItem HorizontalContentAlignment="Center" Content="{Binding Users.FirstName}"></ComboBoxItem>
-                                                <ComboBoxItem HorizontalContentAlignment="Center" Content="{Binding Users.ThirdName}"></ComboBoxItem>
-                                                <ComboBoxItem HorizontalContentAlignment="Center" IsSelected="True" Content="{Binding Users.Permission.Name}"></ComboBoxItem>
+                                                <ComboBoxItem HorizontalContentAlignment="Left">
+                                                    <ComboBoxItem.Content>
+                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                            <TextBlock FontSize="18" Text="{Binding Users.UserId, StringFormat=Код: {0}}"></TextBlock>
+                                                        </StackPanel>
+                                                    </ComboBoxItem.Content>
+                                                </ComboBoxItem>
+                                                <ComboBoxItem HorizontalContentAlignment="Left" Content="{Binding Users.SecondName}"></ComboBoxItem>
+                                                <ComboBoxItem HorizontalContentAlignment="Left" Content="{Binding Users.FirstName}"></ComboBoxItem>
+                                                <ComboBoxItem HorizontalContentAlignment="Left" Content="{Binding Users.ThirdName}"></ComboBoxItem>
+                                                <ComboBoxItem HorizontalContentAlignment="Left" IsSelected="True" Content="{Binding Users.Permission.Name}"></ComboBoxItem>
                                                 <CheckBox HorizontalContentAlignment="Center" IsChecked="{Binding Users.IsVerify}" Content="Верифицирован(а)"></CheckBox>
                                             </ComboBox>
                                         </DataTemplate>
@@ -87,7 +93,7 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="40"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="False" x:Name="DGUsers">
+                        <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="False" x:Name="DGUsers">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Код" Binding="{Binding UserId}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Фамилия" Binding="{Binding SecondName}" IsReadOnly="True"/>
