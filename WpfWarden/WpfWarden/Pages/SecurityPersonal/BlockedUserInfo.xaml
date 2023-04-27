@@ -29,7 +29,7 @@
             <ScrollViewer x:Name="ScrollMessages" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                 <StackPanel>
                     
-                    <ListView BorderThickness="0" Margin="0 0 0 1" PreviewMouseWheel="LVMessages_PreviewMouseWheel" Width="790" IsManipulationEnabled="False" x:Name="LVMessages">
+                    <ListView ScrollViewer.CanContentScroll="False" BorderThickness="0" Margin="0 0 0 1" PreviewMouseWheel="LVMessages_PreviewMouseWheel" Width="790" IsManipulationEnabled="False" x:Name="LVMessages">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Width="774">

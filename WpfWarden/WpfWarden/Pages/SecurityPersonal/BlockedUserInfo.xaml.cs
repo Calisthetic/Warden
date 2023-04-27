@@ -36,7 +36,6 @@ namespace WpfWarden.Pages.SecurityPersonal
                 checkedUser = _checkedUser;
             try
             {
-                MessageBox.Show(checkedUser.Division.Name);
                 if (checkedUser.Division.Name != null && checkedUser != null)
                 {
                     ((MainWindow)Application.Current.MainWindow).txtTitle.Text = checkedUser.SecondName + " " + checkedUser.FirstName + " - " + checkedUser.Division.Name;
