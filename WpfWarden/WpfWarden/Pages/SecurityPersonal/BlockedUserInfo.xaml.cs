@@ -37,7 +37,7 @@ namespace WpfWarden.Pages.SecurityPersonal
             try
             {
                 MessageBox.Show(checkedUser.Division.Name);
-                if (checkedUser.Division.Name != null)
+                if (checkedUser.Division.Name != null && checkedUser != null)
                 {
                     ((MainWindow)Application.Current.MainWindow).txtTitle.Text = checkedUser.SecondName + " " + checkedUser.FirstName + " - " + checkedUser.Division.Name;
                     ((MainWindow)Application.Current.MainWindow).txtTitle.FontSize = 26;
@@ -149,6 +149,7 @@ namespace WpfWarden.Pages.SecurityPersonal
                         }
                         DBContext.db.Users.Remove(checkedUser);
                         DBContext.db.SaveChanges();
+                        checkedUser = null;
 
                         MessageBox.Show("Пользователь и все его данные удалены");
                         Logger.Warn($"Специалист по ИБ удалил пользователя с кодом {checkedUser.UserId}", currentUser);
