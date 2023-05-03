@@ -197,6 +197,7 @@
     <Compile Include="Models\ProductEnterAct.cs">
       <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ResponseUsersMessage.cs" />
     <Compile Include="Models\Users.cs">
       <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>

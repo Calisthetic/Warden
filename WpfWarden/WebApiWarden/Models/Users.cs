@@ -46,29 +46,6 @@ namespace WebApiWarden.Models
                 return (IsVerify) ? "Да" : "Нет";
             }
         }
-        public int UncheckedMessagesCount
-        {
-            get
-            {
-                // Последнее время входа сотрудника ИБ
-                // DateTime lastLogged = Classes.DBContext.db.Logs.Where(x => x.Users.Permission.Name == "Специалист по ИБ").OrderByDescending(x => x.Logged).Skip(1).FirstOrDefault().Logged;
-                // Если Сотрудник по ИБ никогда не заходил на страницу
-                if (Classes.DBContext.db.Logs.AsEnumerable().Where(x => x.Message.Contains($"Сотрудник ИБ перешёл на страницу переписки с пользователем {UserId} из чёрного списка") == true).Count() == 0)
-                    return Classes.DBContext.db.BlockedUserMessages.Where(x => x.SendlerUserId == UserId).Count();
-                DateTime lastLogged = Classes.DBContext.db.Logs.AsEnumerable().Where(x => x.Message.Contains($"Сотрудник ИБ перешёл на страницу переписки с пользователем {UserId} из чёрного списка") == true).OrderByDescending(x => x.Logged).FirstOrDefault().Logged;
-                // Кол-во сообщений с того времени
-                return Classes.DBContext.db.BlockedUserMessages.Where(x => x.Time > lastLogged && x.SendlerUserId == UserId).Count();
-            }
-        }
-        public string LastMessage
-        {
-            get
-            {
-                if (Classes.DBContext.db.BlockedUserMessages.Where(x => x.SendlerUserId == UserId || x.DestinationUserId == UserId).OrderByDescending(x => x.Time).Count() == 0)
-                    return "Пока что здесь нет сообщений...";
-                return Classes.DBContext.db.BlockedUserMessages.Where(x => x.SendlerUserId == UserId || x.DestinationUserId == UserId).OrderByDescending(x => x.Time).First().Message;
-            }
-        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]
