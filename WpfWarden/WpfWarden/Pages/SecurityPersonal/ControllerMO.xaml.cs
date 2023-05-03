@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -37,16 +39,8 @@ namespace WpfWarden.Pages.SecurityPersonal
             InitializeComponent();
             if (_currentUser != null)
                 currentUser = _currentUser;
-        }
 
-        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (Visibility == Visibility.Visible)
-            {
-                RefreshData();
-                usersToBlock = DBContext.db.Users.Where(x => x.IsBlocked == false).ToList();
-                DGUsers.ItemsSource = usersToBlock;
-                var logLevels = new List<Logs>
+            var logLevels = new List<Logs>
                 {
                     new Logs { LogLevel = "Log level" },
                     new Logs { LogLevel = "Trace" },
@@ -56,8 +50,18 @@ namespace WpfWarden.Pages.SecurityPersonal
                     new Logs { LogLevel = "Warn" },
                     new Logs { LogLevel = "Info" }
                 };
-                cmbLogLevels.ItemsSource = logLevels;
-                cmbLogLevels.SelectedIndex = 0;
+            cmbLogLevels.ItemsSource = logLevels;
+            cmbLogLevels.SelectedIndex = 0;
+        }
+
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Visible)
+            {
+                RefreshData();
+                usersToBlock = DBContext.db.Users.Where(x => x.IsBlocked == false).ToList();
+                DGUsers.ItemsSource = usersToBlock;
+
                 txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
                     ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
                 logs = DBContext.db.Logs.OrderByDescending(x => x.Logged).Skip(1).ToList();

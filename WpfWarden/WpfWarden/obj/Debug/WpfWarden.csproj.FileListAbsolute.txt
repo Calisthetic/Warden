@@ -32,8 +32,6 @@ C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\bin\Debug\Newtonsoft.Json
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\bin\Debug\EntityFramework.xml
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\bin\Debug\Newtonsoft.Json.xml
-C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\bin\Debug\ru\EntityFramework.resources.dll
-C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\WpfWarden.csproj.AssemblyReference.cache
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\WpfWarden.csproj.SuggestedBindingRedirects.cache
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWarden\obj\Debug\MainWindow.g.cs
