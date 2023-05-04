@@ -17,9 +17,30 @@ namespace WebApiWarden.Controllers
         private WardenEntities db = new WardenEntities();
 
         // GET: api/Users
+        //public IQueryable<Users> GetUsers()
+        //{
+        //    return db.Users;
+        //}
+
+        [Route("api/Users")]
         public IQueryable<Users> GetUsers()
         {
             return db.Users;
+        }
+        [Route("api/Users")]
+        public IQueryable<Users> GetVerifiedUsers(bool IsVerify)
+        {
+            return db.Users.Where(x => x.IsVerify == IsVerify);
+        }
+        [Route("api/Users")]
+        public IQueryable<Users> GetBlockedUsers(bool IsBlocked)
+        {
+            return db.Users.Where(x => x.IsBlocked == IsBlocked);
+        }
+        [Route("api/Users")]
+        public Users GetAuthUsers(string login, string password, int divisionId)
+        {
+            return db.Users.FirstOrDefault(x => x.Login == login && x.Password == password && x.DivisionId == divisionId);
         }
 
         // http://localhost:54491/api/UsersMessages

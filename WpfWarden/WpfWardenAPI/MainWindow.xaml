@@ -1,0 +1,25 @@
+﻿<Window x:Class="WpfWardenAPI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfWardenAPI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Panel.ZIndex="10">
+            <Grid.Effect>
+                <DropShadowEffect Opacity="0.7" ShadowDepth="0" BlurRadius="5"/>
+            </Grid.Effect>
+            <Grid Background="#2267ff"></Grid>
+
+            <Button x:Name="btnBack" Click="btnBack_Click" Background="#2247ff" BorderThickness="0 0 0 0" BorderBrush="Black" HorizontalAlignment="Left" Margin="0 0" Height="50" Width="50" Content="❮" FontSize="24"></Button>
+            <TextBlock Foreground="White" FontWeight="Bold" x:Name="txtTitle" Text="Warden" FontFamily="Bahnschrift Light" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+        </Grid>
+        <Frame Grid.Row="1" Name="MainFrame" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered"></Frame>
+    </Grid>
+</Window>

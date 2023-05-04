@@ -165,6 +165,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Classes\DBContext.cs" />
     <Compile Include="Controllers\BlockedUserMessagesController.cs" />
+    <Compile Include="Controllers\DivisionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Models\Logs.cs">
       <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Messages.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>WardenModel.tt</DependentUpon>
     </Compile>

@@ -22,18 +22,31 @@ namespace WebApiWarden.Controllers
             return db.BlockedUserMessages;
         }
 
-        // GET: api/BlockedUserMessages/5
+        [Route("api/Messages")]
         [ResponseType(typeof(BlockedUserMessages))]
-        public IHttpActionResult GetBlockedUserMessages(int id)
+        public IHttpActionResult GetBlockedUserMessages(int userId)
         {
-            BlockedUserMessages blockedUserMessages = db.BlockedUserMessages.Find(id);
-            if (blockedUserMessages == null)
+            List<Messages> blockedUserMessages = db.BlockedUserMessages.Where(x => x.SendlerUserId == userId || x.DestinationUserId == userId).ToList().ConvertAll(x => new Messages(x));
+            if (blockedUserMessages.Count == 0)
             {
                 return NotFound();
             }
 
             return Ok(blockedUserMessages);
         }
+
+        // GET: api/BlockedUserMessages/5
+        //[ResponseType(typeof(BlockedUserMessages))]
+        //public IHttpActionResult GetBlockedUserMessages(int id)
+        //{
+        //    BlockedUserMessages blockedUserMessages = db.BlockedUserMessages.Find(id);
+        //    if (blockedUserMessages == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(blockedUserMessages);
+        //}
 
         // PUT: api/BlockedUserMessages/5
         [ResponseType(typeof(void))]

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "jViU/hVeVdAPdXQXoMOc7Nz3SgcRu7YZWwkiXQN8EUUDRv23vOqsbWRkevDb8r9fVcZIxSrua7BumBo3Y1gwLQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\admin\\Source\\Repos\\Warden\\WpfWarden\\WpfWardenAPI\\WpfWardenAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\admin\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -36,6 +36,7 @@ namespace WpfWarden.Classes
             else
             {
                 Classes.PageManager.MainFrame.Navigate(new Pages.AuthPages.BlockedUserPage(currentUser));
+                Logger.Logger.Trace("Заблокированный пользователь перешёл на страницу переписки", currentUser);
             }
         }
     }

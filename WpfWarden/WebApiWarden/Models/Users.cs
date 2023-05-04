@@ -13,6 +13,7 @@ namespace WebApiWarden.Models
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.Remoting.Messaging;
 
     public partial class Users
     {
@@ -36,6 +37,7 @@ namespace WebApiWarden.Models
         public int DivisionId { get; set; }
         public string DivisionName { get { return Division.Name; } }
         public Nullable<int> PermissionId { get; set; }
+        public string PermissionName { get { return (PermissionId == null) ? (null) : (Permission.Name); } }
         public bool IsBlocked { get; set; }
         public bool Gender { get; set; }
         public bool IsVerify { get; set; }
@@ -43,7 +45,7 @@ namespace WebApiWarden.Models
         {
             get
             {
-                return (IsVerify) ? "Да" : "Нет";
+                return (IsVerify) ? "Верифицирован" : "Не верифицирован";
             }
         }
 
