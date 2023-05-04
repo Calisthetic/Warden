@@ -36,27 +36,71 @@ namespace WpfWardenAPI.Pages.AuthPages
             Logger.Trace("Пользователь перешёл на страницу входа без пароля");
         }
 
-        private void btnEntry_Click(object sender, RoutedEventArgs e)
+        private async void btnEntry_Click(object sender, RoutedEventArgs e)
         {
             Division selectedDivision = cmbDivisions.SelectedItem as Division;
-            string result = APIContext.GetString("Users?login=" + txbLogin + "&password=" + psbPassword + "&divisionId" + selectedDivision.DivisionId).ToString();
-            MessageBox.Show(result);
-            Users currentUser = JsonConvert.DeserializeObject<Users>(result);
-            if (currentUser != null)
-                Classes.Authorizating.Entry(currentUser);
-            else
-                MessageBox.Show("Пользователь не найден!\nВозможно данные были введены некорректно");
+
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:54491/api/");
+                var responseTask = client.GetAsync("Users?login=" + txbLogin.Text + "&password=" + psbPassword.Password + "&divisionId=" + selectedDivision.DivisionId);
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsStringAsync();
+                    readTask.Wait();
+
+                    var resultString = readTask.Result;
+
+                    Users currentUser = JsonConvert.DeserializeObject<Users>(resultString);
+                    if (currentUser != null)
+                        Classes.Authorizating.Entry(currentUser);
+                    else
+                        MessageBox.Show("Пользователь не найден!\nКажется что-то пошло не так...");
+                }
+                else 
+                    MessageBox.Show("Пользователь не найден!\nВозможно данные были введены некорректно");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private async void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (Visibility == Visibility.Visible)
             {
-                cmbDivisions.ItemsSource = JsonConvert.DeserializeObject<List<Division>>(APIContext.GetString("Divisions").ToString());
-                cmbDivisions.SelectedIndex = 1;
+                try
+                {
+                    var client = new HttpClient();
+                    client.BaseAddress = new Uri("http://localhost:54491/api/");
+                    var responseTask = client.GetAsync("Divisions");
+                    responseTask.Wait();
+
+                    var result = responseTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var readTask = result.Content.ReadAsStringAsync();
+                        readTask.Wait();
+
+                        var resultString = readTask.Result;
+
+                        cmbDivisions.ItemsSource = JsonConvert.DeserializeObject<List<Division>>(resultString);
+                        cmbDivisions.SelectedIndex = 1;
+                    }
+                    else
+                        MessageBox.Show("Не получилось найти данные...");
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
+
                 txbLogin.Text = string.Empty;
-                ((MainWindow)Application.Current.MainWindow).txtTitle.Text = "Warden";
-                ((MainWindow)Application.Current.MainWindow).txtTitle.FontSize = 30;
+                psbPassword.Password = string.Empty;
+                if (Application.Current.MainWindow != null)
+                {
+                    ((MainWindow)Application.Current.MainWindow).txtTitle.Text = "Warden";
+                    ((MainWindow)Application.Current.MainWindow).txtTitle.FontSize = 30;
+                }
             }
         }
     }

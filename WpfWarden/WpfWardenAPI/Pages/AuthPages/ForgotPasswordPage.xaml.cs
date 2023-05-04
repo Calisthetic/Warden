@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -58,12 +59,35 @@ namespace WpfWardenAPI.Pages.AuthPages
                 MessageBox.Show(errors.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private async void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (Visibility == Visibility.Visible)
             {
-                cmbDivisions.ItemsSource = JsonConvert.DeserializeObject<List<Division>>(APIContext.GetString("Divisions").ToString());
-                cmbDivisions.SelectedIndex = 0;
+                try
+                {
+                    var client = new HttpClient();
+                    client.BaseAddress = new Uri("http://localhost:54491/api/");
+                    var responseTask = client.GetAsync("Divisions");
+                    responseTask.Wait();
+
+                    var result = responseTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var readTask = result.Content.ReadAsStringAsync();
+                        readTask.Wait();
+
+                        var resultString = readTask.Result;
+
+                        cmbDivisions.ItemsSource = JsonConvert.DeserializeObject<List<Division>>(resultString);
+                        cmbDivisions.SelectedIndex = 0;
+                    }
+                    else
+                        MessageBox.Show("Не получилось найти данные...");
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+                txbNames.Text = string.Empty;
+                txbSecretWord.Text = string.Empty;
             }
         }
     }

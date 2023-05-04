@@ -38,9 +38,14 @@ namespace WebApiWarden.Controllers
             return db.Users.Where(x => x.IsBlocked == IsBlocked);
         }
         [Route("api/Users")]
-        public Users GetAuthUsers(string login, string password, int divisionId)
+        [ResponseType(typeof(Users))]
+        public IHttpActionResult GetAuthUsers(string login, string password, int divisionId)
         {
-            return db.Users.FirstOrDefault(x => x.Login == login && x.Password == password && x.DivisionId == divisionId);
+            Users user = db.Users.FirstOrDefault(x => x.Login == login && x.Password == password && x.DivisionId == divisionId);
+            if (user == null)
+                return NotFound();
+            else
+                return Ok(user);
         }
 
         // http://localhost:54491/api/UsersMessages
