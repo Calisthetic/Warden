@@ -35,19 +35,10 @@ namespace WebApiWarden.Models
         public string Password { get; set; }
         public string SecretWord { get; set; }
         public int DivisionId { get; set; }
-        public string DivisionName { get { return Division.Name; } }
         public Nullable<int> PermissionId { get; set; }
-        public string PermissionName { get { return (PermissionId == null) ? (null) : (Permission.Name); } }
         public bool IsBlocked { get; set; }
         public bool Gender { get; set; }
         public bool IsVerify { get; set; }
-        public string IsVerifyText
-        {
-            get
-            {
-                return (IsVerify) ? "Верифицирован" : "Не верифицирован";
-            }
-        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]

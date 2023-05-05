@@ -29,7 +29,7 @@
                         </Style>
                     </Button.Resources>
                 </Button>
-                <Button x:Name="btnForgotPassword" Width="150" Cursor="Hand" Content="Забыли пароль?" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FFCBF4FF" FontSize="18" Margin="0 14" BorderThickness="0" FontStyle="Italic" Click="btnForgotPassword_Click">
+                <Button Visibility="Collapsed" x:Name="btnForgotPassword" Width="150" Cursor="Hand" Content="Забыли пароль?" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FFCBF4FF" FontSize="18" Margin="0 14" BorderThickness="0" FontStyle="Italic" Click="btnForgotPassword_Click">
                     <Button.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="#3D5754"/>

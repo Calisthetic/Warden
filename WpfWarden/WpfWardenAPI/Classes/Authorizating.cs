@@ -17,8 +17,8 @@ namespace WpfWardenAPI.Classes
                 switch (currentUser.PermissionName)
                 {
                     case "Администратор доступа":
-                        //Classes.PageManager.MainFrame.Navigate(new Pages.SecurityPersonal.AdministratorPage(currentUser));
-                        //Logger.Logger.Trace("Пользователь вошёл в систему", currentUser);
+                        Classes.PageManager.MainFrame.Navigate(new Pages.SecurityPersonal.AdministratorPage(currentUser));
+                        Logger.Logger.Trace("Пользователь вошёл в систему", currentUser);
                         break;
                     case "Специалист по ИБ":
                         //Classes.PageManager.MainFrame.Navigate(new Pages.SecurityPersonal.InfoSecurerPage(currentUser));
@@ -35,7 +35,7 @@ namespace WpfWardenAPI.Classes
             }
             else
             {
-                //Classes.PageManager.MainFrame.Navigate(new Pages.AuthPages.BlockedUserPage(currentUser));
+                Classes.PageManager.MainFrame.Navigate(new Pages.AuthPages.BlockedUserPage(currentUser));
             }
         }
     }

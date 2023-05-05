@@ -9,6 +9,7 @@
 
 namespace WebApiWarden.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -19,8 +20,10 @@ namespace WebApiWarden.Models
         public Nullable<int> DestinationUserId { get; set; }
         public string Message { get; set; }
         public System.DateTime Time { get; set; }
-    
+
+        [JsonIgnore]
         public virtual Users Users { get; set; }
+        [JsonIgnore]
         public virtual Users Users1 { get; set; }
     }
 }

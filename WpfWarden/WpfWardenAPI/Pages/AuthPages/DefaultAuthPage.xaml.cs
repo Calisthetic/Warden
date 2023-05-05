@@ -36,7 +36,7 @@ namespace WpfWardenAPI.Pages.AuthPages
             Logger.Trace("Пользователь перешёл на страницу входа без пароля");
         }
 
-        private async void btnEntry_Click(object sender, RoutedEventArgs e)
+        private void btnEntry_Click(object sender, RoutedEventArgs e)
         {
             Division selectedDivision = cmbDivisions.SelectedItem as Division;
 
@@ -44,7 +44,7 @@ namespace WpfWardenAPI.Pages.AuthPages
             {
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("http://localhost:54491/api/");
-                var responseTask = client.GetAsync("Users?login=" + txbLogin.Text + "&password=" + psbPassword.Password + "&divisionId=" + selectedDivision.DivisionId);
+                var responseTask = client.GetAsync("AuthUsers?login=" + txbLogin.Text + "&password=" + psbPassword.Password + "&divisionId=" + selectedDivision.DivisionId);
                 responseTask.Wait();
 
                 var result = responseTask.Result;
@@ -67,7 +67,7 @@ namespace WpfWardenAPI.Pages.AuthPages
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private async void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (Visibility == Visibility.Visible)
             {
@@ -87,7 +87,7 @@ namespace WpfWardenAPI.Pages.AuthPages
                         var resultString = readTask.Result;
 
                         cmbDivisions.ItemsSource = JsonConvert.DeserializeObject<List<Division>>(resultString);
-                        cmbDivisions.SelectedIndex = 1;
+                        cmbDivisions.SelectedIndex = 0;
                     }
                     else
                         MessageBox.Show("Не получилось найти данные...");

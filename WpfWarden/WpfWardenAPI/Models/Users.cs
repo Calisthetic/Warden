@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfWardenAPI.Models
 {
-    class Users
+    public partial class Users
     {
         public int UserId { get; set; }
         public string FirstName { get; set; }
@@ -15,9 +15,7 @@ namespace WpfWardenAPI.Models
         public string Login { get; set; }
         public string Password { get; set; }
         public string SecretWord { get; set; }
-        public int DivisionId { get; set; }
         public string DivisionName { get; set; }
-        public Nullable<int> PermissionId { get; set; }
         public string PermissionName { get; set; }
         public bool IsBlocked { get; set; }
         public bool Gender { get; set; }

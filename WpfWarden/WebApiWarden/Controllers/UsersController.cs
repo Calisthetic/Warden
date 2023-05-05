@@ -16,45 +16,43 @@ namespace WebApiWarden.Controllers
     {
         private WardenEntities db = new WardenEntities();
 
-        // GET: api/Users
-        //public IQueryable<Users> GetUsers()
-        //{
-        //    return db.Users;
-        //}
-
-        [Route("api/Users")]
+        //GET: api/Users
         public IQueryable<Users> GetUsers()
         {
             return db.Users;
         }
-        [Route("api/Users")]
-        public IQueryable<Users> GetVerifiedUsers(bool IsVerify)
+
+        //[Route("api/Users")]
+        //public IQueryable<Users> GetUsers()
+        //{
+        //    return db.Users;
+        //}
+        //[Route("api/Users")]
+        //public IQueryable<Users> GetVerifiedUsers(bool IsVerify)
+        //{
+        //    return db.Users.Where(x => x.IsVerify == IsVerify);
+        //}
+        //[Route("api/Users")]
+        //public IQueryable<Users> GetBlockedUsers(bool IsBlocked)
+        //{
+        //    return db.Users.Where(x => x.IsBlocked == IsBlocked);
+        //}
+
+        [Route("api/AuthUsers")]
+        //[ResponseType(typeof(Users))]
+        public UserResponse GetAuthUsers(string login, string password, int divisionId)
         {
-            return db.Users.Where(x => x.IsVerify == IsVerify);
-        }
-        [Route("api/Users")]
-        public IQueryable<Users> GetBlockedUsers(bool IsBlocked)
-        {
-            return db.Users.Where(x => x.IsBlocked == IsBlocked);
-        }
-        [Route("api/Users")]
-        [ResponseType(typeof(Users))]
-        public IHttpActionResult GetAuthUsers(string login, string password, int divisionId)
-        {
-            Users user = db.Users.FirstOrDefault(x => x.Login == login && x.Password == password && x.DivisionId == divisionId);
-            if (user == null)
-                return NotFound();
-            else
-                return Ok(user);
+            UserResponse user = db.Users.Where(x => x.Login == login && x.Password == password && x.DivisionId == divisionId).ToList().ConvertAll(x => new UserResponse(x)).FirstOrDefault();
+            return user;
         }
 
-        // http://localhost:54491/api/UsersMessages
-        [Route("api/UsersMessages")]
-        [ResponseType(typeof(Users))]
-        public IHttpActionResult GetUsersMessages()
-        {
-            return Ok(db.Users.Where(x => x.IsBlocked == true).ToList().ConvertAll(p => new ResponseUsersMessage(p)));
-        }
+        //// http://localhost:54491/api/UsersMessages
+        //[Route("api/UsersMessages")]
+        //[ResponseType(typeof(Users))]
+        //public IHttpActionResult GetUsersMessages()
+        //{
+        //    return Ok(db.Users.Where(x => x.IsBlocked == true).ToList().ConvertAll(p => new ResponseUsersMessage(p)));
+        //}
 
         // GET: api/Users/5
         [ResponseType(typeof(Users))]
@@ -108,10 +106,12 @@ namespace WebApiWarden.Controllers
         [ResponseType(typeof(Users))]
         public IHttpActionResult PostUsers(Users users)
         {
-            if (!ModelState.IsValid)
-            {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            if (users == null)
                 return BadRequest(ModelState);
-            }
 
             db.Users.Add(users);
             db.SaveChanges();
