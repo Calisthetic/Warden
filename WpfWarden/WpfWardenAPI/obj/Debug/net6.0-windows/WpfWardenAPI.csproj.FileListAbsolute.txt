@@ -37,3 +37,4 @@ C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWardenAPI\obj\Debug\net6.0-windo
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWardenAPI\obj\Debug\net6.0-windows\WpfWardenAPI.pdb
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWardenAPI\obj\Debug\net6.0-windows\WpfWardenAPI.genruntimeconfig.cache
 C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWardenAPI\obj\Debug\net6.0-windows\ref\WpfWardenAPI.dll
+C:\Users\admin\Source\Repos\Warden\WpfWarden\WpfWardenAPI\obj\Debug\net6.0-windows\App.baml

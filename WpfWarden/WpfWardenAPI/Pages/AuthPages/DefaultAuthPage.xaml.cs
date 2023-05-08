@@ -87,7 +87,7 @@ namespace WpfWardenAPI.Pages.AuthPages
                         var resultString = readTask.Result;
 
                         cmbDivisions.ItemsSource = JsonConvert.DeserializeObject<List<Division>>(resultString);
-                        cmbDivisions.SelectedIndex = 0;
+                        cmbDivisions.SelectedIndex = 2;
                     }
                     else
                         MessageBox.Show("Не получилось найти данные...");

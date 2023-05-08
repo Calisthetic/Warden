@@ -27,16 +27,16 @@ namespace WebApiWarden.Controllers
         //{
         //    return db.Users;
         //}
-        //[Route("api/Users")]
-        //public IQueryable<Users> GetVerifiedUsers(bool IsVerify)
-        //{
-        //    return db.Users.Where(x => x.IsVerify == IsVerify);
-        //}
-        //[Route("api/Users")]
-        //public IQueryable<Users> GetBlockedUsers(bool IsBlocked)
-        //{
-        //    return db.Users.Where(x => x.IsBlocked == IsBlocked);
-        //}
+        [Route("api/UsersByVerify")]
+        public List<UserResponse> GetVerifiedUsers(bool IsVerify = true)
+        {
+            return db.Users.Where(x => x.IsVerify == IsVerify).ToList().ConvertAll(x => new UserResponse(x));
+        }
+        [Route("api/UsersByBlock")]
+        public List<UserResponse> GetBlockedUsers(bool IsBlocked = false)
+        {
+            return db.Users.Where(x => x.IsBlocked == IsBlocked).ToList().ConvertAll(x => new UserResponse(x));
+        }
 
         [Route("api/AuthUsers")]
         //[ResponseType(typeof(Users))]

@@ -36,7 +36,7 @@
                                 <TextBlock Text="Код пользователя: " FontSize="18"></TextBlock>
                                 <TextBox x:Name="txbUserId" TextChanged="txbUserId_TextChanged" Width="60"></TextBox>
                                 <ComboBox Margin="20 0" x:Name="cmbLogLevels" DisplayMemberPath="LogLevel" SelectionChanged="cmbLogLevels_SelectionChanged"></ComboBox>
-                                <CheckBox x:Name="ckbShowOld" Checked="ckbShowOld_Checked" Unchecked="ckbShowOld_Checked" Content="Показать старые"></CheckBox>
+                                <CheckBox x:Name="ckbShowOld" VerticalContentAlignment="Center" Checked="ckbShowOld_Checked" Unchecked="ckbShowOld_Checked" Content="Показать старые"></CheckBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center">
                                 <TextBlock Text="Поиск в сообщении:" FontSize="18"></TextBlock>
@@ -99,8 +99,8 @@
                                 <DataGridTextColumn Header="Фамилия" Binding="{Binding SecondName}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Отчество" Binding="{Binding ThirdName}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Должность" Binding="{Binding Division.Name}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Тип пользователя" Binding="{Binding Permission.Name}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Должность" Binding="{Binding DivisionName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Тип пользователя" Binding="{Binding PermissionName}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Верифицирован" Binding="{Binding IsVerifyText}" IsReadOnly="True"></DataGridTextColumn>
                                 <DataGridCheckBoxColumn Header="Заблокировать" Binding="{Binding IsBlocked}"></DataGridCheckBoxColumn>
                             </DataGrid.Columns>

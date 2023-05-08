@@ -4,6 +4,23 @@
              xmlns:local="clr-namespace:WpfWardenAPI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Width" Value="150"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Cursor" Value="Hand"></Setter>
+            <Setter Property="Background" Value="#39a9ff"></Setter>
+            <!--<Setter Property="Background" Value="#FF00F9FF"></Setter>-->
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

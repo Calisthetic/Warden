@@ -18,10 +18,11 @@ namespace WebApiWarden.Models
             this.Login = user.Login;
             this.SecretWord = user.SecretWord;
             this.DivisionName = user.Division.Name;
-            this.PermissionName = user.Permission.Name;
+            this.PermissionName = (user.Permission == null)?(null):(user.Permission.Name);
             this.IsBlocked = user.IsBlocked;
             this.IsVerify = user.IsVerify;
-            this.Gender = user.Gender; 
+            this.Gender = user.Gender;
+            this.IsVerifyText = user.IsVerify ? "Верифицирован" : "Не верифицирован";
         }
 
         public int UserId { get; set; }

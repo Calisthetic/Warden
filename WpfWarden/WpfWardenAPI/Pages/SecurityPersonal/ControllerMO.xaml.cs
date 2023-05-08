@@ -31,7 +31,7 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
         private int pagesCount;
         private int currentPageNumber = 0;
 
-
+        List<Users> usersToBlockPoint = new List<Users>();
         List<Users> usersToBlock = new List<Users>();
 
         public ControllerMO(Users _currentUser)
@@ -58,38 +58,24 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
         {
             if (Visibility == Visibility.Visible)
             {
-                //usersToBlock = DBContext.db.Users.Where(x => x.IsBlocked == false).ToList();
-                //DGUsers.ItemsSource = usersToBlock;
+                string notBlockedUsers = APIContext.Get("UsersByBlock");
+                if (!string.IsNullOrEmpty(notBlockedUsers))
+                {
+                    usersToBlock = JsonConvert.DeserializeObject<List<Users>>(notBlockedUsers);
+                    usersToBlockPoint = JsonConvert.DeserializeObject<List<Users>>(APIContext.Get("UsersByBlock"));
+                    DGUsers.ItemsSource = usersToBlock;
+                }
 
                 txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
                     ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
 
-                var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:54491/api/");
-                var responseTask = client.GetAsync("Logs?skip=0&take=1000");
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
+                string tempLogs = APIContext.Get("Logs?take=1000");
+                if (!string.IsNullOrEmpty(tempLogs))
                 {
-                    var readTask = result.Content.ReadAsStringAsync();
-                    readTask.Wait();
-
-                    var resultString = readTask.Result;
-
-                    logs = JsonConvert.DeserializeObject<List<Logs>>(resultString);
+                    logs = JsonConvert.DeserializeObject<List<Logs>>(tempLogs);
+                    pagesCount = (logs.Count() % logsOnPage == 0) ? (logs.Count() / logsOnPage) : ((logs.Count() / logsOnPage) + 1);
                 }
-                else
-                    MessageBox.Show("Невозможно получить данные");
 
-                //string result = APIContext.Get("Logs");
-                //MessageBox.Show(result);
-                //if (string.IsNullOrEmpty(result))
-                //    MessageBox.Show("Невозможно получить данные");
-                //else
-                //    logs = JsonConvert.DeserializeObject<List<Logs>>(result); //DBContext.db.Logs.OrderByDescending(x => x.Logged).Skip(1).ToList();
-
-                pagesCount = (logs.Count() % logsOnPage == 0) ? (logs.Count() / logsOnPage) : ((logs.Count() / logsOnPage) + 1);
                 RefreshData();
             }
         }
@@ -133,13 +119,20 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                 }
                 if (blockedUsersCount > 0)
                 {
-                    //DBContext.db.SaveChanges();
-                    //MessageBox.Show("Пользователи заблокированы");
-                    //usersToBlock = DBContext.db.Users.Where(x => x.IsBlocked == false).ToList();
-                    //DGUsers.ItemsSource = usersToBlock;
-                    //RefreshData();
+                    for (int i = 0; i < usersToBlock.Count; i++)
+                    {
+                        if (usersToBlock[i].IsBlocked)
+                        {
+                            MessageBox.Show($"{usersToBlock[i].IsBlocked} | {usersToBlockPoint[i].IsBlocked}");
+                        }
+                    }
 
-                    //Logger.Warn($"Контролёр МО заблокировал {blockedUsersCount} пользователей", currentUser);
+                    MessageBox.Show("Пользователи заблокированы");
+                    usersToBlock = JsonConvert.DeserializeObject<List<Users>>(APIContext.Get("UsersByBlock"));
+                    DGUsers.ItemsSource = usersToBlock;
+                    RefreshData();
+
+                    Logger.Warn($"Контролёр МО заблокировал {blockedUsersCount} пользователей", currentUser);
                 }
                 else
                 {
