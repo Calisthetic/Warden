@@ -23,9 +23,9 @@ namespace WebApiWarden.Controllers
         //}
 
         [Route("api/Logs")]
-        public IQueryable<Logs> GetLogs(int skip = 0, int take = 10)
+        public List<ResponseLogs> GetLogs(int skip = 0, int take = 10)
         {
-            return db.Logs.OrderByDescending(x => x.Logged).Skip(skip).Take(take);
+            return db.Logs.OrderByDescending(x => x.Logged).Skip(skip).Take(take).ToList().ConvertAll(x => new ResponseLogs(x));
         }
 
         // GET: api/Logs/5

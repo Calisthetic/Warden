@@ -25,8 +25,8 @@ namespace WpfWardenAPI.Classes
                         //Logger.Logger.Trace("Пользователь вошёл в систему", currentUser);
                         break;
                     case "Контролёр МО":
-                        //Classes.PageManager.MainFrame.Navigate(new Pages.SecurityPersonal.ControllerMO(currentUser));
-                        //Logger.Logger.Trace("Пользователь вошёл в систему", currentUser);
+                        Classes.PageManager.MainFrame.Navigate(new Pages.SecurityPersonal.ControllerMO(currentUser));
+                        Logger.Logger.Trace("Пользователь вошёл в систему", currentUser);
                         break;
                     default:
                         MessageBox.Show("Не удалось определить ваши права доступа...");

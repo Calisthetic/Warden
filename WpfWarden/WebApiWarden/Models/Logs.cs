@@ -22,11 +22,6 @@ namespace WebApiWarden.Models
         public string Message { get; set; }
         public string Exception { get; set; }
         public Nullable<int> UserId { get; set; }
-        public string UserFirstName { get { return (Users == null) ? (null) : (Users.FirstName); } }
-        public string UserSecondName { get { return (Users == null) ? (null) : (Users.SecondName); } }
-        public string UserThirdName { get { return (Users == null) ? (null) : (Users.ThirdName); } }
-        public string UserDivisionName { get { return (Users == null) ? (null) : (Users.Division.Name); } }
-        public string UserIsVerify { get { return (Users == null) ? (null) : ((Users.IsVerify) ? ("Верифицирован") : ("Не верифицирован")); } }
 
         [JsonIgnore]
         public virtual Users Users { get; set; }
