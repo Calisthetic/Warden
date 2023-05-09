@@ -15,6 +15,8 @@ namespace WpfWardenAPI.Models
         public string Login { get; set; }
         public string Password { get; set; }
         public string SecretWord { get; set; }
+        public int DivisionId { get; set; }
+        public Nullable<int> PermissionId { get; set; }
         public string DivisionName { get; set; }
         public string PermissionName { get; set; }
         public bool IsBlocked { get; set; }

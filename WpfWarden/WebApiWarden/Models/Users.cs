@@ -26,6 +26,21 @@ namespace WebApiWarden.Models
             this.Order = new HashSet<Order>();
             this.ProductEnterAct = new HashSet<ProductEnterAct>();
         }
+        public void FromUserResponse(UserResponse user)
+        {
+            this.UserId = user.UserId;
+            this.FirstName = user.FirstName;
+            this.SecondName = user.SecondName;
+            this.ThirdName = user.ThirdName;
+            this.Password = user.Password;
+            this.Login = user.Login;
+            this.SecretWord = user.SecretWord;
+            this.DivisionId = user.DivisionId;
+            this.PermissionId = user.PermissionId;
+            this.IsBlocked = user.IsBlocked;
+            this.IsVerify = user.IsVerify;
+            this.Gender = user.Gender;
+        }
     
         public int UserId { get; set; }
         public string FirstName { get; set; }

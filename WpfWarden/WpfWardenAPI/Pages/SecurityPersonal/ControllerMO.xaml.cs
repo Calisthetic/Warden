@@ -62,7 +62,6 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                 if (!string.IsNullOrEmpty(notBlockedUsers))
                 {
                     usersToBlock = JsonConvert.DeserializeObject<List<Users>>(notBlockedUsers);
-                    usersToBlockPoint = JsonConvert.DeserializeObject<List<Users>>(APIContext.Get("UsersByBlock"));
                     DGUsers.ItemsSource = usersToBlock;
                 }
 
@@ -123,7 +122,9 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                     {
                         if (usersToBlock[i].IsBlocked)
                         {
-                            MessageBox.Show($"{usersToBlock[i].IsBlocked} | {usersToBlockPoint[i].IsBlocked}");
+                            var json = JsonConvert.SerializeObject(usersToBlock[i]);
+                            string putResult = APIContext.Put("Users/" + usersToBlock[i].UserId, json);
+                            MessageBox.Show(putResult);
                         }
                     }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -69,8 +70,9 @@ namespace WebApiWarden.Controllers
 
         // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUsers(int id, Users users)
+        public IHttpActionResult PutUsers(int id, UserResponse user)
         {
+            Users users = JsonConvert.DeserializeObject<Users>(JsonConvert.SerializeObject(user));
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
