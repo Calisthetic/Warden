@@ -38,14 +38,15 @@ namespace WpfWardenAPI.Classes
                 responseTask.Wait();
 
                 var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
+                if (result.StatusCode == System.Net.HttpStatusCode.Created)
                 {
-                    var readTask = result.Content.ReadAsStringAsync();
-                    readTask.Wait();
+                    return "Success";
+                    //var readTask = result.Content.ReadAsStringAsync();
+                    //readTask.Wait();
 
-                    var resultString = readTask.Result;
+                    //var resultString = readTask.Result;
 
-                    return resultString;
+                    //return resultString;
                 }
                 else
                     return string.Empty;
@@ -60,16 +61,8 @@ namespace WpfWardenAPI.Classes
                 responseTask.Wait();
 
                 var result = responseTask.Result;
-                return result.StatusCode.ToString();
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsStringAsync();
-                    readTask.Wait();
-
-                    var resultString = readTask.Result;
-
-                    return resultString;
-                }
+                if (result.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    return "Success";
                 else
                     return string.Empty;
             }

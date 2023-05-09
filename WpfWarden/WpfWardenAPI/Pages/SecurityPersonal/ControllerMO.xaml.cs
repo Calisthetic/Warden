@@ -118,17 +118,22 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                 }
                 if (blockedUsersCount > 0)
                 {
+                    bool error = false;
                     for (int i = 0; i < usersToBlock.Count; i++)
                     {
                         if (usersToBlock[i].IsBlocked)
                         {
                             var json = JsonConvert.SerializeObject(usersToBlock[i]);
                             string putResult = APIContext.Put("Users/" + usersToBlock[i].UserId, json);
-                            MessageBox.Show(putResult);
+                            if (string.IsNullOrEmpty(putResult))
+                                error = true;
                         }
                     }
+                    if (!error)
+                        MessageBox.Show("Пользователи заблокированы");
+                    else 
+                        MessageBox.Show("Сохранить изменения не получилось");
 
-                    MessageBox.Show("Пользователи заблокированы");
                     usersToBlock = JsonConvert.DeserializeObject<List<Users>>(APIContext.Get("UsersByBlock"));
                     DGUsers.ItemsSource = usersToBlock;
                     RefreshData();
