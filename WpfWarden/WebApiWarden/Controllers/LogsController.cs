@@ -23,9 +23,55 @@ namespace WebApiWarden.Controllers
         //}
 
         [Route("api/Logs")]
-        public List<ResponseLogs> GetLogs(int skip = 0, int take = 10)
+        public List<ResponseLogs> GetLogs(int skip = 0, int take = 10, string logLevel = "null", bool showOld = false, int userId = 0, string search = "null")
         {
-            return db.Logs.OrderByDescending(x => x.Logged).Skip(skip).Take(take).ToList().ConvertAll(x => new ResponseLogs(x));
+            //var logs = db.Logs.OrderByDescending(x => x.Logged).Skip(skip).Take(take).ToList().ConvertAll(x => new ResponseLogs(x));
+
+            var logs = db.Logs.ToList();
+            if (logLevel != "null")
+                logs = logs.Where(x => x.LogLevel == logLevel).ToList();
+            
+            if (showOld == true) // Sort by date
+                logs = logs.OrderBy(x => x.Logged).ToList();
+            else
+                logs = logs.OrderByDescending(x => x.Logged).ToList();
+
+            if (userId > 0) // Fing by userId
+                logs = logs.Where(x => x.UserId == userId).ToList();
+
+            if (!string.IsNullOrWhiteSpace(search) && search != "null") // Search in message or exception
+            {
+                logs = logs.Where(x => (x.Exception == null) ? (x.Message.ToLower().Contains(search.ToLower())) // if Exception == null
+                : ((x.Message == null) ? (x.Exception.ToLower().Contains(search.ToLower())) // if Message == null
+                : (x.Message.ToLower().Contains(search.ToLower()) || x.Exception.ToLower().Contains(search.ToLower())))).ToList();
+            }
+
+            return logs.Skip(skip).Take(take).ToList().ConvertAll(x => new ResponseLogs(x));
+        }
+
+        [Route("api/LogsCount")]
+        public int GetLogs(int skip = 0, string logLevel = "null", bool showOld = false, int userId = 0, string search = "null")
+        {
+            var logs = db.Logs.ToList();
+            if (logLevel != "null")
+                logs = logs.Where(x => x.LogLevel == logLevel).ToList();
+
+            if (showOld == true) // Sort by date
+                logs = logs.OrderBy(x => x.Logged).ToList();
+            else
+                logs = logs.OrderByDescending(x => x.Logged).ToList();
+
+            if (userId > 0) // Fing by userId
+                logs = logs.Where(x => x.UserId == userId).ToList();
+
+            if (!string.IsNullOrWhiteSpace(search) && search != "null") // Search in message or exception
+            {
+                logs = logs.Where(x => (x.Exception == null) ? (x.Message.ToLower().Contains(search.ToLower())) // if Exception == null
+                : ((x.Message == null) ? (x.Exception.ToLower().Contains(search.ToLower())) // if Message == null
+                : (x.Message.ToLower().Contains(search.ToLower()) || x.Exception.ToLower().Contains(search.ToLower())))).ToList();
+            }
+
+            return logs.Skip(skip).Count();
         }
 
         // GET: api/Logs/5

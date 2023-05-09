@@ -26,7 +26,8 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
     public partial class ControllerMO : Page
     {
         private Users currentUser = new Users();
-        private List<Logs> logs = new List<Logs>();
+
+        private StringBuilder urlPath = new();
         private int logsOnPage = 12;
         private int pagesCount;
         private int currentPageNumber = 0;
@@ -60,20 +61,10 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
             {
                 string notBlockedUsers = APIContext.Get("UsersByBlock");
                 if (!string.IsNullOrEmpty(notBlockedUsers))
-                {
-                    usersToBlock = JsonConvert.DeserializeObject<List<Users>>(notBlockedUsers);
-                    DGUsers.ItemsSource = usersToBlock;
-                }
+                    DGUsers.ItemsSource = JsonConvert.DeserializeObject<List<Users>>(notBlockedUsers);
 
                 txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
                     ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
-
-                string tempLogs = APIContext.Get("Logs?take=1000");
-                if (!string.IsNullOrEmpty(tempLogs))
-                {
-                    logs = JsonConvert.DeserializeObject<List<Logs>>(tempLogs);
-                    pagesCount = (logs.Count() % logsOnPage == 0) ? (logs.Count() / logsOnPage) : ((logs.Count() / logsOnPage) + 1);
-                }
 
                 RefreshData();
             }
@@ -81,7 +72,11 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
 
         private void RefreshData()
         {
-            DGLogs.ItemsSource = logs.Skip(currentPageNumber * logsOnPage).Take(logsOnPage);
+            string currentLogs = APIContext.Get($"Logs?skip={currentPageNumber * logsOnPage}&take={logsOnPage}{urlPath}");
+            if (!string.IsNullOrEmpty(currentLogs))
+            {
+                DGLogs.ItemsSource = JsonConvert.DeserializeObject<List<Logs>>(currentLogs);
+            }
             txbPageNow.Text = (currentPageNumber + 1) + "/" + pagesCount;
         }
 
@@ -152,34 +147,35 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
             }
         }
 
-
         private void SearchLog()
         {
-            //logs = DBContext.db.Logs.Take(DBContext.db.Logs.Count() - 1).ToList();
-            //if (cmbLogLevels.SelectedIndex != 0) // Sort by log level
-            //{
-            //    Logs selectedLogLevel = cmbLogLevels.SelectedItem as Logs;
-            //    string levelName = (selectedLogLevel == null) ? ("") : (selectedLogLevel.LogLevel);
-            //    logs = logs.Where(x => x.LogLevel == levelName).ToList();
-            //}
-            //if (ckbShowOld.IsChecked == true) // Sort by date
-            //    logs = logs.OrderBy(x => x.Logged).ToList();
-            //else
-            //    logs = logs.OrderByDescending(x => x.Logged).ToList();
+            urlPath.Clear();
 
-            //if (int.TryParse(txbUserId.Text, out int result) && result >= 0) // Fing by userId
-            //{
-            //    logs = logs.Where(x => x.UserId == result).ToList();
-            //}
-            //if (!string.IsNullOrWhiteSpace(txbSearchInMessage.Text)) // Search in message or exception
-            //{
-            //    logs = logs.Where(x => (x.Exception == null) ? (x.Message.ToLower().Contains(txbSearchInMessage.Text.ToLower())) // if Exception == null
-            //    : ((x.Message == null) ? (x.Exception.ToLower().Contains(txbSearchInMessage.Text.ToLower())) // if Message == null
-            //    : (x.Message.ToLower().Contains(txbSearchInMessage.Text.ToLower()) || x.Exception.ToLower().Contains(txbSearchInMessage.Text.ToLower())))).ToList();
-            //}
-            //currentPageNumber = 0;
-            //pagesCount = (logs.Count() % logsOnPage == 0) ? (logs.Count() / logsOnPage) : ((logs.Count() / logsOnPage) + 1);
-            //RefreshData();
+            if (cmbLogLevels.SelectedIndex != 0) // Sort by log level
+            {
+                Logs selectedLogLevel = cmbLogLevels.SelectedItem as Logs;
+                if (selectedLogLevel != null)
+                    urlPath.Append($"&logLevel={selectedLogLevel.LogLevel}");
+            }
+            if (ckbShowOld.IsChecked == true) // Sort by date
+                urlPath.Append($"&showOld=true");
+
+            if (int.TryParse(txbUserId.Text, out int result) && result >= 0) // Fing by userId
+                urlPath.Append($"&userId={result}");
+
+            if (!string.IsNullOrWhiteSpace(txbSearchInMessage.Text)) // Search in message or exception
+                urlPath.Append($"&search={txbSearchInMessage.Text}");
+
+
+
+            string currentLogsCount = APIContext.Get($"LogsCount?skip=0" + urlPath);
+            if (!string.IsNullOrEmpty(currentLogsCount) && int.TryParse(currentLogsCount, out int logsCount))
+            {
+                currentPageNumber = 0;
+                pagesCount = (logsCount % logsOnPage == 0) ? (logsCount / logsOnPage) : ((logsCount / logsOnPage) + 1);
+            }
+
+            RefreshData();
         }
 
         private void cmbLogLevels_SelectionChanged(object sender, SelectionChangedEventArgs e)
