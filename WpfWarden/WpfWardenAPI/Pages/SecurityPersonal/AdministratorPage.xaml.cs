@@ -94,7 +94,7 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                 AddedUser newUser = new AddedUser();
                 newUser.FirstName = txbFirstName.Text;
                 newUser.SecondName = txbSecondName.Text;
-                newUser.ThirdName = (string.IsNullOrEmpty(txbThirdName.Text)) ? (null) : (txbThirdName.Text);
+                newUser.ThirdName = string.IsNullOrEmpty(txbThirdName.Text) ? null : txbThirdName.Text;
                 newUser.DivisionId = selectedDivision.DivisionId;
                 newUser.Gender = (cmbGender.SelectedIndex == 1) ? (true) : (false);
 

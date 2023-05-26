@@ -48,12 +48,11 @@ namespace WebApiWarden.Controllers
         }
 
         //// http://localhost:54491/api/UsersMessages
-        //[Route("api/UsersMessages")]
-        //[ResponseType(typeof(Users))]
-        //public IHttpActionResult GetUsersMessages()
-        //{
-        //    return Ok(db.Users.Where(x => x.IsBlocked == true).ToList().ConvertAll(p => new ResponseUsersMessage(p)));
-        //}
+        [Route("api/UsersMessages")]
+        public List<ResponseUsersMessage> GetUsersMessages()
+        {
+            return db.Users.Where(x => x.IsBlocked == true).ToList().ConvertAll(p => new ResponseUsersMessage(p));
+        }
 
         // GET: api/Users/5
         [ResponseType(typeof(Users))]

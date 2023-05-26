@@ -27,6 +27,9 @@ namespace WebApiWarden.Models
             LastMessage = (Classes.DBContext.db.BlockedUserMessages.Where(x => x.SendlerUserId == user.UserId || x.DestinationUserId == user.UserId).OrderByDescending(x => x.Time).Count() == 0)
                 ? ("Пока что здесь нет сообщений...")
                 : (Classes.DBContext.db.BlockedUserMessages.Where(x => x.SendlerUserId == user.UserId || x.DestinationUserId == user.UserId).OrderByDescending(x => x.Time).First().Message);
+            LastMessageTime = (Classes.DBContext.db.BlockedUserMessages.Where(x => x.SendlerUserId == user.UserId || x.DestinationUserId == user.UserId).OrderByDescending(x => x.Time).Count() == 0)
+                ? new DateTime(2000, 1, 1, 1, 1, 1)
+                : (Classes.DBContext.db.BlockedUserMessages.Where(x => x.SendlerUserId == user.UserId || x.DestinationUserId == user.UserId).OrderByDescending(x => x.Time).First().Time);
         }
 
         public int UserId { get; set; }
@@ -66,6 +69,7 @@ namespace WebApiWarden.Models
         //    set { this.LastMessage = value; }
         //}
         public string LastMessage { get; set; }
+        public Nullable<System.DateTime> LastMessageTime { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]

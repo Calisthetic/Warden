@@ -6,9 +6,161 @@
       xmlns:local="clr-namespace:WpfWardenAPI.Pages.SecurityPersonal"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="InfoSecurerPage">
+      Title="InfoSecurerPage" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid>
-        
+        <TabControl Margin="40 30">
+            <TabItem Header="Верификация" FontSize="16">
+                <TabItem.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" x:Name="DGUsersForVerify" IsReadOnly="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding SecondName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding ThirdName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Должность" Binding="{Binding Division.Name}" IsReadOnly="True"/>
+                                <DataGridComboBoxColumn x:Name="CmbRole" SelectedItemBinding="{Binding Permission}" Header="Тип пользователя"  DisplayMemberPath="Name"/>
+                                <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
+                                <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
+                                <DataGridTextColumn Header="Секретное слово" Binding="{Binding SecretWord}"/>
+                                <DataGridCheckBoxColumn Header="Одобрить" Binding="{Binding IsVerify}"></DataGridCheckBoxColumn>
+                                <!--<DataGridTemplateColumn Width="auto" Header="Одобрить">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="ChkAssign" IsChecked="{Binding UserAssign}" Unchecked="ChkAssign_Unchecked"   Checked="ChkAssign_Checked" HorizontalAlignment="Left"
+                                                      VerticalAlignment="Center"></CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>-->
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button Grid.Row="1" x:Name="btnConfirm" Click="btnConfirm_Click" Content="Одобрить"></Button>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Доступ" FontSize="16" VerticalAlignment="Top">
+                <TabItem.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" IsReadOnly="False" x:Name="DGPermissions">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Код" Binding="{Binding PermissionId}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                                <DataGridCheckBoxColumn Header="Добавлять данные" Binding="{Binding AddData}"></DataGridCheckBoxColumn>
+                                <DataGridCheckBoxColumn Header="Изменять данные" Binding="{Binding ChangeData}"></DataGridCheckBoxColumn>
+                                <DataGridCheckBoxColumn Header="Составлять отчёты" Binding="{Binding MakeReport}"></DataGridCheckBoxColumn>
+                                <DataGridCheckBoxColumn Header="Удалять данные" Binding="{Binding DeleteData}"></DataGridCheckBoxColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Grid Grid.Row="1" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" x:Name="btnDelete" Content="Удалить" Click="btnDelete_Click"></Button>
+                            <Button Grid.Column="1" x:Name="btnSave" Content="Применить" Margin="40 0" Click="btnSave_Click"></Button>
+                            <Button Grid.Column="2" x:Name="btnAdd" Content="Добавить" Click="btnAdd_Click"></Button>
+                        </Grid>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Заблокированные пользователи" FontSize="16">
+                <TabItem.Content>
+                    <ListView x:Name="LVBlockedUsers" HorizontalContentAlignment="Left" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="LVBlockedUsers_Selected">
+                        <!--<ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>-->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="680" Height="68">
+                                    <Grid Margin="8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Background="#2247ff" Width="30" Height="30" VerticalAlignment="Center" CornerRadius="15">
+                                            <Border.Style>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding UncheckedMessagesCount}" Value="0">
+                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <TextBlock FontSize="14" Foreground="White" FontWeight="Bold"  VerticalAlignment="Center" TextAlignment="Center" Text="{Binding UncheckedMessagesCount}">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding UncheckedMessagesCount}" Value="0">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Border>
+                                        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="4 0 0 0">
+                                            <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text="{Binding SecondName}"></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text=" "></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text="{Binding FirstName}"></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text=" "></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text="{Binding ThirdName}"></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text=" - "></TextBlock>
+                                                <TextBlock FontSize="18" Text="{Binding Division.Name}" Foreground="#2247ff"></TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="2 2 0 0">
+                                                <TextBlock>
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="Text" Value="  Вы: "></Setter>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding LastMessage.DestinationUserId}" Value="{x:Null}">
+                                                                    <Setter Property="Text" Value=" "/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding LastMessage.Message}" Value="{x:Null}">
+                                                                    <Setter Property="Text" Value=" "/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                                <TextBlock>
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="Text" Value="{Binding LastMessage.Message, StringFormat={} {0}}"></Setter>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding LastMessage.Message}" Value="{x:Null}">
+                                                                    <Setter Property="Text" Value=" Пока что здесь нет сообщений..."/>
+                                                                    <Setter Property="Foreground" Value="#555"></Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 5 5 0" FontSize="20" x:Name="txtFIO"></TextBlock>
     </Grid>
 </Page>
