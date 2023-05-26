@@ -74,6 +74,14 @@ namespace WebApiWarden.Controllers
             return logs.Skip(skip).Count();
         }
 
+        [HttpGet]
+        [Route("api/Log")]
+        public IHttpActionResult DeleteLog()
+        {
+            return Ok();
+        }
+
+
         // GET: api/Logs/5
         [ResponseType(typeof(Logs))]
         public IHttpActionResult GetLogs(int id)
