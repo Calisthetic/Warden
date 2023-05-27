@@ -1,0 +1,15 @@
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\bin\Debug\netstandard2.0\MobileWarden.deps.json
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\bin\Debug\netstandard2.0\MobileWarden.dll
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\bin\Debug\netstandard2.0\MobileWarden.pdb
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\MobileWarden.csproj.AssemblyReference.cache
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\MobileWarden.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\MobileWarden.AssemblyInfoInputs.cache
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\MobileWarden.AssemblyInfo.cs
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\MobileWarden.csproj.CoreCompileInputs.cache
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\MobileWarden.dll
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\refint\MobileWarden.dll
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\MobileWarden.pdb
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\ref\MobileWarden.dll

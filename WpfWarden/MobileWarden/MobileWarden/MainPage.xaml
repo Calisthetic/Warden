@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileWarden.MainPage">
+
+    <StackLayout>
+        <Frame BackgroundColor="#2247ff" Padding="24" CornerRadius="0">
+            <Label Text="Warden" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+        </Frame>
+        <Frame x:Name="MainFrame" HorizontalOptions="Fill" VerticalOptions="Fill">
+        </Frame>
+    </StackLayout>
+
+</ContentPage>
