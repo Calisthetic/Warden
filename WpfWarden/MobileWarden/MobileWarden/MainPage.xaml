@@ -4,11 +4,15 @@
              x:Class="MobileWarden.MainPage">
 
     <StackLayout>
-        <Frame BackgroundColor="#2247ff" Padding="24" CornerRadius="0">
+        <Frame BackgroundColor="#2247ff" Padding="10" CornerRadius="0">
             <Label Text="Warden" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
         </Frame>
-        <Frame x:Name="MainFrame" HorizontalOptions="Fill" VerticalOptions="Fill">
-        </Frame>
+        <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand">
+            <Entry x:Name="entryLogin" Placeholder="логин"></Entry>
+            <Entry IsPassword="True" Placeholder="пароль" x:Name="entryPassword"></Entry>
+            <Picker x:Name="pickerDivisions" Title="Роль" SelectedIndex="0"></Picker>
+        </StackLayout>
+        <Button Clicked="Button_Clicked" HorizontalOptions="Fill" HeightRequest="50" Text="Войти"></Button>
     </StackLayout>
 
 </ContentPage>

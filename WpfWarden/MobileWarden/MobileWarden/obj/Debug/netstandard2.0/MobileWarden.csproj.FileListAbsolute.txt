@@ -13,3 +13,4 @@ C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug
 C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\refint\MobileWarden.dll
 C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\MobileWarden.pdb
 C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\ref\MobileWarden.dll
+C:\Users\admin\Source\Repos\Warden\WpfWarden\MobileWarden\MobileWarden\obj\Debug\netstandard2.0\Pages\AuthPage.xaml.g.cs
