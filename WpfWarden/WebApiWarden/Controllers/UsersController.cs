@@ -22,12 +22,6 @@ namespace WebApiWarden.Controllers
         {
             return db.Users;
         }
-
-        //[Route("api/Users")]
-        //public IQueryable<Users> GetUsers()
-        //{
-        //    return db.Users;
-        //}
         [Route("api/UsersByVerify")]
         public List<UserResponse> GetVerifiedUsers(bool IsVerify = true)
         {
