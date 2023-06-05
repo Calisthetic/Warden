@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "ZD7YFHOQtYpAJ3jo7LmKdQL5D7jnNHAFIq323qctgBM=",
+  "Source": "WebApiCoreWarden",
+  "BasePath": "_content/WebApiCoreWarden",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
