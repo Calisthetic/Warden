@@ -11,24 +11,28 @@ namespace WpfWardenAPI.Classes
 {
     public class APIContext
     {
-        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:54491/api/") };
+        // 5155
+        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5155/api/") };
 
         public static string Get(string urlPath)
         {
-            var responseTask = client.GetAsync(urlPath);
-            responseTask.Wait();
-
-            var result = responseTask.Result;
-            if (result.IsSuccessStatusCode)
+            try
             {
-                var readTask = result.Content.ReadAsStringAsync();
-                readTask.Wait();
+                var responseTask = client.GetAsync(urlPath);
+                responseTask.Wait();
 
-                var resultString = readTask.Result;
-                return resultString;
-            }
-            else
-                return string.Empty;
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsStringAsync();
+                    readTask.Wait();
+
+                    var resultString = readTask.Result;
+                    return resultString;
+                }
+                else
+                    return string.Empty;
+            } catch { return string.Empty; }
         }
         public static string Post(string urlPath, string obj)
         {
@@ -41,12 +45,6 @@ namespace WpfWardenAPI.Classes
                 if (result.StatusCode == System.Net.HttpStatusCode.Created)
                 {
                     return "Success";
-                    //var readTask = result.Content.ReadAsStringAsync();
-                    //readTask.Wait();
-
-                    //var resultString = readTask.Result;
-
-                    //return resultString;
                 }
                 else
                     return string.Empty;

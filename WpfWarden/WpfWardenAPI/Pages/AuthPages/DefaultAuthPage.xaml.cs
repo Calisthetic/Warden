@@ -40,59 +40,37 @@ namespace WpfWardenAPI.Pages.AuthPages
         {
             Division selectedDivision = cmbDivisions.SelectedItem as Division;
 
-            try
+            var resultString = APIContext.Get("AuthUsers?login=" + txbLogin.Text + "&password=" + psbPassword.Password + "&divisionId=" + selectedDivision.DivisionId);
+
+            if (string.IsNullOrEmpty(resultString))
             {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:54491/api/");
-                var responseTask = client.GetAsync("AuthUsers?login=" + txbLogin.Text + "&password=" + psbPassword.Password + "&divisionId=" + selectedDivision.DivisionId);
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsStringAsync();
-                    readTask.Wait();
-
-                    var resultString = readTask.Result;
-
-                    Users currentUser = JsonConvert.DeserializeObject<Users>(resultString);
-                    if (currentUser != null)
-                        Classes.Authorizating.Entry(currentUser);
-                    else
-                        MessageBox.Show("Пользователь не найден!\nКажется что-то пошло не так...");
-                }
-                else 
-                    MessageBox.Show("Пользователь не найден!\nВозможно данные были введены некорректно");
+                MessageBox.Show("Не получилось найти данные...");
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            else
+            {
+                Users currentUser = JsonConvert.DeserializeObject<Users>(resultString);
+                if (currentUser != null)
+                    Classes.Authorizating.Entry(currentUser);
+                else
+                    MessageBox.Show("Пользователь не найден!\nКажется что-то пошло не так...");
+            }
         }
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (Visibility == Visibility.Visible)
             {
-                try
+                var resultString = APIContext.Get("Divisions");
+
+                if (string.IsNullOrEmpty(resultString))
                 {
-                    var client = new HttpClient();
-                    client.BaseAddress = new Uri("http://localhost:54491/api/");
-                    var responseTask = client.GetAsync("Divisions");
-                    responseTask.Wait();
-
-                    var result = responseTask.Result;
-                    if (result.IsSuccessStatusCode)
-                    {
-                        var readTask = result.Content.ReadAsStringAsync();
-                        readTask.Wait();
-
-                        var resultString = readTask.Result;
-
-                        cmbDivisions.ItemsSource = JsonConvert.DeserializeObject<List<Division>>(resultString);
-                        cmbDivisions.SelectedIndex = 2;
-                    }
-                    else
-                        MessageBox.Show("Не получилось найти данные...");
+                    //MessageBox.Show("Не получилось найти данные...");
                 }
-                catch (Exception ex) { MessageBox.Show(ex.Message); }
+                else
+                {
+                    cmbDivisions.ItemsSource = JsonConvert.DeserializeObject<List<Division>>(resultString);
+                    cmbDivisions.SelectedIndex = 2;
+                }
 
                 txbLogin.Text = string.Empty;
                 psbPassword.Password = string.Empty;
