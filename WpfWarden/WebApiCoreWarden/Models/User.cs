@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WebApiCoreWarden.Models;
 
@@ -28,18 +29,23 @@ public partial class User
     public bool Gender { get; set; }
 
     public bool IsVerify { get; set; }
-
+    
+    [JsonIgnore]
     public virtual ICollection<BlockedUserMessage> BlockedUserMessageDestinationUsers { get; set; } = new List<BlockedUserMessage>();
 
+    [JsonIgnore]
     public virtual ICollection<BlockedUserMessage> BlockedUserMessageSendlerUsers { get; set; } = new List<BlockedUserMessage>();
 
     public virtual Division Division { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<Log> Logs { get; set; } = new List<Log>();
 
+    [JsonIgnore]
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual Permission? Permission { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<ProductEnterAct> ProductEnterActs { get; set; } = new List<ProductEnterAct>();
 }
