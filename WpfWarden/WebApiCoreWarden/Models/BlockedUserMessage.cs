@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WebApiCoreWarden.Models;
 
@@ -15,7 +16,9 @@ public partial class BlockedUserMessage
 
     public DateTime Time { get; set; }
 
+    [JsonIgnore]
     public virtual User? DestinationUser { get; set; }
 
+    [JsonIgnore]
     public virtual User SendlerUser { get; set; } = null!;
 }
