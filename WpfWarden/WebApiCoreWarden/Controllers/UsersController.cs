@@ -32,13 +32,14 @@ namespace WebApiCoreWarden.Controllers
         }
 
         [HttpGet("AuthUser")]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<User>> GetUsers(string login, string password, int divisionId)
         {
             if (_context.Users == null)
             {
                 return NotFound();
             }
-            return await _context.Users.ToListAsync();
+            User user = await _context.Users.Where(x => x.Login == login && x.Password == password && x.DivisionId == divisionId).Include(x => x.Division).Include(x1 => x1.Permission).FirstOrDefaultAsync();
+            return user == null ? NotFound() : user;
         }
 
         // GET: api/Users/5
