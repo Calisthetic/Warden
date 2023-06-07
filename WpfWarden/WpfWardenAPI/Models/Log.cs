@@ -6,17 +6,19 @@ namespace WpfWardenAPI.Models;
 
 public partial class Log
 {
-    public int LogId { get; set; }
+    public int logId { get; set; }
 
-    public string MachineName { get; set; } = null!;
+    public string machineName { get; set; } = null!;
 
-    public DateTime Logged { get; set; }
+    public DateTime logged { get; set; }
 
-    public string LogLevel { get; set; } = null!;
+    public string logLevel { get; set; } = null!;
 
-    public string? Message { get; set; }
+    public string? message { get; set; }
 
-    public string? Exception { get; set; }
+    public string? exception { get; set; }
 
-    public int? UserId { get; set; }
+    public int? userId { get; set; }
+
+    public User user { get; set; }
 }

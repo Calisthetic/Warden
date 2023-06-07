@@ -25,8 +25,8 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
     /// </summary>
     public partial class AdministratorPage : Page
     {
-        private Users currentUser = new Users();
-        public AdministratorPage(Users _currentUser)
+        private User currentUser = new User();
+        public AdministratorPage(User _currentUser)
         {
             InitializeComponent();
             if (_currentUser != null)
@@ -55,7 +55,7 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                         List<Division> divisions = JsonConvert.DeserializeObject<List<Division>>(resultString);
                         divisions.Insert(0, new Division
                         {
-                            Name = "Не выбрано"
+                            name = "Не выбрано"
                         });
                         cmbDivision.ItemsSource = divisions;
                         cmbDivision.SelectedIndex = 0;
@@ -65,8 +65,8 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                 }
                 catch (Exception ex) { MessageBox.Show(ex.Message); }
                
-                txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
-                    ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
+                txtFIO.Text = currentUser.secondName + " " + currentUser.firstName.Substring(0, 1) + ". " +
+                    ((currentUser.thirdName == null) ? (" ") : (currentUser.thirdName.Substring(0, 1) + "."));
             }
         }
 
@@ -91,12 +91,12 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
             {
                 Division selectedDivision = cmbDivision.SelectedItem as Division;
 
-                AddedUser newUser = new AddedUser();
-                newUser.FirstName = txbFirstName.Text;
-                newUser.SecondName = txbSecondName.Text;
-                newUser.ThirdName = string.IsNullOrEmpty(txbThirdName.Text) ? null : txbThirdName.Text;
-                newUser.DivisionId = selectedDivision.DivisionId;
-                newUser.Gender = (cmbGender.SelectedIndex == 1) ? (true) : (false);
+                User newUser = new();
+                newUser.firstName = txbFirstName.Text;
+                newUser.secondName = txbSecondName.Text;
+                newUser.thirdName = string.IsNullOrEmpty(txbThirdName.Text) ? null : txbThirdName.Text;
+                newUser.divisionId = selectedDivision.divisionId;
+                newUser.gender = (cmbGender.SelectedIndex == 1) ? (true) : (false);
 
                 try
                 {
@@ -113,7 +113,7 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                     {
                         //var result = await response.Content.ReadAsStringAsync();
                         MessageBox.Show("Пользователь успешно добавлен!");
-                        Logger.Trace($"Администратор добавил нового пользователя id:{newUser.UserId}", currentUser);
+                        Logger.Trace($"Администратор добавил нового пользователя id:{newUser.userId}", currentUser);
                         ClearFields();
                     }
                     else

@@ -40,7 +40,7 @@ namespace WpfWardenAPI.Pages.AuthPages
         {
             Division selectedDivision = cmbDivisions.SelectedItem as Division;
 
-            var resultString = APIContext.Get("AuthUsers?login=" + txbLogin.Text + "&password=" + psbPassword.Password + "&divisionId=" + selectedDivision.DivisionId);
+            var resultString = APIContext.Get("AuthUsers?login=" + txbLogin.Text + "&password=" + psbPassword.Password + "&divisionId=" + selectedDivision.divisionId);
 
             if (string.IsNullOrEmpty(resultString))
             {
@@ -48,7 +48,7 @@ namespace WpfWardenAPI.Pages.AuthPages
             }
             else
             {
-                Users currentUser = JsonConvert.DeserializeObject<Users>(resultString);
+                User currentUser = JsonConvert.DeserializeObject<User>(resultString);
                 if (currentUser != null)
                     Classes.Authorizating.Entry(currentUser);
                 else

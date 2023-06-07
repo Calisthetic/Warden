@@ -24,10 +24,10 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
     /// </summary>
     public partial class InfoSecurerPage : Page
     {
-        private Users currentUser = new Users();
-        List<Permissions> permissions = new List<Permissions>();
-        List<Users> usersToVerify = new List<Users>();
-        public InfoSecurerPage(Users _currentUser)
+        private User currentUser = new User();
+        List<Permission> permissions = new List<Permission>();
+        List<User> usersToVerify = new List<User>();
+        public InfoSecurerPage(User _currentUser)
         {
             InitializeComponent();
             if (_currentUser != null)
@@ -42,11 +42,11 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                 bool error = false;
                 for (int i = 0; i < usersToVerify.Count; i++)
                 {
-                    if (usersToVerify[i].IsVerify == true)
+                    if (usersToVerify[i].isVerify == true)
                     {
                         verifiedUsersCount++;
-                        if (string.IsNullOrEmpty(usersToVerify[i].Login) || string.IsNullOrEmpty(usersToVerify[i].Password)
-                            || string.IsNullOrEmpty(usersToVerify[i].SecretWord) || usersToVerify[i].PermissionName == null)
+                        if (string.IsNullOrEmpty(usersToVerify[i].login) || string.IsNullOrEmpty(usersToVerify[i].password)
+                            || string.IsNullOrEmpty(usersToVerify[i].secretWord) || usersToVerify[i].permission.name == null)
                         {
                             error = true;
                             break;
@@ -105,17 +105,17 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
             }
             else
             {
-                List<ResponseUsersMessage> blockedUsers = JsonConvert.DeserializeObject<List<ResponseUsersMessage>>(APIContext.Get("UsersMessages"));// DBContext.db.Users.Where(x => x.IsBlocked == true).ToList();//OrderBy(x => x.UncheckedMessagesCount).ToList();
+                List<BlockedUserMessage> blockedUsers = JsonConvert.DeserializeObject<List<BlockedUserMessage>>(APIContext.Get("UsersMessages"));// DBContext.db.Users.Where(x => x.IsBlocked == true).ToList();//OrderBy(x => x.UncheckedMessagesCount).ToList();
                 for (int i = 0; i < blockedUsers.Count - 1; i++)
                 {
                     for (int j = 0; j < blockedUsers.Count - i - 1; j++)
                     {
-                        if (blockedUsers[j].LastMessageTime < blockedUsers[j + 1].LastMessageTime)
-                        {
-                            ResponseUsersMessage temp = blockedUsers[j];
-                            blockedUsers[j] = blockedUsers[j + 1];
-                            blockedUsers[j + 1] = temp;
-                        }
+                        //if (blockedUsers[j].lastMessageTime < blockedUsers[j + 1].lastMessageTime)
+                        //{
+                        //    BlockedUserMessage temp = blockedUsers[j];
+                        //    blockedUsers[j] = blockedUsers[j + 1];
+                        //    blockedUsers[j + 1] = temp;
+                        //}
                     }
                 }
                 LVBlockedUsers.ItemsSource = blockedUsers;
@@ -125,14 +125,14 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
             //    ) && x1.SendlerUserId == x.UserId).Count()
             //).ToList();
 
-            txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
-                ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
+            txtFIO.Text = currentUser.secondName + " " + currentUser.firstName.Substring(0, 1) + ". " +
+                ((currentUser.thirdName == null) ? (" ") : (currentUser.thirdName.Substring(0, 1) + "."));
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             string permissionsResponse = APIContext.Get("Permissions");
-            List<Permissions> permissionsToDelete = DGPermissions.SelectedItems.Cast<Permissions>().ToList();
+            List<Permission> permissionsToDelete = DGPermissions.SelectedItems.Cast<Permission>().ToList();
             if (permissionsToDelete.Count() == 0)
             {
                 MessageBox.Show("Выберите уровень доступа");
@@ -148,14 +148,14 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                         string usersResponse = APIContext.Get("Users");
                         if (!string.IsNullOrEmpty(usersResponse))
                         {
-                            List<Users> tempUsers = JsonConvert.DeserializeObject<List<Users>>(usersResponse);
-                            List<Users> users = tempUsers.Where(x => x.PermissionId == permissionsToDelete[i].PermissionId).ToList();
+                            List<User> tempUsers = JsonConvert.DeserializeObject<List<User>>(usersResponse);
+                            List<User> users = tempUsers.Where(x => x.permissionId == permissionsToDelete[i].permissionId).ToList();
                             for (int j = 0; j < users.Count(); j++)
                             {
-                                users[j].PermissionId = null;
-                                users[j].IsVerify = false;
+                                users[j].permissionId = null;
+                                users[j].isVerify = false;
                             }
-                            string deleteResult = APIContext.Delete("Permissions/" + permissionsToDelete[i].PermissionId);
+                            string deleteResult = APIContext.Delete("Permissions/" + permissionsToDelete[i].permissionId);
                             if (string.IsNullOrEmpty(deleteResult))
                             {
                                 error = true;
@@ -208,12 +208,12 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
 
         private void LVBlockedUsers_Selected(object sender, RoutedEventArgs e)
         {
-            Users checkedUser = LVBlockedUsers.SelectedItem as Users;
+            User checkedUser = LVBlockedUsers.SelectedItem as User;
             try
             {
                 if (checkedUser != null)
                 {
-                    Logger.Trace($"Сотрудник ИБ перешёл на страницу переписки с пользователем {checkedUser.UserId} из чёрного списка", currentUser);
+                    Logger.Trace($"Сотрудник ИБ перешёл на страницу переписки с пользователем {checkedUser.userId} из чёрного списка", currentUser);
                     //PageManager.MainFrame.Navigate(new BlockedUserInfo(currentUser, checkedUser));
                 }
             }

@@ -24,8 +24,8 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
     /// </summary>
     public partial class AddPermissionPage : Page
     {
-        private Users currentUser = new Users();
-        public AddPermissionPage(Users _currentUser)
+        private User currentUser = new User();
+        public AddPermissionPage(User _currentUser)
         {
             InitializeComponent();
             if (_currentUser != null)
@@ -36,26 +36,26 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
         {
             if (Visibility == Visibility.Visible)
             {
-                txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
-                    ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
+                txtFIO.Text = currentUser.secondName + " " + currentUser.firstName.Substring(0, 1) + ". " +
+                    ((currentUser.thirdName == null) ? (" ") : (currentUser.thirdName.Substring(0, 1) + "."));
                 ClearData();
             }
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            Permissions newPermission = new Permissions();
+            Permission newPermission = new Permission();
             if (string.IsNullOrEmpty(txbPermissionName.Text))
             {
                 MessageBox.Show("Введите название роли!");
             }
             else
             {
-                newPermission.Name = txbPermissionName.Text;
-                newPermission.AddData = ckbAddData.IsChecked.Value;
-                newPermission.ChangeData = ckbChangeData.IsChecked.Value;
-                newPermission.DeleteData = ckbDeleteData.IsChecked.Value;
-                newPermission.MakeReport = ckbMakeReport.IsChecked.Value;
+                newPermission.name = txbPermissionName.Text;
+                newPermission.addData = ckbAddData.IsChecked.Value;
+                newPermission.changeData = ckbChangeData.IsChecked.Value;
+                newPermission.deleteData = ckbDeleteData.IsChecked.Value;
+                newPermission.makeReport = ckbMakeReport.IsChecked.Value;
 
                 if (string.IsNullOrEmpty(APIContext.Post("Permissions", JsonConvert.SerializeObject(newPermission))))
                 {

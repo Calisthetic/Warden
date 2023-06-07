@@ -25,31 +25,31 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
     /// </summary>
     public partial class ControllerMO : Page
     {
-        private Users currentUser = new Users();
+        private User currentUser = new();
 
         private StringBuilder urlPath = new();
         private int logsOnPage = 12;
         private int pagesCount;
         private int currentPageNumber = 0;
 
-        List<Users> usersToBlockPoint = new List<Users>();
-        List<Users> usersToBlock = new List<Users>();
+        List<User> usersToBlockPoint = new List<User>();
+        List<User> usersToBlock = new List<User>();
 
-        public ControllerMO(Users _currentUser)
+        public ControllerMO(User _currentUser)
         {
             InitializeComponent();
             if (_currentUser != null)
                 currentUser = _currentUser;
 
-            var logLevels = new List<Logs>
+            var logLevels = new List<Log>
                 {
-                    new Logs { LogLevel = "Log level" },
-                    new Logs { LogLevel = "Trace" },
-                    new Logs { LogLevel = "Fatal" },
-                    new Logs { LogLevel = "Error" },
-                    new Logs { LogLevel = "Debug" },
-                    new Logs { LogLevel = "Warn" },
-                    new Logs { LogLevel = "Info" }
+                    new Log { logLevel = "Log level" },
+                    new Log { logLevel = "Trace" },
+                    new Log { logLevel = "Fatal" },
+                    new Log { logLevel = "Error" },
+                    new Log { logLevel = "Debug" },
+                    new Log { logLevel = "Warn" },
+                    new Log { logLevel = "Info" }
                 };
             cmbLogLevels.ItemsSource = logLevels;
             cmbLogLevels.SelectedIndex = 0;
@@ -61,10 +61,10 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
             {
                 string notBlockedUsers = APIContext.Get("UsersByBlock");
                 if (!string.IsNullOrEmpty(notBlockedUsers))
-                    DGUsers.ItemsSource = JsonConvert.DeserializeObject<List<Users>>(notBlockedUsers);
+                    DGUsers.ItemsSource = JsonConvert.DeserializeObject<List<User>>(notBlockedUsers);
 
-                txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " +
-                    ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));
+                txtFIO.Text = currentUser.secondName + " " + currentUser.firstName.Substring(0, 1) + ". " +
+                    ((currentUser.thirdName == null) ? (" ") : (currentUser.thirdName.Substring(0, 1) + "."));
 
                 RefreshData();
             }
@@ -75,7 +75,7 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
             string currentLogs = APIContext.Get($"Logs?skip={currentPageNumber * logsOnPage}&take={logsOnPage}{urlPath}");
             if (!string.IsNullOrEmpty(currentLogs))
             {
-                DGLogs.ItemsSource = JsonConvert.DeserializeObject<List<Logs>>(currentLogs);
+                DGLogs.ItemsSource = JsonConvert.DeserializeObject<List<Log>>(currentLogs);
             }
             txbPageNow.Text = (currentPageNumber + 1) + "/" + pagesCount;
         }
@@ -106,7 +106,7 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                 int blockedUsersCount = 0;
                 for (int i = 0; i < usersToBlock.Count; i++)
                 {
-                    if (usersToBlock[i].IsBlocked == true)
+                    if (usersToBlock[i].isBlocked == true)
                     {
                         blockedUsersCount++;
                     }
@@ -116,10 +116,10 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                     bool error = false;
                     for (int i = 0; i < usersToBlock.Count; i++)
                     {
-                        if (usersToBlock[i].IsBlocked)
+                        if (usersToBlock[i].isBlocked)
                         {
                             var json = JsonConvert.SerializeObject(usersToBlock[i]);
-                            string putResult = APIContext.Put("Users/" + usersToBlock[i].UserId, json);
+                            string putResult = APIContext.Put("Users/" + usersToBlock[i].userId, json);
                             if (string.IsNullOrEmpty(putResult))
                                 error = true;
                         }
@@ -129,7 +129,7 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                     else 
                         MessageBox.Show("Сохранить изменения не получилось");
 
-                    usersToBlock = JsonConvert.DeserializeObject<List<Users>>(APIContext.Get("UsersByBlock"));
+                    usersToBlock = JsonConvert.DeserializeObject<List<User>>(APIContext.Get("UsersByBlock"));
                     DGUsers.ItemsSource = usersToBlock;
                     RefreshData();
 
@@ -153,9 +153,9 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
 
             if (cmbLogLevels.SelectedIndex != 0) // Sort by log level
             {
-                Logs selectedLogLevel = cmbLogLevels.SelectedItem as Logs;
+                Log selectedLogLevel = cmbLogLevels.SelectedItem as Log;
                 if (selectedLogLevel != null)
-                    urlPath.Append($"&logLevel={selectedLogLevel.LogLevel}");
+                    urlPath.Append($"&logLevel={selectedLogLevel.logLevel}");
             }
             if (ckbShowOld.IsChecked == true) // Sort by date
                 urlPath.Append($"&showOld=true");

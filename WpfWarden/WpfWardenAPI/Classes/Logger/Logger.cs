@@ -10,54 +10,54 @@ namespace WpfWardenAPI.Classes.Logger
 {
     internal class Logger
     {
-        public static void Info(string message, Users user)
+        public static void Info(string message, User user)
         {
-            Logs log = new Logs();
-            log.Message = message;
-            log.LogLevel = LogLevel.Info;
-            log.UserId = user.UserId;
+            Log log = new Log();
+            log.message = message;
+            log.logLevel = LogLevel.Info;
+            log.userId = user.userId;
             PushLog(log);
         }
-        public static void Error(Exception ex, Users user)
+        public static void Error(Exception ex, User user)
         {
-            Logs log = new Logs();
-            log.Exception = ex.Message;
-            log.LogLevel = LogLevel.Error;
-            log.UserId = user.UserId;
+            Log log = new Log();
+            log.exception = ex.Message;
+            log.logLevel = LogLevel.Error;
+            log.userId = user.userId;
             PushLog(log);
         }
         public static void Trace(string message)
         {
-            Logs log = new Logs();
-            log.Message = message;
-            log.LogLevel = LogLevel.Trace;
+            Log log = new Log();
+            log.message = message;
+            log.logLevel = LogLevel.Trace;
             PushLog(log);
         }
-        public static void Trace(string message, Users user)
+        public static void Trace(string message, User user)
         {
-            Logs log = new Logs();
-            log.Message = message;
-            log.LogLevel = LogLevel.Trace;
-            log.UserId = user.UserId;
+            Log log = new Log();
+            log.message = message;
+            log.logLevel = LogLevel.Trace;
+            log.userId = user.userId;
             PushLog(log);
         }
-        public static void Warn(string message, Users user)
+        public static void Warn(string message, User user)
         {
-            Logs log = new Logs();
-            log.Message = message;
-            log.LogLevel = LogLevel.Warn;
-            log.UserId = user.UserId;
+            Log log = new Log();
+            log.message = message;
+            log.logLevel = LogLevel.Warn;
+            log.userId = user.userId;
             PushLog(log);
         }
         public static void Debug(string message)
         {
-            Logs log = new Logs();
-            log.Message = message;
-            log.LogLevel = LogLevel.Debug;
+            Log log = new Log();
+            log.message = message;
+            log.logLevel = LogLevel.Debug;
             PushLog(log);
         }
 
-        private static void PushLog(Logs log)
+        private static void PushLog(Log log)
         {
             //try
             //{

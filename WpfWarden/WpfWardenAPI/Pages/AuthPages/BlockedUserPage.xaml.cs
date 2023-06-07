@@ -93,8 +93,8 @@ namespace WpfWardenAPI.Pages.AuthPages
             }
             else
             {
-                BlockedUserMessages newMessage = new BlockedUserMessages();
-                newMessage.SendlerUserId = currentUser.UserId;
+                BlockedUserMessage newMessage = new BlockedUserMessage();
+                newMessage.SendlerUserId = currentUser.userId;
                 newMessage.Message = txbMessageText.Text;
                 newMessage.Time = DateTime.Now;
 
@@ -111,7 +111,7 @@ namespace WpfWardenAPI.Pages.AuthPages
 
                     if (response.Result.StatusCode == System.Net.HttpStatusCode.Created)
                     {
-                        Logger.Trace($"Пользователь {currentUser.UserId} отправил сообщение Сотруднику ИБ: {txbMessageText.Text}", currentUser);
+                        Logger.Trace($"Пользователь {currentUser.userId} отправил сообщение Сотруднику ИБ: {txbMessageText.Text}", currentUser);
                     }
                     else
                     {
@@ -133,7 +133,7 @@ namespace WpfWardenAPI.Pages.AuthPages
 
         private void btnDeleteMessage_Click(object sender, RoutedEventArgs e)
         {
-            List<ResponseMessages> selectedMessages = LVMessages.SelectedItems.Cast<ResponseMessages>().ToList();
+            List<BlockedUserMessage> selectedMessages = LVMessages.SelectedItems.Cast<BlockedUserMessage>().ToList();
             if (MessageBox.Show($"Вы действительно хотите удалить эти сообщения в количестве {selectedMessages.Count()} штук?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 try
@@ -141,10 +141,10 @@ namespace WpfWardenAPI.Pages.AuthPages
                     bool showError = false;
                     for (int i = 0; i < selectedMessages.Count; i++)
                     {
-                        if (selectedMessages[i].SendlerIsBlocked == false)
-                        {
-                            showError = true;
-                        }
+                        //if (selectedMessages[i].sendlerIsBlocked == false)
+                        //{
+                        //    showError = true;
+                        //}
                     }
 
                     if (showError)

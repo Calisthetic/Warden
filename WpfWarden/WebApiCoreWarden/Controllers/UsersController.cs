@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApiCoreWarden.Models;
+using WebApiCoreWarden.Models.DataTransferObjects;
 
 namespace WebApiCoreWarden.Controllers
 {
@@ -40,6 +41,16 @@ namespace WebApiCoreWarden.Controllers
             }
             User user = await _context.Users.Where(x => x.Login == login && x.Password == password && x.DivisionId == divisionId).Include(x => x.Division).Include(x1 => x1.Permission).FirstOrDefaultAsync();
             return user == null ? NotFound() : user;
+        }
+
+        [HttpGet("Messages")]
+        public async Task<ActionResult<List<UserMessagesCount>>> GetUsersMessages()
+        {
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
+            return _context.Users.Where(x => x.IsBlocked == true).ToList().ConvertAll(x => new UserMessagesCount(x));
         }
 
         // GET: api/Users/5
