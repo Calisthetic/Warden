@@ -25,10 +25,10 @@ namespace WpfWardenAPI.Pages.AuthPages
     /// </summary>
     public partial class BlockedUserPage : Page
     {
-        private static Users currentUser = new Users();
+        private static User currentUser = new User();
         private double currentScrollHeight = 0;
 
-        public BlockedUserPage(Users _currentUser)
+        public BlockedUserPage(User _currentUser)
         {
             InitializeComponent();
             if (_currentUser != null)
@@ -54,7 +54,7 @@ namespace WpfWardenAPI.Pages.AuthPages
             {
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("http://localhost:54491/api/");
-                var responseTask = client.GetAsync("Messages?userId=" + currentUser.UserId);
+                var responseTask = client.GetAsync("Messages?userId=" + currentUser.userId);
                 responseTask.Wait();
 
                 var result = responseTask.Result;
@@ -65,7 +65,7 @@ namespace WpfWardenAPI.Pages.AuthPages
 
                     var resultString = readTask.Result;
 
-                    LVMessages.ItemsSource = JsonConvert.DeserializeObject<List<ResponseMessages>>(resultString);
+                    LVMessages.ItemsSource = JsonConvert.DeserializeObject<List<BlockedUserMessage>>(resultString);
                 }
                 else MessageBox.Show("Не получилось найти данные...");
             }

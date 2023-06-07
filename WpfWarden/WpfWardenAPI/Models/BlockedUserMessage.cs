@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace WebApiCoreWarden.Models;
+namespace WpfWardenAPI.Models;
 
 public partial class BlockedUserMessage
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebApiCoreWarden.Models;
+namespace WpfWardenAPI.Models;
 
 public partial class Product
 {

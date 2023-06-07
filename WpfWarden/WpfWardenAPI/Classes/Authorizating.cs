@@ -12,9 +12,9 @@ namespace WpfWardenAPI.Classes
     {
         public static void Entry(User currentUser)
         {
-            if (!currentUser.IsBlocked)
+            if (!currentUser.isBlocked)
             {
-                switch (currentUser.PermissionName)
+                switch (currentUser.permission.name)
                 {
                     case "Администратор доступа":
                         Classes.PageManager.MainFrame.Navigate(new Pages.SecurityPersonal.AdministratorPage(currentUser));
