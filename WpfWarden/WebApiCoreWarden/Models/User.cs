@@ -36,7 +36,7 @@ public partial class User
     [JsonIgnore]
     public virtual ICollection<BlockedUserMessage> BlockedUserMessageSendlerUsers { get; set; } = new List<BlockedUserMessage>();
 
-    public virtual Division Division { get; set; } = null!;
+    public virtual Division? Division { get; set; } = null!;
 
     [JsonIgnore]
     public virtual ICollection<Log> Logs { get; set; } = new List<Log>();

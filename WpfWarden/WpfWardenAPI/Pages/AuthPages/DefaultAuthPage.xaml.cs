@@ -40,7 +40,7 @@ namespace WpfWardenAPI.Pages.AuthPages
         {
             Division selectedDivision = cmbDivisions.SelectedItem as Division;
 
-            var resultString = APIContext.Get("AuthUsers?login=" + txbLogin.Text + "&password=" + psbPassword.Password + "&divisionId=" + selectedDivision.divisionId);
+            var resultString = APIContext.Get("Users/AuthUser?login=" + txbLogin.Text + "&password=" + psbPassword.Password + "&divisionId=" + selectedDivision.divisionId);
 
             if (string.IsNullOrEmpty(resultString))
             {

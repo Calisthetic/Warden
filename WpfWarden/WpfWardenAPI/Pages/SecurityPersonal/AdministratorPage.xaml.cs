@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfWardenAPI.Classes;
 using WpfWardenAPI.Classes.Logger;
 using WpfWardenAPI.Models;
 
@@ -37,33 +38,19 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
         {
             if (Visibility == Visibility.Visible)
             {
-                try
-                { // Divisions
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("http://localhost:54491/api/");
-                    var responseTask = client.GetAsync("Divisions");
-                    responseTask.Wait();
-
-                    var result = responseTask.Result;
-                    if (result.IsSuccessStatusCode)
+                string resultString = APIContext.Get("Divisions");
+                if (string.IsNullOrEmpty(resultString))
+                {
+                    MessageBox.Show("Не получилось найти данные должностей сотрудников...");
+                } else {
+                    List<Division> divisions = JsonConvert.DeserializeObject<List<Division>>(resultString);
+                    divisions.Insert(0, new Division
                     {
-                        var readTask = result.Content.ReadAsStringAsync();
-                        readTask.Wait();
-
-                        var resultString = readTask.Result;
-
-                        List<Division> divisions = JsonConvert.DeserializeObject<List<Division>>(resultString);
-                        divisions.Insert(0, new Division
-                        {
-                            name = "Не выбрано"
-                        });
-                        cmbDivision.ItemsSource = divisions;
-                        cmbDivision.SelectedIndex = 0;
-                    }
-                    else
-                        MessageBox.Show("Не получилось найти данные должностей сотрудников...");
+                        name = "Не выбрано"
+                    });
+                    cmbDivision.ItemsSource = divisions;
+                    cmbDivision.SelectedIndex = 0;
                 }
-                catch (Exception ex) { MessageBox.Show(ex.Message); }
                
                 txtFIO.Text = currentUser.secondName + " " + currentUser.firstName.Substring(0, 1) + ". " +
                     ((currentUser.thirdName == null) ? (" ") : (currentUser.thirdName.Substring(0, 1) + "."));
@@ -98,34 +85,20 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                 newUser.divisionId = selectedDivision.divisionId;
                 newUser.gender = (cmbGender.SelectedIndex == 1) ? (true) : (false);
 
-                try
+                var response = APIContext.Post("Users", JsonConvert.SerializeObject(newUser));
+
+                if (!string.IsNullOrEmpty(response))
                 {
-                    HttpClient client = new HttpClient();
-                    var url = "http://localhost:54491/api/Users";
-
-                    var json = JsonConvert.SerializeObject(newUser);
-                    var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    var response = client.PostAsync(url, data);
-                    response.Wait();
-
-                    if (response.Result.StatusCode == System.Net.HttpStatusCode.Created)
-                    {
-                        //var result = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show("Пользователь успешно добавлен!");
-                        Logger.Trace($"Администратор добавил нового пользователя id:{newUser.userId}", currentUser);
-                        ClearFields();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Не удалось добавить пользователя");
-                    }
+                    //var result = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show("Пользователь успешно добавлен!");
+                    Logger.Trace($"Администратор добавил нового пользователя id:{newUser.userId}", currentUser);
+                    ClearFields();
                 }
-                catch (Exception ex)
+                else
                 {
-                    Logger.Error(ex, currentUser);
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Не удалось добавить пользователя");
                 }
+
                 //catch (DbEntityValidationException er)
                 //{
                 //    foreach (var eve in er.EntityValidationErrors)

@@ -39,7 +39,7 @@
                     <ComboBoxItem Content="Мужской"></ComboBoxItem>
                     <ComboBoxItem Content="Женский"></ComboBoxItem>
                 </ComboBox>
-                <ComboBox x:Name="cmbDivision" FontSize="18" Margin="0 8" DisplayMemberPath="Name"></ComboBox>
+                <ComboBox x:Name="cmbDivision" FontSize="18" Margin="0 8" DisplayMemberPath="name"></ComboBox>
             </StackPanel>
             <StackPanel Width="375" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Bottom">
                 <Button x:Name="btnSave" Click="btnSave_Click" HorizontalAlignment="Left" Content="Сохранить" FontSize="18"></Button>
