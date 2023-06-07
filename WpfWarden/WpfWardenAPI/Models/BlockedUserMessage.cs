@@ -15,10 +15,4 @@ public partial class BlockedUserMessage
     public string Message { get; set; } = null!;
 
     public DateTime Time { get; set; }
-
-    [JsonIgnore]
-    public virtual User? DestinationUser { get; set; }
-
-    [JsonIgnore]
-    public virtual User SendlerUser { get; set; } = null!;
 }

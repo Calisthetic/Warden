@@ -19,6 +19,4 @@ public partial class Log
     public string? Exception { get; set; }
 
     public int? UserId { get; set; }
-
-    public virtual User? User { get; set; }
 }

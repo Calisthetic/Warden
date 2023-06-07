@@ -6,18 +6,15 @@ namespace WebApiCoreWarden.Models;
 
 public partial class Permission
 {
-    public int PermissionId { get; set; }
+    public int permissionId { get; set; }
 
-    public string Name { get; set; } = null!;
+    public string name { get; set; } = null!;
 
-    public bool AddData { get; set; }
+    public bool addData { get; set; }
 
-    public bool ChangeData { get; set; }
+    public bool changeData { get; set; }
 
-    public bool MakeReport { get; set; }
+    public bool makeReport { get; set; }
 
-    public bool DeleteData { get; set; }
-
-    [JsonIgnore]
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
+    public bool deleteData { get; set; }
 }

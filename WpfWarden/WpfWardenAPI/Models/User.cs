@@ -6,46 +6,30 @@ namespace WebApiCoreWarden.Models;
 
 public partial class User
 {
-    public int UserId { get; set; }
+    public int userId { get; set; }
 
-    public string FirstName { get; set; } = null!;
+    public string firstName { get; set; } = null!;
 
-    public string SecondName { get; set; } = null!;
+    public string secondName { get; set; } = null!;
 
-    public string? ThirdName { get; set; }
+    public string? thirdName { get; set; }
 
-    public string? Login { get; set; }
+    public string? login { get; set; }
 
-    public string? Password { get; set; }
+    public string? password { get; set; }
 
-    public string? SecretWord { get; set; }
+    public string? secretWord { get; set; }
 
-    public int DivisionId { get; set; }
+    public int divisionId { get; set; }
 
-    public int? PermissionId { get; set; }
+    public int? permissionId { get; set; }
 
-    public bool IsBlocked { get; set; }
+    public bool isBlocked { get; set; }
 
-    public bool Gender { get; set; }
+    public bool gender { get; set; }
 
-    public bool IsVerify { get; set; }
-    
-    [JsonIgnore]
-    public virtual ICollection<BlockedUserMessage> BlockedUserMessageDestinationUsers { get; set; } = new List<BlockedUserMessage>();
-
-    [JsonIgnore]
-    public virtual ICollection<BlockedUserMessage> BlockedUserMessageSendlerUsers { get; set; } = new List<BlockedUserMessage>();
-
-    public virtual Division Division { get; set; } = null!;
-
-    [JsonIgnore]
-    public virtual ICollection<Log> Logs { get; set; } = new List<Log>();
-
-    [JsonIgnore]
-    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
-
-    public virtual Permission? Permission { get; set; }
-
-    [JsonIgnore]
-    public virtual ICollection<ProductEnterAct> ProductEnterActs { get; set; } = new List<ProductEnterAct>();
+    public bool isVerify { get; set; }
+   
+    public Division division { get; set; }
+    public Permission permission { get; set; }
 }

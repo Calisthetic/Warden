@@ -10,7 +10,7 @@ namespace WpfWardenAPI.Classes
 {
     internal class Authorizating
     {
-        public static void Entry(Users currentUser)
+        public static void Entry(User currentUser)
         {
             if (!currentUser.IsBlocked)
             {
