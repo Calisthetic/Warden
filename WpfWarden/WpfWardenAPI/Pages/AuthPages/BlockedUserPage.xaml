@@ -50,13 +50,13 @@
                                                 <Setter Property="CornerRadius" Value="12 12 12 0"></Setter>
                                                 <Setter Property="Background" Value="#a0d6ff"></Setter>
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding SendlerIsBlocked}" Value="True">
+                                                    <DataTrigger Binding="{Binding SendlerUser.isBlocked}" Value="True">
                                                         <Setter Property="HorizontalAlignment" Value="Right"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding SendlerIsBlocked}" Value="True">
+                                                    <DataTrigger Binding="{Binding SendlerUser.isBlocked}" Value="True">
                                                         <Setter Property="CornerRadius" Value="12 12 0 12"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding SendlerIsBlocked}" Value="True">
+                                                    <DataTrigger Binding="{Binding SendlerUser.isBlocked}" Value="True">
                                                         <Setter Property="Background" Value="#22aeff"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -72,7 +72,7 @@
                                                     <Style TargetType="{x:Type TextBlock}">
                                                         <Setter Property="TextAlignment" Value="Left"></Setter>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding SendlerIsBlocked}" Value="True">
+                                                            <DataTrigger Binding="{Binding SendlerUser.isBlocked}" Value="True">
                                                                 <Setter Property="TextAlignment" Value="Right"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
@@ -84,7 +84,7 @@
                                                     <Style TargetType="{x:Type TextBlock}">
                                                         <Setter Property="Margin" Value="2 0 5 2"></Setter>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding SendlerIsBlocked}" Value="True">
+                                                            <DataTrigger Binding="{Binding SendlerUser.isBlocked}" Value="True">
                                                                 <Setter Property="Margin" Value="5 0 4 2"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>

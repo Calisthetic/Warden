@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfWardenAPI.Classes;
 using WpfWardenAPI.Classes.Logger;
 using WpfWardenAPI.Models;
 
@@ -50,26 +51,13 @@ namespace WpfWardenAPI.Pages.AuthPages
 
         public void RefreshData()
         {
-            try
+            var result = APIContext.Get("BlockedUserMessages/" + currentUser.userId);
+                
+            if (!string.IsNullOrEmpty(result))
             {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:54491/api/");
-                var responseTask = client.GetAsync("Messages?userId=" + currentUser.userId);
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsStringAsync();
-                    readTask.Wait();
-
-                    var resultString = readTask.Result;
-
-                    LVMessages.ItemsSource = JsonConvert.DeserializeObject<List<BlockedUserMessage>>(resultString);
-                }
-                else MessageBox.Show("Не получилось найти данные...");
+                LVMessages.ItemsSource = JsonConvert.DeserializeObject<List<BlockedUserMessage>>(result);
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            else MessageBox.Show("Не получилось найти данные...");
         }
 
         private void btnSendMessage_Click(object sender, RoutedEventArgs e)
@@ -98,30 +86,15 @@ namespace WpfWardenAPI.Pages.AuthPages
                 newMessage.Message = txbMessageText.Text;
                 newMessage.Time = DateTime.Now;
 
-                try
+                var result = APIContext.Post("BlockedUserMessages", JsonConvert.SerializeObject(newMessage));
+
+                if (!string.IsNullOrEmpty(result))
                 {
-                    HttpClient client = new HttpClient();
-                    var url = "http://localhost:54491/api/BlockedUserMessages";
-
-                    var json = JsonConvert.SerializeObject(newMessage);
-                    var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    var response = client.PostAsync(url, data);
-                    response.Wait();
-
-                    if (response.Result.StatusCode == System.Net.HttpStatusCode.Created)
-                    {
-                        Logger.Trace($"Пользователь {currentUser.userId} отправил сообщение Сотруднику ИБ: {txbMessageText.Text}", currentUser);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Не удалось отправить сообщение");
-                    }
+                    Logger.Trace($"Пользователь {currentUser.userId} отправил сообщение Сотруднику ИБ: {txbMessageText.Text}", currentUser);
                 }
-                catch (Exception ex)
+                else
                 {
-                    Logger.Error(ex, currentUser);
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Не удалось отправить сообщение");
                 }
 
                 RefreshData();
@@ -153,13 +126,9 @@ namespace WpfWardenAPI.Pages.AuthPages
                     {
                         for (int i = 0; i < selectedMessages.Count; i++)
                         {
-                            HttpClient client = new HttpClient();
-                            var url = "http://localhost:54491/api/BlockedUserMessages/" + selectedMessages[i].BlockedUserMessageId;
+                            var result = APIContext.Delete("BlockedUserMessages/" + selectedMessages[i].BlockedUserMessageId);
 
-                            var response = client.DeleteAsync(url);
-                            response.Wait();
-
-                            if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
+                            if (string.IsNullOrEmpty(result))
                             {
                                 Logger.Trace($"Заблокированный пользователь удалил {selectedMessages.Count()} сообщений");
                                 RefreshData();

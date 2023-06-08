@@ -59,10 +59,12 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
         {
             if (Visibility == Visibility.Visible)
             {
-                string notBlockedUsers = APIContext.Get("UsersByBlock");
+                string notBlockedUsers = APIContext.Get("Users?IsBlocked=false");
                 if (!string.IsNullOrEmpty(notBlockedUsers))
-                    DGUsers.ItemsSource = JsonConvert.DeserializeObject<List<User>>(notBlockedUsers);
-
+                {
+                    usersToBlock = JsonConvert.DeserializeObject<List<User>>(notBlockedUsers);
+                    DGUsers.ItemsSource = usersToBlock;
+                }
                 txtFIO.Text = currentUser.secondName + " " + currentUser.firstName.Substring(0, 1) + ". " +
                     ((currentUser.thirdName == null) ? (" ") : (currentUser.thirdName.Substring(0, 1) + "."));
 
@@ -129,8 +131,15 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                     else 
                         MessageBox.Show("Сохранить изменения не получилось");
 
-                    usersToBlock = JsonConvert.DeserializeObject<List<User>>(APIContext.Get("UsersByBlock"));
-                    DGUsers.ItemsSource = usersToBlock;
+                    string result = APIContext.Get("Users?IsBlocked=false");
+                    if (string.IsNullOrEmpty(result))
+                    {
+                        MessageBox.Show("Не удалось обновить список пользователей");
+                    } else
+                    {
+                        usersToBlock = JsonConvert.DeserializeObject<List<User>>(result);
+                        DGUsers.ItemsSource = usersToBlock;
+                    }
                     RefreshData();
 
                     Logger.Warn($"Контролёр МО заблокировал {blockedUsersCount} пользователей", currentUser);
@@ -168,7 +177,7 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
 
 
 
-            string currentLogsCount = APIContext.Get($"LogsCount?skip=0" + urlPath);
+            string currentLogsCount = APIContext.Get($"Logs/Count?skip=0" + urlPath);
             if (!string.IsNullOrEmpty(currentLogsCount) && int.TryParse(currentLogsCount, out int logsCount))
             {
                 currentPageNumber = 0;

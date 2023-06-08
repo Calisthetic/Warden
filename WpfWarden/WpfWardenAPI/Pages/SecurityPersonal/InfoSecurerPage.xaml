@@ -93,18 +93,18 @@
                                                 <Style TargetType="{x:Type Border}">
                                                     <Setter Property="Visibility" Value="Visible"></Setter>
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding UncheckedMessagesCount}" Value="0">
+                                                        <DataTrigger Binding="{Binding uncheckedMessagesCount}" Value="0">
                                                             <Setter Property="Visibility" Value="Hidden"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
                                             </Border.Style>
-                                            <TextBlock FontSize="14" Foreground="White" FontWeight="Bold"  VerticalAlignment="Center" TextAlignment="Center" Text="{Binding UncheckedMessagesCount}">
+                                            <TextBlock FontSize="14" Foreground="White" FontWeight="Bold"  VerticalAlignment="Center" TextAlignment="Center" Text="{Binding uncheckedMessagesCount}">
                                                 <TextBlock.Style>
                                                     <Style TargetType="{x:Type TextBlock}">
                                                         <Setter Property="Visibility" Value="Visible"></Setter>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding UncheckedMessagesCount}" Value="0">
+                                                            <DataTrigger Binding="{Binding uncheckedMessagesCount}" Value="0">
                                                                 <Setter Property="Visibility" Value="Collapsed"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
@@ -114,13 +114,13 @@
                                         </Border>
                                         <StackPanel Orientation="Vertical" Grid.Column="1" Margin="4 0 0 0">
                                             <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
-                                                <TextBlock FontSize="18" Foreground="#2247ff" Text="{Binding SecondName}"></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text="{Binding sendlerUser.secondName}"></TextBlock>
                                                 <TextBlock FontSize="18" Foreground="#2247ff" Text=" "></TextBlock>
-                                                <TextBlock FontSize="18" Foreground="#2247ff" Text="{Binding FirstName}"></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text="{Binding sendlerUser.firstName}"></TextBlock>
                                                 <TextBlock FontSize="18" Foreground="#2247ff" Text=" "></TextBlock>
-                                                <TextBlock FontSize="18" Foreground="#2247ff" Text="{Binding ThirdName}"></TextBlock>
+                                                <TextBlock FontSize="18" Foreground="#2247ff" Text="{Binding sendlerUser.thirdName}"></TextBlock>
                                                 <TextBlock FontSize="18" Foreground="#2247ff" Text=" - "></TextBlock>
-                                                <TextBlock FontSize="18" Text="{Binding Division.Name}" Foreground="#2247ff"></TextBlock>
+                                                <TextBlock FontSize="18" Text="{Binding sendlerUser.division.name}" Foreground="#2247ff"></TextBlock>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="2 2 0 0">
                                                 <TextBlock>
@@ -128,10 +128,10 @@
                                                         <Style TargetType="{x:Type TextBlock}">
                                                             <Setter Property="Text" Value="  Вы: "></Setter>
                                                             <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding LastMessage.DestinationUserId}" Value="{x:Null}">
+                                                                <DataTrigger Binding="{Binding userLastMessage.DestinationUserId}" Value="{x:Null}">
                                                                     <Setter Property="Text" Value=" "/>
                                                                 </DataTrigger>
-                                                                <DataTrigger Binding="{Binding LastMessage.Message}" Value="{x:Null}">
+                                                                <DataTrigger Binding="{Binding userLastMessage.Message}" Value="{x:Null}">
                                                                     <Setter Property="Text" Value=" "/>
                                                                 </DataTrigger>
                                                             </Style.Triggers>
@@ -141,9 +141,9 @@
                                                 <TextBlock>
                                                     <TextBlock.Style>
                                                         <Style TargetType="{x:Type TextBlock}">
-                                                            <Setter Property="Text" Value="{Binding LastMessage.Message, StringFormat={} {0}}"></Setter>
+                                                            <Setter Property="Text" Value="{Binding userLastMessage.Message, StringFormat={} {0}}"></Setter>
                                                             <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding LastMessage.Message}" Value="{x:Null}">
+                                                                <DataTrigger Binding="{Binding userLastMessage.Message}" Value="{x:Null}">
                                                                     <Setter Property="Text" Value=" Пока что здесь нет сообщений..."/>
                                                                     <Setter Property="Foreground" Value="#555"></Setter>
                                                                 </DataTrigger>

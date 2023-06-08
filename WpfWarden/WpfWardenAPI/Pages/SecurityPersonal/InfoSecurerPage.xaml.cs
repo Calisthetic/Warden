@@ -98,21 +98,21 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
             //CmbRole.ItemsSource = permissions;
             //DGPermissions.ItemsSource = permissions;
 
-            string usersMessagesResult = APIContext.Get("UsersMessages");
+            string usersMessagesResult = APIContext.Get("Users/Messages");
             if (string.IsNullOrEmpty(usersMessagesResult))
             {
-                MessageBox.Show("Не удалось получить сообщения пользователей");
+                //MessageBox.Show("Не удалось получить сообщения пользователей");
             }
             else
             {
-                List<BlockedUserMessage> blockedUsers = JsonConvert.DeserializeObject<List<BlockedUserMessage>>(APIContext.Get("UsersMessages"));// DBContext.db.Users.Where(x => x.IsBlocked == true).ToList();//OrderBy(x => x.UncheckedMessagesCount).ToList();
+                List<UserMessagesCount> blockedUsers = JsonConvert.DeserializeObject<List<UserMessagesCount>>(usersMessagesResult);// DBContext.db.Users.Where(x => x.IsBlocked == true).ToList();//OrderBy(x => x.UncheckedMessagesCount).ToList();
                 for (int i = 0; i < blockedUsers.Count - 1; i++)
                 {
                     for (int j = 0; j < blockedUsers.Count - i - 1; j++)
                     {
                         //if (blockedUsers[j].lastMessageTime < blockedUsers[j + 1].lastMessageTime)
                         //{
-                        //    BlockedUserMessage temp = blockedUsers[j];
+                        //    UserMessagesCount temp = blockedUsers[j];
                         //    blockedUsers[j] = blockedUsers[j + 1];
                         //    blockedUsers[j + 1] = temp;
                         //}
