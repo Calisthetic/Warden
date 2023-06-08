@@ -22,7 +22,8 @@
             {
                 DateTime lastLogged = _context.Logs.AsEnumerable().Where(x => x.Message.Contains($"Сотрудник ИБ перешёл на страницу переписки с пользователем {user.UserId} из чёрного списка") == true).OrderByDescending(x => x.Logged).FirstOrDefault().Logged;
                 UncheckedMessagesCount = _context.BlockedUserMessages.Where(x => x.Time > lastLogged && x.SendlerUserId == user.UserId).Count();
-                UserLastMessage = _context.BlockedUserMessages.Where(x => x.SendlerUserId == user.UserId || x.DestinationUserId == user.UserId).OrderByDescending(x => x.Time).First();
+                UserLastMessage = _context.BlockedUserMessages.Where(x => x.SendlerUserId == user.UserId || x.DestinationUserId == user.UserId).OrderByDescending(x => x.Time).Count() == 0 ? null 
+                    : _context.BlockedUserMessages.Where(x => x.SendlerUserId == user.UserId || x.DestinationUserId == user.UserId).OrderByDescending(x => x.Time).First();
             }
             SendlerUser = user;
         }

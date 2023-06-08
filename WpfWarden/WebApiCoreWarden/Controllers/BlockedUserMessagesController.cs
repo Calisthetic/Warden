@@ -39,7 +39,7 @@ namespace WebApiCoreWarden.Controllers
             {
                 return NotFound();
             }
-            var blockedUserMessage = await _context.BlockedUserMessages.Where(x => x.SendlerUserId == id || x.DestinationUserId == id).ToListAsync();
+            var blockedUserMessage = await _context.BlockedUserMessages.Where(x => x.SendlerUserId == id || x.DestinationUserId == id).Include(x1 => x1.SendlerUser).ToListAsync();
 
             if (blockedUserMessage == null)
             {
