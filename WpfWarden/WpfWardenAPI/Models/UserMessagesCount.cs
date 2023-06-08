@@ -12,6 +12,8 @@ namespace WpfWardenAPI.Models
 
         public DateTime? uncheckedMessageTime { get; set; }
 
-        public BlockedUserMessage userMessage { get; set; }
+        public BlockedUserMessage userLastMessage { get; set; }
+
+        public User sendlerUser { get; set; }
     }
 }
