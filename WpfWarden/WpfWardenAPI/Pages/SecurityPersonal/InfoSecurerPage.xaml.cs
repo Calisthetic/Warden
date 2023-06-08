@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,12 +92,19 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
 
         private void RefreshData()
         {
-            //usersToVerify = DBContext.db.Users.Where(x => x.IsVerify == false && x.IsBlocked == false).ToList();
-            //DGUsersForVerify.ItemsSource = DBContext.db.Users.Where(x => x.IsVerify == false).ToList();
+            string result = APIContext.Get("Users?IsVerify=false");
+            if (!string.IsNullOrEmpty(result))
+            {
+                usersToVerify = JsonConvert.DeserializeObject<List<User>>(result);
+                DGUsersForVerify.ItemsSource = usersToVerify;
+            }
 
-            //permissions = DBContext.db.Permission.ToList();
-            //CmbRole.ItemsSource = permissions;
-            //DGPermissions.ItemsSource = permissions;
+            result = APIContext.Get("Permissions");
+            if (!string.IsNullOrEmpty(result))
+            {
+                CmbRole.ItemsSource = permissions;
+                DGPermissions.ItemsSource = permissions;
+            }
 
             string usersMessagesResult = APIContext.Get("Users/Messages");
             if (string.IsNullOrEmpty(usersMessagesResult))
@@ -162,7 +170,6 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                             }
                         }
                     }
-                    //DBContext.db.SaveChanges();
                     RefreshData();
                     if (error)
                     {
