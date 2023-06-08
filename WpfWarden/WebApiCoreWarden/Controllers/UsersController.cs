@@ -50,7 +50,7 @@ namespace WebApiCoreWarden.Controllers
             {
                 return NotFound();
             }
-            return _context.Users.Where(x => x.IsBlocked == true).ToList().ConvertAll(x => new UserMessagesCount(x));
+            return _context.Users.Where(x => x.IsBlocked == true).Include(x1 => x1.Division).Include(x2 => x2.Permission).ToList().ConvertAll(x => new UserMessagesCount(x));
         }
 
         // GET: api/Users/5

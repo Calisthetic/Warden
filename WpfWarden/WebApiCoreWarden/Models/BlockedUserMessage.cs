@@ -19,6 +19,5 @@ public partial class BlockedUserMessage
     [JsonIgnore]
     public virtual User? DestinationUser { get; set; }
 
-    [JsonIgnore]
-    public virtual User SendlerUser { get; set; } = null!;
+    public virtual User? SendlerUser { get; set; } = null!;
 }
