@@ -21,8 +21,8 @@ namespace WpfWardenAPI.Classes
                         Logger.Logger.Trace("Пользователь вошёл в систему", currentUser);
                         break;
                     case "Специалист по ИБ":
-                        //Classes.PageManager.MainFrame.Navigate(new Pages.SecurityPersonal.InfoSecurerPage(currentUser));
-                        //Logger.Logger.Trace("Пользователь вошёл в систему", currentUser);
+                        Classes.PageManager.MainFrame.Navigate(new Pages.SecurityPersonal.InfoSecurerPage(currentUser));
+                        Logger.Logger.Trace("Пользователь вошёл в систему", currentUser);
                         break;
                     case "Контролёр МО":
                         Classes.PageManager.MainFrame.Navigate(new Pages.SecurityPersonal.ControllerMO(currentUser));
