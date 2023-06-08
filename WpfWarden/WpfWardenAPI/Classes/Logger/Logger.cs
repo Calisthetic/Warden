@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -59,6 +60,12 @@ namespace WpfWardenAPI.Classes.Logger
 
         private static void PushLog(Log log)
         {
+            try
+            {
+                log.machineName = "WpfWardenAPI";
+                log.logged = DateTime.Now;
+                string result = APIContext.Post("Logs", JsonConvert.SerializeObject(log));
+            } catch { }
             //try
             //{
             //    DBContext.db.Logs.Add(log);
