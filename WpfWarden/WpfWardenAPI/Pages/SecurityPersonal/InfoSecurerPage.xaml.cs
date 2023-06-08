@@ -118,12 +118,12 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                 {
                     for (int j = 0; j < blockedUsers.Count - i - 1; j++)
                     {
-                        //if (blockedUsers[j].lastMessageTime < blockedUsers[j + 1].lastMessageTime)
-                        //{
-                        //    UserMessagesCount temp = blockedUsers[j];
-                        //    blockedUsers[j] = blockedUsers[j + 1];
-                        //    blockedUsers[j + 1] = temp;
-                        //}
+                        if (blockedUsers[j].userLastMessage.Time < blockedUsers[j + 1].userLastMessage.Time)
+                        {
+                            UserMessagesCount temp = blockedUsers[j];
+                            blockedUsers[j] = blockedUsers[j + 1];
+                            blockedUsers[j + 1] = temp;
+                        }
                     }
                 }
                 LVBlockedUsers.ItemsSource = blockedUsers;
