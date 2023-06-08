@@ -19,15 +19,15 @@
                         </Grid.RowDefinitions>
                         <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" x:Name="DGUsersForVerify" IsReadOnly="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Фамилия" Binding="{Binding SecondName}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Отчество" Binding="{Binding ThirdName}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Должность" Binding="{Binding Division.Name}" IsReadOnly="True"/>
-                                <DataGridComboBoxColumn x:Name="CmbRole" SelectedItemBinding="{Binding Permission}" Header="Тип пользователя"  DisplayMemberPath="Name"/>
-                                <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
-                                <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
-                                <DataGridTextColumn Header="Секретное слово" Binding="{Binding SecretWord}"/>
-                                <DataGridCheckBoxColumn Header="Одобрить" Binding="{Binding IsVerify}"></DataGridCheckBoxColumn>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding secondName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding firstName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding thirdName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Должность" Binding="{Binding division.name}" IsReadOnly="True"/>
+                                <DataGridComboBoxColumn x:Name="CmbRole" SelectedItemBinding="{Binding permission}" Header="Тип пользователя"  DisplayMemberPath="name"/>
+                                <DataGridTextColumn Header="Логин" Binding="{Binding login}"/>
+                                <DataGridTextColumn Header="Пароль" Binding="{Binding password}"/>
+                                <DataGridTextColumn Header="Секретное слово" Binding="{Binding secretWord}"/>
+                                <DataGridCheckBoxColumn Header="Одобрить" Binding="{Binding isVerify}"></DataGridCheckBoxColumn>
                                 <!--<DataGridTemplateColumn Width="auto" Header="Одобрить">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

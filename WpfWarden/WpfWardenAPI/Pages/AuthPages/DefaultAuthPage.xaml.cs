@@ -69,7 +69,7 @@ namespace WpfWardenAPI.Pages.AuthPages
                 else
                 {
                     cmbDivisions.ItemsSource = JsonConvert.DeserializeObject<List<Division>>(resultString);
-                    cmbDivisions.SelectedIndex = 2;
+                    cmbDivisions.SelectedIndex = 1;
                 }
 
                 txbLogin.Text = string.Empty;

@@ -91,16 +91,16 @@ namespace WpfWardenAPI.Pages.AuthPages
                 if (!string.IsNullOrEmpty(result))
                 {
                     Logger.Trace($"Пользователь {currentUser.userId} отправил сообщение Сотруднику ИБ: {txbMessageText.Text}", currentUser);
+
+                    RefreshData();
+                    txbMessageText.Text = string.Empty;
+                    var scrollViewer = FindName("ScrollMessages");
+                    ((ScrollViewer)scrollViewer)?.ScrollToBottom();
                 }
                 else
                 {
                     MessageBox.Show("Не удалось отправить сообщение");
                 }
-
-                RefreshData();
-                txbMessageText.Text = string.Empty;
-                var scrollViewer = FindName("ScrollMessages");
-                ((ScrollViewer)scrollViewer)?.ScrollToBottom();
             }
         }
 

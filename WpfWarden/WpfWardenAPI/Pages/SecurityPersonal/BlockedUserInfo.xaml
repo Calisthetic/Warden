@@ -6,10 +6,10 @@
       xmlns:local="clr-namespace:WpfWardenAPI.Pages.SecurityPersonal"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="BlockedUserInfo">
+      Title="BlockedUserInfo" IsVisibleChanged="Page_IsVisibleChanged" KeyDown="Page_KeyDown">
 
     <Grid>
-        <!--<Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="1"></ColumnDefinition>
             <ColumnDefinition Width="790"></ColumnDefinition>
@@ -50,13 +50,13 @@
                                                 <Setter Property="CornerRadius" Value="12 12 12 0"></Setter>
                                                 <Setter Property="Background" Value="#a0d6ff"></Setter>
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
+                                                    <DataTrigger Binding="{Binding SendlerUser.isBlocked}" Value="False">
                                                         <Setter Property="HorizontalAlignment" Value="Right"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
+                                                    <DataTrigger Binding="{Binding SendlerUser.isBlocked}" Value="False">
                                                         <Setter Property="CornerRadius" Value="12 12 0 12"/>
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
+                                                    <DataTrigger Binding="{Binding SendlerUser.isBlocked}" Value="False">
                                                         <Setter Property="Background" Value="#22aeff"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
@@ -72,7 +72,7 @@
                                                     <Style TargetType="{x:Type TextBlock}">
                                                         <Setter Property="TextAlignment" Value="Left"></Setter>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
+                                                            <DataTrigger Binding="{Binding SendlerUser.isBlocked}" Value="False">
                                                                 <Setter Property="TextAlignment" Value="Right"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
@@ -84,7 +84,7 @@
                                                     <Style TargetType="{x:Type TextBlock}">
                                                         <Setter Property="Margin" Value="2 0 5 2"></Setter>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
+                                                            <DataTrigger Binding="{Binding SendlerUser.isBlocked}" Value="False">
                                                                 <Setter Property="Margin" Value="5 0 4 2"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
@@ -111,6 +111,6 @@
                     </Button>
                 </StackPanel>
             </Border>
-        </Grid>-->
+        </Grid>
     </Grid>
 </Page>

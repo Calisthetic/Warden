@@ -128,10 +128,6 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                 }
                 LVBlockedUsers.ItemsSource = blockedUsers;
             }
-            //    Classes.DBContext.db.BlockedUserMessages.Where(x1 => x1.Time > (
-            //        Classes.DBContext.db.Logs.Where(x2 => x.Permission.Name == "Специалист по ИБ").OrderByDescending(x3 => x3.Logged).Skip(1).FirstOrDefault().Logged
-            //    ) && x1.SendlerUserId == x.UserId).Count()
-            //).ToList();
 
             txtFIO.Text = currentUser.secondName + " " + currentUser.firstName.Substring(0, 1) + ". " +
                 ((currentUser.thirdName == null) ? (" ") : (currentUser.thirdName.Substring(0, 1) + "."));
@@ -215,17 +211,13 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
 
         private void LVBlockedUsers_Selected(object sender, RoutedEventArgs e)
         {
-            User checkedUser = LVBlockedUsers.SelectedItem as User;
-            try
+            UserMessagesCount checkedUser1 = LVBlockedUsers.SelectedItem as UserMessagesCount;
+            User checkedUser = checkedUser1 == null ? null : checkedUser1.sendlerUser as User;
+            if (checkedUser != null)
             {
-                if (checkedUser != null)
-                {
-                    Logger.Trace($"Сотрудник ИБ перешёл на страницу переписки с пользователем {checkedUser.userId} из чёрного списка", currentUser);
-                    //PageManager.MainFrame.Navigate(new BlockedUserInfo(currentUser, checkedUser));
-                }
+                Logger.Trace($"Сотрудник ИБ перешёл на страницу переписки с пользователем {checkedUser.userId} из чёрного списка", currentUser);
+                PageManager.MainFrame.Navigate(new BlockedUserInfo(currentUser, checkedUser));
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-
         }
     }
 }
