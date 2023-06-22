@@ -89,7 +89,6 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
 
                 if (!string.IsNullOrEmpty(response))
                 {
-                    //var result = await response.Content.ReadAsStringAsync();
                     MessageBox.Show("Пользователь успешно добавлен!");
                     Logger.Trace($"Администратор добавил нового пользователя id:{newUser.userId}", currentUser);
                     ClearFields();
@@ -98,20 +97,6 @@ namespace WpfWardenAPI.Pages.SecurityPersonal
                 {
                     MessageBox.Show("Не удалось добавить пользователя");
                 }
-
-                //catch (DbEntityValidationException er)
-                //{
-                //    foreach (var eve in er.EntityValidationErrors)
-                //    {
-                //        MessageBox.Show("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:" +
-                //            eve.Entry.Entity.GetType().Name + eve.Entry.State);
-                //        foreach (var ve in eve.ValidationErrors)
-                //        {
-                //            MessageBox.Show("- Property: \"{0}\", Error: \"{1}\"" +
-                //                ve.PropertyName + ve.ErrorMessage);
-                //        }
-                //    }
-                //}
             }
             else
                 MessageBox.Show(errors.ToString());

@@ -109,36 +109,29 @@ namespace WpfWardenAPI.Pages.AuthPages
             List<BlockedUserMessage> selectedMessages = LVMessages.SelectedItems.Cast<BlockedUserMessage>().ToList();
             if (MessageBox.Show($"Вы действительно хотите удалить эти сообщения в количестве {selectedMessages.Count()} штук?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                try
+                bool showError = false;
+                for (int i = 0; i < selectedMessages.Count; i++)
                 {
-                    bool showError = false;
-                    for (int i = 0; i < selectedMessages.Count; i++)
+                    if (selectedMessages[i].SendlerUser.isBlocked == false)
                     {
-                        //if (selectedMessages[i].sendlerIsBlocked == false)
-                        //{
-                        //    showError = true;
-                        //}
-                    }
-
-                    if (showError)
-                        MessageBox.Show("Вы можете удалять только свои сообщения!");
-                    else
-                    {
-                        for (int i = 0; i < selectedMessages.Count; i++)
-                        {
-                            var result = APIContext.Delete("BlockedUserMessages/" + selectedMessages[i].BlockedUserMessageId);
-
-                            if (string.IsNullOrEmpty(result))
-                            {
-                                Logger.Trace($"Заблокированный пользователь удалил {selectedMessages.Count()} сообщений");
-                                RefreshData();
-                            }
-                        }
+                        showError = true;
                     }
                 }
-                catch (Exception ex)
+
+                if (showError)
+                    MessageBox.Show("Вы можете удалять только свои сообщения!");
+                else
                 {
-                    Logger.Error(ex, currentUser);
+                    for (int i = 0; i < selectedMessages.Count; i++)
+                    {
+                        var result = APIContext.Delete("BlockedUserMessages/" + selectedMessages[i].BlockedUserMessageId);
+
+                        if (string.IsNullOrEmpty(result))
+                        {
+                            Logger.Trace($"Заблокированный пользователь удалил {selectedMessages.Count()} сообщений");
+                            RefreshData();
+                        }
+                    }
                 }
             }
         }

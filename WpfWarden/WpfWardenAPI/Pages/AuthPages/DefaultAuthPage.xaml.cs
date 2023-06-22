@@ -32,29 +32,28 @@ namespace WpfWardenAPI.Pages.AuthPages
 
         private void btnForgotPassword_Click(object sender, RoutedEventArgs e)
         {
-            Classes.PageManager.MainFrame.Navigate(new ForgotPasswordPage());
+            PageManager.MainFrame.Navigate(new ForgotPasswordPage());
             Logger.Trace("Пользователь перешёл на страницу входа без пароля");
         }
 
-        private void btnEntry_Click(object sender, RoutedEventArgs e)
-        {
-            Division selectedDivision = cmbDivisions.SelectedItem as Division;
+private void btnEntry_Click(object sender, RoutedEventArgs e)
+{
+    Division selectedDivision = cmbDivisions.SelectedItem as Division;
 
-            var resultString = APIContext.Get("Users/AuthUser?login=" + txbLogin.Text + "&password=" + psbPassword.Password + "&divisionId=" + selectedDivision.divisionId);
-
-            if (string.IsNullOrEmpty(resultString))
-            {
-                MessageBox.Show("Не получилось найти данные...");
-            }
-            else
-            {
-                User currentUser = JsonConvert.DeserializeObject<User>(resultString);
-                if (currentUser != null)
-                    Classes.Authorizating.Entry(currentUser);
-                else
-                    MessageBox.Show("Пользователь не найден!\nКажется что-то пошло не так...");
-            }
-        }
+    var resultString = APIContext.Get("Users/AuthUser?login=" + txbLogin.Text + "&password=" + psbPassword.Password + "&divisionId=" + selectedDivision.divisionId);
+    if (string.IsNullOrEmpty(resultString))
+    {
+        MessageBox.Show("Не получилось найти данные...");
+    }
+    else
+    {
+        User currentUser = JsonConvert.DeserializeObject<User>(resultString);
+        if (currentUser != null)
+            Authorizating.Entry(currentUser);
+        else
+            MessageBox.Show("Пользователь не найден!\nКажется что-то пошло не так...");
+    }
+}
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {

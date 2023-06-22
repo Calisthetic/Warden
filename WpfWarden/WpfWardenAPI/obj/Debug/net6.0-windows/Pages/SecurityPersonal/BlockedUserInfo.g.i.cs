@@ -93,7 +93,7 @@ namespace WpfWardenAPI.Pages.SecurityPersonal {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/WpfWardenAPI;V1.0.0.0;component/pages/securitypersonal/blockeduserinfo.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/WpfWardenAPI;component/pages/securitypersonal/blockeduserinfo.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Pages\SecurityPersonal\BlockedUserInfo.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

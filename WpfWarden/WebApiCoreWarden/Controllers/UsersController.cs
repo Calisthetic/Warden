@@ -25,10 +25,10 @@ namespace WebApiCoreWarden.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers(bool IsVerify = true, bool IsBlocked = false)
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
             return await _context.Users.Where(x => x.IsBlocked == IsBlocked && x.IsVerify == IsVerify).Include(x => x.Division).Include(x1 => x1.Permission).ToListAsync();
         }
 

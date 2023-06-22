@@ -22,14 +22,14 @@ namespace WebApiCoreWarden.Controllers
 
         // GET: api/Logs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Log>>> GetLogs(int skip = 0, int take = 10, string logLevel = "null", bool showOld = false, int userId = 0, string search = "null")
+        public async Task<ActionResult<IEnumerable<Log>>> GetLogs(int skip = 0, int take = 10, string logLevel = "", bool showOld = false, int userId = 0, string search = "")
         {
             if (_context.Logs == null)
             {
                 return NotFound();
             }
-            var logs = _context.Logs.Include(x => x.User).Include(x1 => x1.User.Permission).Include(x1 => x1.User.Division).ToList();
-            if (logLevel != "null")
+            var logs = _context.Logs.Include(x => x.User).ThenInclude(x1 => x1.Permission).Include(x1 => x1.User).ThenInclude(x1 => x1.Division).ToList();
+            if (!string.IsNullOrEmpty(logLevel))
                 logs = logs.Where(x => x.LogLevel == logLevel).ToList();
 
             if (showOld == true) // Sort by date
@@ -40,7 +40,7 @@ namespace WebApiCoreWarden.Controllers
             if (userId > 0) // Fing by userId
                 logs = logs.Where(x => x.UserId == userId).ToList();
 
-            if (!string.IsNullOrWhiteSpace(search) && search != "null") // Search in message or exception
+            if (!string.IsNullOrWhiteSpace(search)) // Search in message or exception
             {
                 logs = logs.Where(x => (x.Exception != null) ? (x.Exception.ToLower().Contains(search.ToLower())) // if Exception == null
                 : ((x.Message != null) ? (x.Message.ToLower().Contains(search.ToLower())) // if Message == null
