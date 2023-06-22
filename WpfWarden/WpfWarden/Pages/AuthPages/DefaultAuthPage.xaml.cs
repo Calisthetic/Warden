@@ -34,16 +34,16 @@ namespace WpfWarden.Pages.AuthPages
             Logger.Trace("Пользователь перешёл на страницу входа без пароля");
         }
 
-        private void btnEntry_Click(object sender, RoutedEventArgs e)
-        {
-            Division selectedDivision = cmbDivisions.SelectedItem as Division;
-            Users currentUser = Classes.DBContext.db.Users.FirstOrDefault(x => x.IsVerify == true && 
-                x.Login == txbLogin.Text && x.Password == psbPassword.Password && x.DivisionId == selectedDivision.DivisionId);
-            if (currentUser != null)
-                Authorizating.Entry(currentUser);
-            else
-                MessageBox.Show("Пользователь не найден!\nВозможно данные были введены некорректно");
-        }
+private void btnEntry_Click(object sender, RoutedEventArgs e)
+{
+    Division selectedDivision = cmbDivisions.SelectedItem as Division;
+    Users currentUser = Classes.DBContext.db.Users.FirstOrDefault(x => x.IsVerify == true && 
+        x.Login == txbLogin.Text && x.Password == psbPassword.Password && x.DivisionId == selectedDivision.DivisionId);
+    if (currentUser != null)
+        Authorizating.Entry(currentUser);
+    else
+        MessageBox.Show("Пользователь не найден!\nВозможно данные были введены некорректно");
+}
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {

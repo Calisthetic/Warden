@@ -137,47 +137,19 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\BlockedUserMessages.cs">
-      <DependentUpon>WardenModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Division.cs">
-      <DependentUpon>WardenModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Logs.cs">
-      <DependentUpon>WardenModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Order.cs">
-      <DependentUpon>WardenModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Permission.cs">
-      <DependentUpon>WardenModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Product.cs">
-      <DependentUpon>WardenModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProductCategory.cs">
-      <DependentUpon>WardenModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProductEnterAct.cs">
-      <DependentUpon>WardenModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Users.cs">
-      <DependentUpon>WardenModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\WardenModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WardenModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\WardenModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WardenModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\BlockedUserMessages.cs" />
+    <Compile Include="Models\Division.cs" />
+    <Compile Include="Models\Logs.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Permission.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductCategory.cs" />
+    <Compile Include="Models\ProductEnterAct.cs" />
+    <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\WardenModel.Context.cs" />
+    <Compile Include="Models\WardenModel.cs" />
     <Compile Include="Models\WardenModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WardenModel.edmx</DependentUpon>
+      <DependentUpon>WardenModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthPages\BlockedUserPage.xaml.cs">
       <DependentUpon>BlockedUserPage.xaml</DependentUpon>
@@ -222,7 +194,7 @@
     </EmbeddedResource>
     <EntityDeploy Include="Models\WardenModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>WardenModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>WardenModel1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="Models\WardenModel.edmx.diagram">
       <DependentUpon>WardenModel.edmx</DependentUpon>
@@ -252,19 +224,17 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Models\WardenModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>WardenModel.edmx</DependentUpon>
-      <LastGenOutput>WardenModel.Context.cs</LastGenOutput>
+      <LastGenOutput>WardenModel.Context1.cs</LastGenOutput>
     </Content>
     <Content Include="Models\WardenModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>WardenModel.edmx</DependentUpon>
-      <LastGenOutput>WardenModel.cs</LastGenOutput>
+      <LastGenOutput>WardenModel1.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

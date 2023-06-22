@@ -69,12 +69,14 @@ namespace WpfWarden.Pages.SecurityPersonal
             {
                 Division selectedDivision = cmbDivision.SelectedItem as Division;
 
-                Users newUser = new Users();
-                newUser.FirstName = txbFirstName.Text;
-                newUser.SecondName = txbSecondName.Text;
-                newUser.ThirdName = (string.IsNullOrEmpty(txbThirdName.Text))?(null):(txbThirdName.Text);
-                newUser.DivisionId = selectedDivision.DivisionId;
-                newUser.Gender = (cmbGender.SelectedIndex == 1) ? (true) : (false);
+                Users newUser = new Users
+                {
+                    FirstName = txbFirstName.Text,
+                    SecondName = txbSecondName.Text,
+                    ThirdName = string.IsNullOrEmpty(txbThirdName.Text) ? null : txbThirdName.Text,
+                    DivisionId = selectedDivision.DivisionId,
+                    Gender = cmbGender.SelectedIndex == 1
+                };
 
                 try
                 {

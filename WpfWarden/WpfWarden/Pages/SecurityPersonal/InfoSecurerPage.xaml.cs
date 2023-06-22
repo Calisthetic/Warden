@@ -99,7 +99,7 @@ namespace WpfWarden.Pages.SecurityPersonal
             CmbRole.ItemsSource = permissions;
             DGPermissions.ItemsSource = permissions;
 
-            List<Users> blockedUsers = DBContext.db.Users.Where(x => x.IsBlocked == true).ToList();//OrderBy(x => x.UncheckedMessagesCount).ToList();
+            List<Users> blockedUsers = DBContext.db.Users.Where(x => x.IsBlocked == true).ToList();
             for (int i = 0; i < blockedUsers.Count - 1; i++)
             {
                 for (int j = 0; j < blockedUsers.Count - i - 1; j++)
@@ -113,10 +113,6 @@ namespace WpfWarden.Pages.SecurityPersonal
                 }
             }
             LVBlockedUsers.ItemsSource = blockedUsers;
-            //    Classes.DBContext.db.BlockedUserMessages.Where(x1 => x1.Time > (
-            //        Classes.DBContext.db.Logs.Where(x2 => x.Permission.Name == "Специалист по ИБ").OrderByDescending(x3 => x3.Logged).Skip(1).FirstOrDefault().Logged
-            //    ) && x1.SendlerUserId == x.UserId).Count()
-            //).ToList();
 
             txtFIO.Text = currentUser.SecondName + " " + currentUser.FirstName.Substring(0, 1) + ". " + 
                 ((currentUser.ThirdName == null) ? (" ") : (currentUser.ThirdName.Substring(0, 1) + "."));

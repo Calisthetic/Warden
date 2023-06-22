@@ -28,14 +28,6 @@
                                 <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
                                 <DataGridTextColumn Header="Секретное слово" Binding="{Binding SecretWord}"/>
                                 <DataGridCheckBoxColumn Header="Одобрить" Binding="{Binding IsVerify}"></DataGridCheckBoxColumn>
-                                <!--<DataGridTemplateColumn Width="auto" Header="Одобрить">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox x:Name="ChkAssign" IsChecked="{Binding UserAssign}" Unchecked="ChkAssign_Unchecked"   Checked="ChkAssign_Checked" HorizontalAlignment="Left"
-                                                      VerticalAlignment="Center"></CheckBox>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>-->
                             </DataGrid.Columns>
                         </DataGrid>
                         <Button Grid.Row="1" x:Name="btnConfirm" Click="btnConfirm_Click" Content="Одобрить"></Button>
@@ -75,11 +67,6 @@
             <TabItem Header="Заблокированные пользователи" FontSize="16">
                 <TabItem.Content>
                     <ListView x:Name="LVBlockedUsers" HorizontalContentAlignment="Left" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="LVBlockedUsers_Selected">
-                        <!--<ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"></WrapPanel>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>-->
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border Width="680" Height="68">

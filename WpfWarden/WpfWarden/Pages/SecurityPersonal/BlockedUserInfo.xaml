@@ -67,17 +67,17 @@
                                                 <RowDefinition></RowDefinition>
                                                 <RowDefinition></RowDefinition>
                                             </Grid.RowDefinitions>
-                                            <TextBlock TextWrapping="Wrap" Foreground="Black" Text="{Binding Message}" Margin="6 2 6 0" FontSize="18" Grid.Row="0">
-                                                <TextBlock.Style>
+                                            <TextBlock TextWrapping="Wrap" TextAlignment="Left" Foreground="Black" Text="{Binding Message}" Margin="6 2 6 0" FontSize="18" Grid.Row="0">
+                                                <!--<TextBlock.Style>
                                                     <Style TargetType="{x:Type TextBlock}">
                                                         <Setter Property="TextAlignment" Value="Left"></Setter>
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding Users.IsBlocked}" Value="False">
-                                                                <Setter Property="TextAlignment" Value="Right"/>
+                                                                <Setter Property="TextAlignment" Value="Left"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
-                                                </TextBlock.Style>
+                                                </TextBlock.Style>-->
                                             </TextBlock>
                                             <TextBlock Text="{Binding Time, StringFormat=\{0:HH:mm\}}" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Foreground="DimGray">
                                                 <TextBlock.Style>
